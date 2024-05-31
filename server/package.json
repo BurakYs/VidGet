@@ -1,0 +1,39 @@
+{
+  "name": "video-downloader",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "author": "@BurakYs",
+  "private": true,
+  "scripts": {
+    "dev": "node .",
+    "start": "node . --production",
+    "build": "tsc",
+    "test": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/rate-limit": "^9.1.0",
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.26.1",
+    "fastify-plugin": "^4.5.1",
+    "fastify-type-provider-zod": "^1.1.9",
+    "glob": "^10.3.12",
+    "module-alias": "^2.2.3",
+    "tslog": "^4.9.2",
+    "zod": "^3.22.4"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/module-alias": "^2.0.4",
+    "@types/node": "^20.12.7",
+    "eslint": "^9.4.0",
+    "typescript-eslint": "^7.11.0"
+  },
+  "_moduleAliases": {
+    "@": "./dist"
+  }
+}
