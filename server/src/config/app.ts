@@ -1,9 +1,11 @@
 const { NODE_ENV = '', PORT = 3000 } = process.env;
 
 const isProduction = ['prod', 'production'].includes(NODE_ENV.toLowerCase());
+const productionUrl = 'https://downloader.buraky.live';
 
 const AppConfig = {
-    rootUrl: isProduction ? 'https://downloader.buraky.live' : `http://localhost:${PORT}`,
+    rootUrl: isProduction ? productionUrl : `http://localhost:${PORT}`,
+    productionUrl,
     isProduction
 };
 
