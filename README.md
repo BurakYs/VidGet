@@ -1,6 +1,6 @@
-<img src="./server/public/icon.png" align="left" width="150" height="150" alt="Video Downloader Logo">
+<img src="./server/public/icon.png" align="left" width="150" height="150" alt="VidGet Logo">
 
-# 🎬 Video Downloader
+# 🎬 VidGet
 
 A video downloader web application built with Svelte and Fastify that allows users to download videos from YouTube, Instagram, Twitter and TikTok
 
