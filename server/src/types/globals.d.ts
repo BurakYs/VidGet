@@ -1,6 +1,6 @@
-/* eslint-disable no-var */
-import Logger from '@/utils/Logger';
+import Logger from '@/utils/classes/Logger';
 
+/* eslint-disable no-var */
 declare global {
     var logger: Logger;
 }

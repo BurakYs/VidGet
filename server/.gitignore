@@ -2,3 +2,6 @@
 /dist
 .env
 package-lock.json
+
+/public/tiktok/*
+!/public/tiktok/PLACEHOLDER

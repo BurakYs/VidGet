@@ -1,7 +1,7 @@
 import 'module-alias/register';
 import 'dotenv/config';
 
-import Logger from '@/utils/Logger';
+import Logger from '@/utils/classes/Logger';
 import Server from './server';
 
 global.logger = new Logger();

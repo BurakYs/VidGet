@@ -3,6 +3,7 @@ import { ZodError } from 'zod';
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 import { Request, Response } from '@/interfaces';
 import { glob } from 'glob';
+import axios from 'axios';
 import * as middlewares from '@/middlewares';
 
 export default class Server {
@@ -68,6 +69,8 @@ export default class Server {
 
         const port = parseInt(process.env.PORT || '3000');
         await this.server.listen({ port, host: '0.0.0.0' });
+
+        axios.interceptors.response.use((response) => response, (error) => error.response);
 
         return port;
     }
