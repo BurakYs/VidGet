@@ -5,6 +5,7 @@ import { Request, Response } from '@/interfaces';
 import { glob } from 'glob';
 import axios from 'axios';
 import * as middlewares from '@/middlewares';
+import deleteAssets from '@/utils/deleteAssets';
 
 export default class Server {
     public server: FastifyInstance;
@@ -71,6 +72,7 @@ export default class Server {
         await this.server.listen({ port, host: '0.0.0.0' });
 
         axios.interceptors.response.use((response) => response, (error) => error.response);
+        deleteAssets();
 
         return port;
     }

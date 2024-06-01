@@ -18,6 +18,7 @@
     "@fastify/rate-limit": "^9.1.0",
     "axios": "^1.7.2",
     "cheerio": "^1.0.0-rc.12",
+    "croner": "^8.0.2",
     "dotenv": "^16.3.1",
     "fastify": "^4.26.1",
     "fastify-plugin": "^4.5.1",
