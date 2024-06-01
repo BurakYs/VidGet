@@ -1,3 +1,4 @@
+import ScraperError from '@/utils/classes/ScraperError';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import fs from 'fs/promises';
@@ -27,12 +28,17 @@ class TikTokScraper {
     async fetchVideoHtml(url: string) {
         const { hostname } = new URL(url);
         if (!hostname.endsWith('tiktok.com')) {
-            throw new Error('Invalid TikTok URL');
+            throw new ScraperError('Invalid TikTok URL');
         }
 
         const response = await axios.get(url, { headers: this.headers });
         if (response.status !== 200) {
-            throw new Error('Failed to fetch video');
+            throw new ScraperError('Failed to fetch video');
+        }
+
+        const finalUrl = response.request.res.responseUrl;
+        if (!finalUrl.includes('/video/')) {
+            throw new ScraperError('We only support video URLs at the moment');
         }
 
         return response.data;
@@ -42,22 +48,22 @@ class TikTokScraper {
         const $ = cheerio.load(html);
         const script = $('script#__UNIVERSAL_DATA_FOR_REHYDRATION__');
         if (!script.length) {
-            throw new Error('Failed to parse video');
+            throw new ScraperError('Failed to parse video');
         }
 
         try {
             const data = JSON.parse(script.html()!);
             return data['__DEFAULT_SCOPE__'];
         } catch {
-            throw new Error('Failed to parse video');
+            throw new ScraperError('Failed to parse video');
         }
     }
 
-    async uploadVideo(url: string, name: string) {
+    async downloadVideo(url: string, name: string) {
         const data = await axios.get(url, { responseType: 'arraybuffer', headers: this.headers });
         const isSuccessful = data.status.toString().startsWith('2');
         if (!isSuccessful) {
-            throw new Error('Failed to download video');
+            throw new ScraperError('Failed to download video');
         }
 
         await fs.writeFile(`./public/tiktok/${name}`, data.data);
@@ -81,8 +87,8 @@ class TikTokScraper {
                 quality: video.videoQuality,
                 format: video.format,
                 cover: video.cover,
-                withoutWatermark: await this.uploadVideo(video.playAddr, `${videoData.id}.mp4`),
-                withWatermark: await this.uploadVideo(video.downloadAddr, `${videoData.id}_watermark.mp4`)
+                withoutWatermark: await this.downloadVideo(video.playAddr, `${videoData.id}.mp4`),
+                withWatermark: await this.downloadVideo(video.downloadAddr, `${videoData.id}_watermark.mp4`)
             },
             author: {
                 id: author.id,

@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { Request, Response } from '@/interfaces';
+import ScraperError from '@/utils/classes/ScraperError';
 import tiktokScraper from '@/utils/scrapers/tiktok';
 
 import type { ScrapeVideo } from '@/schemas/scrapers/tiktok';
@@ -7,19 +8,19 @@ import { scrapeVideo } from '@/schemas/scrapers/tiktok';
 
 export default async (fastify: FastifyInstance) => {
     fastify.route({
-        method: 'GET',
+        method: 'POST',
         url: '/',
         schema: {
-            querystring: scrapeVideo
+            body: scrapeVideo
         },
         handler: async (request: Request, response: Response) => {
-            const query = request.query as ScrapeVideo;
+            const { url } = request.body as ScrapeVideo;
 
             try {
-                const scraped = await tiktokScraper.scrapeVideo(query.url);
+                const scraped = await tiktokScraper.scrapeVideo(url);
                 response.sendSuccess(scraped, 200);
             } catch (error) {
-                if (error instanceof Error) {
+                if (error instanceof ScraperError) {
                     response.sendError(error.message, 400);
                 } else {
                     throw error;
