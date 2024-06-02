@@ -87,9 +87,9 @@
             </div>
             <div class="flex flex-col items-start ml-4 mt-3 mr-6">
                 <p class="text-3xl font-semibold mb-3">Downloads</p>
-                <ScraperDownloadButton {videoDetails} platform="withoutWatermark" text="No Watermark"/>
-                <ScraperDownloadButton {videoDetails} platform="withWatermark" text="Watermark"/>
-                <ScraperDownloadButton {videoDetails} platform="cover" text="Only Sound"/>
+                <ScraperDownloadButton {videoDetails} key="withoutWatermark" text="No Watermark"/>
+                <ScraperDownloadButton {videoDetails} key="withWatermark" text="Watermark"/>
+                <ScraperDownloadButton {videoDetails} key="cover" text="Only Sound"/>
             </div>
         </div>
     {/if}
