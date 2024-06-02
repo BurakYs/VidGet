@@ -1,0 +1,33 @@
+.policy {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.policy h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.policy h2 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.policy p {
+    margin-bottom: 20px;
+}
+
+.policy a {
+    color: #0070cc;
+    text-decoration: none;
+}
+
+.policy a:hover {
+    text-decoration: underline;
+}
+
+.policy li {
+    list-style-type: disc;
+    margin-left: 20px;
+}
