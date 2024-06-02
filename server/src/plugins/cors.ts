@@ -4,7 +4,7 @@ import appConfig from '@/config/app';
 
 const cors = fp(async (fastify) => {
     fastify.register(fastifyCors, {
-        origin: appConfig.productionUrl
+        origin: [appConfig.productionUrl, 'http://localhost:5173'],
     } as FastifyCorsOptions);
 });
 
