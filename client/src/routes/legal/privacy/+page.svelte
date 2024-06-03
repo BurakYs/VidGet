@@ -1,3 +1,7 @@
+<script lang="ts">
+    import config from '$config';
+</script>
+
 <svelte:head>
     <title>Privacy Policy</title>
 </svelte:head>
@@ -6,7 +10,7 @@
     <h1>Privacy Policy</h1>
     <p>Last updated: 2 June 2024</p>
 
-    <p>Welcome to VidGet, accessible from <a href="https://vidget.buraky.live">vidget.buraky.live</a>. Your privacy
+    <p>Welcome to VidGet, accessible from <a href="/">{config.hostname}</a>. Your privacy
         is important to us, and we are committed to protecting the personal information you share with us. This
         Privacy Policy explains how we collect, use, and safeguard your information when you visit our website.</p>
 
