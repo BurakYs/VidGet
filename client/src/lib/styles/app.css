@@ -4,8 +4,8 @@
 
 @font-face {
     font-family: 'Geist';
-    src: url('https://cdn.buraky.live/fonts/GeistVF.woff2') format('woff2'),
-    url('https://cdn.buraky.live/fonts/GeistVF.woff') format('woff');
+    src: url('/fonts/GeistVF.woff2') format('woff2'),
+    url('/fonts/GeistVF.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

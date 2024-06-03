@@ -10,6 +10,13 @@
 
     async function handleDownload() {
         if (url.trim() && !isLoading) {
+            const isProperUrl = URL.canParse(url);
+            const isSupportedHost = config.scrapers.supportedHosts.some((host) => url.includes(host));
+            if (!isProperUrl || !isSupportedHost) {
+                console.error('Invalid URL');
+                return;
+            }
+
             isLoading = true;
             const response = await fetch(`${config.rootUrl}/scrapers/tiktok`, {
                 method: 'POST',
@@ -18,15 +25,14 @@
                 },
                 body: JSON.stringify({ url })
             });
+            isLoading = false;
 
             if (!response.ok) {
-                isLoading = false;
                 console.error('Failed to fetch video details');
                 return;
             }
 
             url = '';
-            isLoading = false;
 
             videoDetails = (await response.json()).data;
             for (const key in videoDetails.stats) {
