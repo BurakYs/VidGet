@@ -45,7 +45,7 @@
             {/each}
         </div>
         <div class="flex-1 flex justify-end">
-            <button type="button" class="sm:hidden cursor-pointer" on:click={toggleSidebar}>
+            <button aria-label="Open Sidebar" type="button" class="sm:hidden cursor-pointer" on:click={toggleSidebar}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                      class="h-6 w-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -59,6 +59,7 @@
 <div
         class={`fixed top-0 left-0 w-full h-full bg-black transition-opacity duration-200 ease-in-out ${isSidebarOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'}`}
         on:keydown={closeSidebar}
+        aria-label="Close Sidebar"
         role="button"
         tabindex="0"
 ></div>
@@ -67,7 +68,7 @@
      class={`fixed top-0 right-0 w-64 h-full bg-secondary transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} `}>
     <div class="flex flex-col h-full">
         <div class="flex justify-end p-4">
-            <button on:click={closeSidebar} class="text-white">
+            <button on:click={closeSidebar} class="text-white" aria-label="Close Sidebar">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                      class="h-6 w-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
