@@ -6,7 +6,7 @@
 
     let isLoading = false;
     let url = '';
-    let videoDetails: Record<string, any>;
+    let details: Record<string, any>;
 
     async function handleDownload() {
         if (url.trim() && !isLoading) {
@@ -34,9 +34,9 @@
 
             url = '';
 
-            videoDetails = (await response.json()).data;
-            for (const key in videoDetails.stats) {
-                videoDetails.stats[key] = formatNumber(videoDetails.stats[key]);
+            details = (await response.json()).data;
+            for (const key in details.stats) {
+                details.stats[key] = formatNumber(details.stats[key]);
             }
         }
     }
@@ -62,40 +62,40 @@
         <SkeletonLoader/>
     {/if}
 
-    {#if videoDetails && !isLoading}
+    {#if details && !isLoading}
         <div class="bg-secondary flex w-full max-w-4xl max-h-[32rem]">
             <div class="w-1/3">
-                <img src={videoDetails.video.cover} alt="Cover" class="object-cover h-full w-full">
+                <img src={details.video.cover} alt="Cover" class="object-cover h-full w-full">
             </div>
             <div class="w-2/3 flex flex-col items-start ml-4 mt-3">
-                <p class="text-3xl font-semibold">{videoDetails.author.username}</p>
-                <p class="mt-2">{videoDetails.video.description.replace(/#\S+/g, '').trim()}</p>
+                <p class="text-3xl font-semibold">{details.author.username}</p>
+                <p class="mt-2">{details.video.description.replace(/#\S+/g, '').trim()}</p>
 
                 <div class="mt-auto flex flex-col items-start space-y-2 mb-4">
                     <div class="flex items-center">
                         <img src="{config.cdnUrl}/view.svg" alt="Views" class="h-6 w-6 mr-2"
                              style="fill: white">
-                        <span>{videoDetails.stats.plays}</span>
+                        <span>{details.stats.plays}</span>
                     </div>
                     <div class="flex items-center">
                         <img src="{config.cdnUrl}/like.svg" alt="Likes" class="h-6 w-6 mr-2">
-                        <span>{videoDetails.stats.likes}</span>
+                        <span>{details.stats.likes}</span>
                     </div>
                     <div class="flex items-center">
                         <img src="{config.cdnUrl}/comment.svg" alt="Comments" class="h-6 w-6 mr-2">
-                        <span>{videoDetails.stats.comments}</span>
+                        <span>{details.stats.comments}</span>
                     </div>
                     <div class="flex items-center">
                         <img src="{config.cdnUrl}/share.svg" alt="Shares" class="h-6 w-6 mr-2">
-                        <span>{videoDetails.stats.shares}</span>
+                        <span>{details.stats.shares}</span>
                     </div>
                 </div>
             </div>
             <div class="flex flex-col items-start ml-4 mt-3 mr-6">
                 <p class="text-3xl font-semibold mb-3">Downloads</p>
-                <ScraperDownloadButton {videoDetails} key="withoutWatermark" text="No Watermark"/>
-                <ScraperDownloadButton {videoDetails} key="withWatermark" text="Watermark"/>
-                <ScraperDownloadButton {videoDetails} key="cover" text="Only Sound"/>
+                <ScraperDownloadButton {details} key="video.withoutWatermark" text="No Watermark"/>
+                <ScraperDownloadButton {details} key="video.withWatermark" text="Watermark"/>
+                <ScraperDownloadButton {details} key="music.playUrl" text="Only Sound"/>
             </div>
         </div>
     {/if}
