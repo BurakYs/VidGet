@@ -1,5 +1,5 @@
 export default class ScraperError extends Error {
-    constructor(...message: string[]) {
+    constructor(...message: unknown[]) {
         super(message.join(' '));
     }
 }

@@ -19,9 +19,10 @@ class TikTokScraper {
     };
 
     constructor() {
-        this.launchPuppeteer('https://www.tiktok.com/').then(() =>
+        const url = 'https://www.tiktok.com';
+        this.launchPuppeteer(url).then(() =>
             setInterval(async () => {
-                await this.launchPuppeteer('https://www.tiktok.com/');
+                await this.launchPuppeteer(url);
             }, 120_000)
         );
     }
@@ -36,7 +37,7 @@ class TikTokScraper {
 
     async launchPuppeteer(url: string) {
         const browser = await puppeteer.launch({
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
 
@@ -95,9 +96,7 @@ class TikTokScraper {
     async downloadAsset(url: string, name: string) {
         const data = await axios.get(url, { responseType: 'arraybuffer', headers: this.headers });
         const isSuccessful = data.status.toString().startsWith('2');
-        if (!isSuccessful) {
-            throw new ScraperError('Failed to download video');
-        }
+        if (!isSuccessful) return null;
 
         await fs.writeFile(`./public/tiktok/${name}`, data.data);
         return app.rootUrl + `/assets/tiktok/${name}`;
