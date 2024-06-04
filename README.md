@@ -35,16 +35,24 @@ cd server && npm run dev
 - [Fastify](https://www.fastify.io/) - Fast and low overhead web framework for Node.js
 - [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for rapid UI development
 
+## 📋 Todo
+- [ ] Organize the project structure
+- [ ] Redesign the video details page
+- [ ] Add Instagram, Twitter Spotify download support
+- [ ] Add a download history page
+- [ ] Convert to a mobile app using Capacitor
+
+## 🤝 Community
+
+Join the [Discord Server](https://discord.gg/z8aBnDa6Xa) to chat with the community and get help with the project.
+
+
 ## 📄 Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are
 **greatly appreciated**. \
 Please refer to the [Contributing](.github/CONTRIBUTING.md) and [Code of Conduct](.github/CODE_OF_CONDUCT.md)
 for more information.
-
-## 🤝 Community
-
-Join the [Discord Server](https://discord.gg/z8aBnDa6Xa) to chat with the community and get help with the project.
 
 ## 📝 License
 
