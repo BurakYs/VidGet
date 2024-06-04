@@ -1,6 +1,7 @@
 <script lang="ts">
     import SkeletonLoader from '$components/SkeletonLoader/Details.svelte';
     import ScraperDownloadButton from '$components/Scraper/DownloadButton.svelte';
+    import { addToast } from '$stores/toastStore';
     import { formatNumber } from '$lib';
     import config from '$config';
 
@@ -11,9 +12,15 @@
     async function handleDownload() {
         if (url.trim() && !isLoading) {
             const isProperUrl = URL.canParse(url);
-            const isSupportedHost = config.scrapers.supportedHosts.some((host) => url.includes(host));
-            if (!isProperUrl || !isSupportedHost) {
-                console.error('Invalid URL');
+            if (!isProperUrl) {
+                addToast('Please enter a valid URL', 'error');
+                return;
+            }
+
+            const parsedUrl = new URL(url);
+            const isSupportedHost = config.scrapers.supportedHosts.includes(parsedUrl.hostname);
+            if (!isSupportedHost) {
+                addToast('We don\'t support this platform', 'error');
                 return;
             }
 
@@ -23,12 +30,14 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ url })
-            });
+                body: JSON.stringify({ url: url.replace('http://', 'https://') })
+            }).catch(() => null);
             isLoading = false;
 
-            if (!response.ok) {
-                console.error('Failed to fetch video details');
+            if (!response || !response.ok) {
+                const isJson = response && response.headers.get('content-type')?.includes('application/json');
+                const message = isJson ? (await response.json()).error : 'An unknown error occurred';
+                addToast(message, 'error');
                 return;
             }
 
