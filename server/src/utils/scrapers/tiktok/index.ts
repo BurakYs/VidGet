@@ -1,14 +1,14 @@
 import ScraperError from '@/utils/classes/ScraperError';
-import axios from 'axios';
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer';
 import * as cheerio from 'cheerio';
+import axios from 'axios';
 import fs from 'fs/promises';
+import { createWriteStream } from 'fs';
 import app from '@/config/app';
 
 class TikTokScraper {
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-        Cookie: '',
         Referer: 'https://www.tiktok.com/',
         'sec-ch-ua': '"Brave";v="125", "Chromium";v="125", "Not.A/Brand";v="24',
         'sec-ch-ua-platform': 'Windows',
@@ -18,19 +18,11 @@ class TikTokScraper {
         'Sec-Fetch-Dest': 'video'
     };
 
-    constructor() {
-        const url = 'https://www.tiktok.com';
-        this.launchPuppeteer(url).then(() =>
-            setInterval(async () => {
-                await this.launchPuppeteer(url);
-            }, 120_000)
-        );
-    }
-
     async scrapeVideo(url: string) {
-        const html = await this.fetchVideoHtml(url);
+        const browser = await this.launchPuppeteer(url);
+        const html = await this.fetchVideoHtml(browser, url);
         const parsedData = this.parseVideoData(html);
-        const videoInfo = await this.getVideoInfo(parsedData);
+        const videoInfo = await this.getVideoInfo(browser, parsedData);
 
         return videoInfo;
     }
@@ -44,7 +36,8 @@ class TikTokScraper {
         await page.setRequestInterception(true);
 
         page.on('request', (req) => {
-            if (req.resourceType() === 'image' || req.resourceType() === 'stylesheet') {
+            const unallowedResources = ['image', 'stylesheet', 'font'];
+            if (unallowedResources.includes(req.resourceType())) {
                 req.abort();
             } else {
                 req.continue();
@@ -53,59 +46,91 @@ class TikTokScraper {
 
         await page.goto(url);
 
-        const cookies = await page.cookies();
-        this.headers.Cookie = cookies.map(cookie => `${cookie.name}=${cookie.value}`).join('; ');
-
-        await browser.close();
+        return browser;
     }
 
-    async fetchVideoHtml(url: string) {
+    async fetchVideoHtml(browser: Browser, url: string) {
         const { hostname } = new URL(url);
         if (!hostname.endsWith('tiktok.com')) {
             throw new ScraperError('Invalid TikTok URL');
         }
 
-        const response = await axios.get(url, { headers: this.headers });
-        if (response.status !== 200) {
-            throw new ScraperError('Failed to fetch video');
-        }
+        const page = await browser.newPage();
+        await page.goto(url);
+        const html = await page.content();
 
-        const finalUrl = response.request.res.responseUrl;
+        const finalUrl = page.url();
         if (!finalUrl.includes('/video/')) {
             throw new ScraperError('We only support video URLs at the moment');
         }
 
-        return response.data;
+        await page.close();
+
+        return html;
     }
 
     parseVideoData(html: string) {
         const $ = cheerio.load(html);
         const script = $('script#__UNIVERSAL_DATA_FOR_REHYDRATION__');
         if (!script.length) {
-            throw new ScraperError('Failed to parse video');
+            throw new ScraperError('Failed to fetch video data');
         }
 
         try {
             const data = JSON.parse(script.html()!);
             return data['__DEFAULT_SCOPE__'];
         } catch {
-            throw new ScraperError('Failed to parse video');
+            throw new ScraperError('Failed to fetch video data');
         }
     }
 
-    async downloadAsset(url: string, name: string) {
-        const data = await axios.get(url, { responseType: 'arraybuffer', headers: this.headers });
-        const isSuccessful = data.status.toString().startsWith('2');
-        if (!isSuccessful) return null;
+    async downloadAsset(browser: Browser, url: string, name: string) {
+        const doesFileExist = await fs.stat(`./public/tiktok/${name}`).catch(() => null);
+        if (doesFileExist) {
+            return app.rootUrl + `/assets/tiktok/${name}`;
+        }
 
-        await fs.writeFile(`./public/tiktok/${name}`, data.data);
-        return app.rootUrl + `/assets/tiktok/${name}`;
+        const page = await browser.newPage();
+        await page.goto(url);
+
+        const $ = cheerio.load(await page.content());
+        const asset = $('video source').attr('src');
+        if (!asset) {
+            throw new ScraperError('Failed to download asset');
+        }
+
+        const cookies = (await page.cookies()).map((cookie) => `${cookie.name}=${cookie.value}`).join('; ');
+        try {
+            const response = await axios.get(asset, {
+                headers: {
+                    ...this.headers,
+                    Cookie: cookies
+                },
+                responseType: 'stream'
+            });
+
+            const writer = createWriteStream(`./public/tiktok/${name}`);
+            response.data.pipe(writer);
+
+            return new Promise((resolve, reject) => {
+                writer.on('finish', () => resolve(app.rootUrl + `/assets/tiktok/${name}`));
+                writer.on('error', reject);
+            });
+        } catch {
+            return null;
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async getVideoInfo(parsedData: Record<string, any>) {
+    async getVideoInfo(browser: Browser, parsedData: Record<string, any>) {
         const videoData = parsedData['webapp.video-detail'].itemInfo.itemStruct;
         const { video, author, music, statsV2: stats } = videoData;
+
+        const [withoutWatermark, withWatermark, musicPlay] = await Promise.all([
+            this.downloadAsset(browser, video.playAddr, `${videoData.id}.mp4`),
+            this.downloadAsset(browser, video.downloadAddr, `${videoData.id}_watermark.mp4`),
+            this.downloadAsset(browser, music.playUrl, `${music.id}.mp3`)
+        ]);
 
         return {
             video: {
@@ -119,8 +144,8 @@ class TikTokScraper {
                 quality: video.videoQuality,
                 format: video.format,
                 cover: video.cover,
-                withoutWatermark: await this.downloadAsset(video.playAddr, `${videoData.id}.mp4`),
-                withWatermark: await this.downloadAsset(video.downloadAddr, `${videoData.id}_watermark.mp4`)
+                withoutWatermark,
+                withWatermark
             },
             author: {
                 id: author.id,
@@ -135,7 +160,7 @@ class TikTokScraper {
                 author: music.authorName,
                 original: music.original,
                 duration: music.duration,
-                playUrl: await this.downloadAsset(music.playUrl, `${music.id}.mp3`)
+                playUrl: musicPlay
             },
             stats: {
                 likes: Number(stats.diggCount),
