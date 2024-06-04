@@ -51,6 +51,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>VidGet</title>
+</svelte:head>
+
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-white">
     <h1 class="text-5xl font-semibold mb-2">Start Downloading</h1>
     <p class="mb-8 text-secondary-text">No ads, no tracking, no nothing. Download now.</p>
