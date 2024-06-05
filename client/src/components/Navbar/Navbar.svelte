@@ -83,7 +83,7 @@
         </div>
         <div class="p-4">
             <a href="/">
-                <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl mb-10 disabled:opacity-50"
+                <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl disabled:opacity-50"
                         disabled={true}>
                     Mobile App
                 </button>

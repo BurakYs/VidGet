@@ -67,6 +67,7 @@
         <input
                 type="text"
                 bind:value={url}
+                on:keydown={(e) => e.key === 'Enter' && handleDownload()}
                 placeholder="Download from TikTok, Instagram or Twitter"
                 class="p-4 rounded-md w-full md:mr-4 bg-secondary outline-none"
         />
