@@ -10,11 +10,11 @@
 
 <footer class="bg-secondary py-4 text-secondary-text text-center">
     <div class="container mx-auto">
-        <div class="flex justify-center">
-            <p class="mr-8">© {new Date().getFullYear()} {config.hostname}</p>
+        <div class="flex flex-col md:flex-row justify-center items-center md:space-x-8">
+            <p class="mb-2 md:mb-0">© {new Date().getFullYear()} {config.hostname}</p>
             {#each footerNavItems as item}
-                <p class="mr-8">
-                    <a class="mr-2 hover:underline" href={item.href}>{item.name}</a>
+                <p class="mb-2 md:mb-0">
+                    <a class="hover:underline" href={item.href}>{item.name}</a>
                 </p>
             {/each}
         </div>

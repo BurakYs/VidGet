@@ -10,7 +10,12 @@
     let details: Record<string, any>;
 
     async function handleDownload() {
-        if (url.trim() && !isLoading) {
+        if (!isLoading) {
+            if (!url.trim()) {
+                addToast('Please enter a URL', 'error');
+                return;
+            }
+
             const isProperUrl = URL.canParse(url);
             if (!isProperUrl) {
                 addToast('Please enter a valid URL', 'error');
@@ -58,15 +63,24 @@
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-white">
     <h1 class="text-5xl font-semibold mb-2">Start Downloading</h1>
     <p class="mb-8 text-secondary-text">No ads, no tracking, no nothing. Download now.</p>
-    <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-6">
+    <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-6 space-y-4 md:space-y-0">
         <input
                 type="text"
                 bind:value={url}
                 placeholder="Download from TikTok, Instagram or Twitter"
-                class="p-4 rounded-md w-full mb-4 md:mb-0 md:mr-4 bg-secondary outline-none"
-                on:keydown={(e) => e.key === 'Enter' && handleDownload()}
+                class="p-4 rounded-md w-full md:mr-4 bg-secondary outline-none"
         />
+        <button
+                class="bg-secondary text-white p-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-opacity duration-500"
+                on:click={handleDownload}
+                disabled={isLoading}
+                class:opacity-50={isLoading}
+        >
+            <img src="{config.cdnUrl}/download.svg" alt="Download icon" class="w-6 h-6"/>
+            <span>Download</span>
+        </button>
     </div>
+
     <p class="text-sm text-gray-500 mb-8">
         By using our Service you agree to our <a href="/legal/terms" class="underline">Terms of Service</a>
         and <a href="/legal/privacy" class="underline">Privacy Policy</a>.</p>
