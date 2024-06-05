@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>VidGet</title>
+</svelte:head>
+
 <script lang="ts">
     import SkeletonLoader from '$components/SkeletonLoader/Details.svelte';
     import ScraperDownloadButton from '$components/Scraper/DownloadButton.svelte';
@@ -55,10 +59,6 @@
         }
     }
 </script>
-
-<svelte:head>
-    <title>VidGet</title>
-</svelte:head>
 
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-white">
     <h1 class="text-5xl font-semibold mb-2">Start Downloading</h1>
