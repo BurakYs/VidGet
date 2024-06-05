@@ -12,6 +12,6 @@
 <main class="flex flex-col min-h-screen bg-primary text-white">
     <Navbar/>
     <slot/>
-    <Footer/>
     <ToastContainer/>
 </main>
+<Footer/>
