@@ -8,8 +8,8 @@
     ];
 </script>
 
-<footer class="bg-secondary py-4 text-secondary-text text-center">
-    <div class="container mx-auto">
+<footer class="bg-secondary py-5 text-secondary-text text-center">
+    <div class="container mx-auto my-auto">
         <div class="flex flex-col md:flex-row justify-center items-center md:space-x-8">
             <p class="mb-2 md:mb-0">© {new Date().getFullYear()} {config.hostname}</p>
             {#each footerNavItems as item}
