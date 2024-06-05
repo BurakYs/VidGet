@@ -34,7 +34,7 @@
         <div class="flex items-center flex-1">
             <a href="/">
                 <div class="flex items-center">
-                    <img src="/icon.png" alt="Logo" width="32" height="32" class="mr-2">
+                    <img src="/icon_64.png" alt="Logo" width="32" height="32" class="mr-2">
                     <div class="text-3xl font-semibold">VidGet</div>
                 </div>
             </a>
@@ -69,7 +69,7 @@
     <div class="flex flex-col h-full">
         <div class="flex justify-between">
             <div class="flex items-center px-4 py-6">
-                <img src="/icon.png" alt="Logo" width="32" height="32" class="mr-2">
+                <img src="/icon_64.png" alt="Logo" width="32" height="32" class="mr-2">
                 <div class="text-3xl font-semibold">VidGet</div>
             </div>
             <button on:click={closeSidebar} class="text-white p-4" aria-label="Close Sidebar">
