@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { dotNotation } from '$lib';
+    import dotNotation from '$lib/dotNotation';
 
     export let details: Record<string, any>;
     export let key: string;

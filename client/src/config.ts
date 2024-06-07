@@ -5,9 +5,10 @@ export default {
     cdnUrl: 'https://cdn.buraky.live',
     scrapers: {
         supportedHosts: [
-            'vm.tiktok.com',
-            'www.tiktok.com',
-            'tiktok.com'
+            {
+                host: ['vm.tiktok.com', 'www.tiktok.com', 'tiktok.com'],
+                name: 'TikTok'
+            }
         ]
     }
 };
