@@ -1,12 +1,14 @@
 import ScraperError from '@/utils/classes/ScraperError';
-import puppeteer, { Browser } from 'puppeteer';
+import puppeteer, { Browser, ResourceType } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 import fs from 'fs/promises';
 import { createWriteStream } from 'fs';
 import app from '@/config/app';
 
-class TikTokScraper {
+export default class TikTokScraper {
+    maxRequests = 50;
+    requestCount = 0;
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
         Referer: 'https://www.tiktok.com/',
@@ -36,8 +38,13 @@ class TikTokScraper {
         await page.setRequestInterception(true);
 
         page.on('request', (req) => {
-            const unallowedResources = ['image', 'stylesheet', 'font'];
-            if (unallowedResources.includes(req.resourceType())) {
+            this.requestCount++;
+            const isMaxed = this.requestCount >= this.maxRequests;
+            if (isMaxed) throw new ScraperError('Max requests reached');
+
+            const unallowedResources: ResourceType[] = ['stylesheet', 'image', 'media', 'font', 'script', 'texttrack', 'xhr', 'fetch', 'prefetch', 'eventsource', 'websocket', 'manifest', 'signedexchange', 'ping', 'cspviolationreport', 'preflight', 'other'];
+            const isJsFile = req.url().endsWith('.js');
+            if (unallowedResources.includes(req.resourceType()) || isJsFile || isMaxed) {
                 req.abort();
             } else {
                 req.continue();
@@ -173,5 +180,3 @@ class TikTokScraper {
         };
     }
 }
-
-export default new TikTokScraper();

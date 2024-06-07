@@ -72,7 +72,7 @@ export default class Server {
         await this.server.listen({ port, host: '0.0.0.0' });
 
         axios.interceptors.response.use((response) => response, (error) => error.response);
-        deleteAssets();
+        //deleteAssets();
 
         return port;
     }
