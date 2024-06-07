@@ -3,7 +3,6 @@
 </svelte:head>
 
 <script lang="ts">
-    import SkeletonLoader from '$components/SkeletonLoader/Details.svelte';
     import ScraperDownloadButton from '$components/Scraper/DownloadButton.svelte';
     import { addToast } from '$stores/toastStore';
     import { formatNumber } from '$lib';
@@ -77,7 +76,11 @@
                 disabled={isLoading}
                 class:opacity-50={isLoading}
         >
-            <img src="{config.cdnUrl}/download.svg" alt="Download icon" class="w-6 h-6"/>
+            <img
+                    src={isLoading ? `${config.cdnUrl}/loading.svg` : `${config.cdnUrl}/download.svg`}
+                    alt="Download icon"
+                    class="w-6 h-6"
+            />
             <span>Download</span>
         </button>
     </div>
@@ -85,10 +88,6 @@
     <p class="text-sm text-gray-500 mb-8">
         By using our Service you agree to our <a href="/legal/terms" class="underline">Terms of Service</a>
         and <a href="/legal/privacy" class="underline">Privacy Policy</a>.</p>
-
-    {#if isLoading}
-        <SkeletonLoader/>
-    {/if}
 
     {#if details && !isLoading}
         <div class="bg-secondary flex w-full max-w-4xl max-h-[32rem]">
