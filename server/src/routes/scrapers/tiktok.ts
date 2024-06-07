@@ -16,6 +16,18 @@ export default async (fastify: FastifyInstance) => {
         handler: async (request: Request, response: Response) => {
             const { url } = request.body as ScrapeVideo;
 
+            const tiktokHosts = [
+                'tiktok.com',
+                'www.tiktok.com',
+                'vm.tiktok.com'
+            ];
+
+            const hostname = URL.canParse(url) && new URL(url).hostname;
+            if (!hostname || !tiktokHosts.includes(hostname)) {
+                response.sendError('Invalid TikTok URL', 400);
+                return;
+            }
+
             try {
                 const tiktokScraper = new TiktokScraper();
                 const scraped = await tiktokScraper.scrapeVideo(url);
