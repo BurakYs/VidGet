@@ -40,7 +40,7 @@
                     type="text"
                     bind:value={url}
                     on:keydown={(e) => e.key === 'Enter' && download()}
-                    placeholder="Download from TikTok, Instagram or Twitter"
+                    placeholder="Download TikToks, Reels or Tweets"
                     class="p-4 pl-12 rounded-md w-full bg-secondary outline-none"
             />
         </div>
