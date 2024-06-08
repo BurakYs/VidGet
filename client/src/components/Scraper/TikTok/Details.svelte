@@ -1,6 +1,10 @@
 <script lang="ts">
-    import config from '$config';
     import TiktokDownloadButton from '$components/Scraper/TikTok/DownloadButton.svelte';
+
+    import PlayIcon from 'lucide-svelte/icons/play';
+    import HeartIcon from 'lucide-svelte/icons/heart';
+    import CommentIcon from 'lucide-svelte/icons/message-circle';
+    import ShareIcon from 'lucide-svelte/icons/share';
 
     export let details: Record<string, any>;
 </script>
@@ -15,19 +19,19 @@
 
         <div class="mt-auto flex flex-col items-start space-y-2 mb-4">
             <div class="flex items-center">
-                <img src="{config.cdnUrl}/view.svg" alt="Views" class="h-6 w-6 mr-2">
+                <PlayIcon class="h-6 w-6 mr-2"/>
                 <span>{details.stats.plays}</span>
             </div>
             <div class="flex items-center">
-                <img src="{config.cdnUrl}/like.svg" alt="Likes" class="h-6 w-6 mr-2">
+                <HeartIcon class="h-6 w-6 mr-2"/>
                 <span>{details.stats.likes}</span>
             </div>
             <div class="flex items-center">
-                <img src="{config.cdnUrl}/comment.svg" alt="Comments" class="h-6 w-6 mr-2">
+                <CommentIcon class="h-6 w-6 mr-2"/>
                 <span>{details.stats.comments}</span>
             </div>
             <div class="flex items-center">
-                <img src="{config.cdnUrl}/share.svg" alt="Shares" class="h-6 w-6 mr-2">
+                <ShareIcon class="h-6 w-6 mr-2"/>
                 <span>{details.stats.shares}</span>
             </div>
         </div>

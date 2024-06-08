@@ -4,7 +4,6 @@
 
 <script lang="ts">
     import { page } from '$app/stores';
-    import config from '$config';
 
     const errors: Record<string, string> = {
         '4': 'Page not found',
@@ -17,5 +16,5 @@
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-white">
     <h1 class="text-6xl font-semibold mb-2">{$page.status}</h1>
     <p class="mb-8 text-lg text-secondary-text">{error}</p>
-    <img src="{config.cdnUrl}/cat.png" alt="cat">
+    <img src="https://cdn.buraky.live/cat.png" alt="cat">
 </div>
