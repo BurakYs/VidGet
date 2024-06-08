@@ -45,7 +45,7 @@
             />
         </div>
         <button
-                class="bg-secondary text-white p-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-opacity duration-500"
+                class="bg-secondary text-white p-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto"
                 on:click={download}
                 disabled={isLoading}
                 class:opacity-50={isLoading}
