@@ -32,13 +32,20 @@
     <h1 class="text-5xl font-semibold mb-2">Start Downloading</h1>
     <p class="mb-8 text-secondary-text">No ads, no tracking, no nothing. Download now.</p>
     <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-6 space-y-4 md:space-y-0">
-        <input
-                type="text"
-                bind:value={url}
-                on:keydown={(e) => e.key === 'Enter' && download()}
-                placeholder="Download from TikTok, Instagram or Twitter"
-                class="p-4 rounded-md w-full md:mr-4 bg-secondary outline-none"
-        />
+        <div class="relative w-full md:mr-4">
+            <img
+                    src="{config.cdnUrl}/search.svg"
+                    alt="Search icon"
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6"
+            />
+            <input
+                    type="text"
+                    bind:value={url}
+                    on:keydown={(e) => e.key === 'Enter' && download()}
+                    placeholder="Download from TikTok, Instagram or Twitter"
+                    class="p-4 pl-12 rounded-md w-full bg-secondary outline-none"
+            />
+        </div>
         <button
                 class="bg-secondary text-white p-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-opacity duration-500"
                 on:click={download}
