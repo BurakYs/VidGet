@@ -4,7 +4,8 @@
     const footerNavItems = [
         { name: 'Discord', href: config.discordUrl },
         { name: 'Terms of Service', href: '/legal/terms' },
-        { name: 'Privacy Policy', href: '/legal/privacy' }
+        { name: 'Privacy Policy', href: '/legal/privacy' },
+        { name: 'Cookie Policy', href: '/legal/cookie-policy' }
     ];
 </script>
 

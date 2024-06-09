@@ -16,8 +16,8 @@
         and preventing abuse of our Service.</p>
 
     <h2>3. Use of Cookies</h2>
-    <p>We use cookies to store your download history on your local device. These cookies help us enhance your experience
-        by keeping track of the videos and photos you have downloaded.</p>
+    <p>For information about how we use cookies, please refer to our <a href="/legal/cookie-policy">Cookie
+        Policy</a>.</p>
 
     <h2>4. Data Sharing and Disclosure</h2>
     <p>We do not share your information with any third parties, except as required by law enforcement agencies.</p>
@@ -35,4 +35,5 @@
     <h2>7. Contact Us</h2>
     <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:burakyhs@duck.com">burakyhs@duck.com</a>
     </p>
+
 </div>

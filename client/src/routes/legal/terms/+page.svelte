@@ -22,8 +22,8 @@
     <p>You may not use VidGet to download videos or photos that you do not have the right to download.</p>
 
     <h2>4. Cookies</h2>
-    <p>We use cookies to store your download history on your local device. By using the Service, you consent to our use
-        of cookies.</p>
+    <p>For information about how we use cookies, please refer to our <a href="/legal/cookie-policy">Cookie
+        Policy</a>.</p>
 
     <h2>5. External Links</h2>
     <p>Our Service may include links to external websites that are not provided or maintained by VidGet. We do not
