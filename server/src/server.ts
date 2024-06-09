@@ -5,7 +5,7 @@ import { Request, Response } from '@/interfaces';
 import { glob } from 'glob';
 import axios from 'axios';
 import * as middlewares from '@/middlewares';
-import deleteAssets from '@/utils/deleteAssets';
+//import deleteAssets from '@/utils/deleteAssets';
 
 export default class Server {
     public server: FastifyInstance;
