@@ -6,7 +6,9 @@ export default {
             colors: {
                 'primary': '#191A1F',
                 'secondary': '#1F1F27',
-                'primary-button': '#FFFFFF',
+                'primary-button': '#0077FF',
+                'secondary-button': '#FFFFFF',
+                'primary-text': '#FFFFFF',
                 'secondary-text': '#BFBFBF'
             }
         }

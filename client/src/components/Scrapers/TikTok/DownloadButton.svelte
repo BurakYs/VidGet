@@ -11,7 +11,7 @@
 
 <a href={value} target="_blank">
     <button
-            class="flex items-center justify-center bg-white text-black py-2 px-4 rounded-lg w-full whitespace-nowrap disabled:opacity-50"
+            class="flex items-center justify-center bg-secondary-button text-black py-2 px-4 rounded-lg w-full whitespace-nowrap disabled:opacity-50"
             disabled={!value}
     >
         <DownloadIcon class="w-5 h-5 mr-1"/>
