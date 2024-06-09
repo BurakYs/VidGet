@@ -17,7 +17,7 @@ git clone https://github.com/BurakYs/Video-Downloader.git
 cd Video-Downloader
 # Install the dependencies in seperate terminals
 cd client && npm install
-cd server && npm install --legacy-peer-deps
+cd server && npm install
 ```
 
 Start the development server:
