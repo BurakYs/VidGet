@@ -9,7 +9,7 @@
     import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
     import DownloadIcon from 'lucide-svelte/icons/download';
 
-    import TiktokDetails from '$components/Scraper/TikTok/Details.svelte';
+    import TiktokDetails from '$components/Scrapers/TikTok/Details.svelte';
     const detailsComponents: Record<string, any> = {
         TikTok: TiktokDetails
     };

@@ -1,5 +1,6 @@
 <script lang="ts">
     import dotNotation from '$lib/dotNotation';
+    import DownloadIcon from 'lucide-svelte/icons/download';
 
     export let details: Record<string, any>;
     export let key: string;
@@ -10,9 +11,10 @@
 
 <a href={value} target="_blank">
     <button
-            class="bg-primary-button text-white flex items-center justify-center py-3 px-6 rounded-xl mt-2 w-40 h-10 mb-2 disabled:opacity-50"
+            class="flex items-center justify-center bg-white text-black py-2 px-4 rounded-lg w-full whitespace-nowrap disabled:opacity-50"
             disabled={!value}
     >
+        <DownloadIcon class="w-5 h-5 mr-1"/>
         {text}
     </button>
 </a>
