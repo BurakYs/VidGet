@@ -142,7 +142,7 @@ export default class TikTokScraper {
         return {
             video: {
                 id: videoData.id,
-                description: videoData.desc,
+                description: videoData.desc?.trim(),
                 createdAt: new Date(videoData.createTime * 1000).getTime(),
                 height: video.height,
                 width: video.width,
