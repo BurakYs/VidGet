@@ -57,7 +57,7 @@
 </div>
 
 <div
-        class={`fixed top-0 left-0 w-full h-full bg-black transition-opacity duration-200 ease-in-out ${isSidebarOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'}`}
+        class={`fixed top-0 left-0 w-full h-full bg-black transition-opacity duration-200 ease-in-out ${isSidebarOpen ? 'opacity-50 z-10' : 'opacity-0 pointer-events-none'}`}
         on:keydown={closeSidebar}
         aria-label="Close Sidebar"
         role="button"
@@ -65,7 +65,7 @@
 ></div>
 
 <div id="sidebar"
-     class={`fixed top-0 right-0 w-64 h-full bg-secondary transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} `}>
+     class={`fixed top-0 right-0 w-64 h-full bg-secondary transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0 z-20' : 'translate-x-full'} `}>
     <div class="flex flex-col h-full">
         <div class="flex justify-between">
             <div class="flex items-center px-4 py-6">
