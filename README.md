@@ -12,9 +12,9 @@ Run the following commands to get started:
 
 ```bash
 # Clone the repository
-git clone https://github.com/BurakYs/Video-Downloader.git
+git clone https://github.com/BurakYs/VidGet.git
 # Change the working directory
-cd Video-Downloader
+cd VidGet
 # Install the dependencies in seperate terminals
 cd client && npm install
 cd server && npm install
@@ -37,9 +37,10 @@ cd server && npm run dev
 
 ## 📋 Todo
 - [ ] Organize the project structure
-- [ ] Redesign the video details page
+- [x] Redesign the video details page
 - [ ] Add Instagram, Twitter Spotify download support
 - [ ] Add a download history page
+- [ ] Add a "Direct Download" preference
 - [ ] Convert to a mobile app using Capacitor
 
 ## 🤝 Community
