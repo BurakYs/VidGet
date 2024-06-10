@@ -24,6 +24,7 @@ export default async (fastify: FastifyInstance) => {
 
             const extension = name.slice(name.lastIndexOf('.'));
             response.header('Content-Type', getMimeType(extension));
+            response.header('Content-Disposition', `attachment; filename=${name}`);
             response.code(200).send(file);
         }
     });

@@ -9,7 +9,7 @@
     $: value = dotNotation<string>(details, key);
 </script>
 
-<a href={value} target="_blank">
+<a href={value} download={`VidGet ${details.video.description}`.slice(0, 64)}>
     <button
             class="flex items-center justify-center bg-secondary-button text-black py-2 px-4 rounded-lg w-full whitespace-nowrap disabled:opacity-50"
             disabled={!value}
