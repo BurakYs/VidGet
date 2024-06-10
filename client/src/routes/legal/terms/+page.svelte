@@ -5,8 +5,8 @@
 <div class="policy">
     <h1>Terms of Service</h1>
     <p>Effective Date: 9 June 2024</p>
-    <p>By using VidGet, you agree to these Terms and acknowledge that you have read and understood our Privacy
-        Policy.</p>
+    <p>By using VidGet, you agree to these Terms and acknowledge that you have read and understood our Terms of
+        Service.</p>
 
     <h2>1. Acceptance of Terms</h2>
     <p>By accessing or using VidGet ("we," "us," "our"), you agree to be bound by these Terms of Service ("Terms"). If
