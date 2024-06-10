@@ -11,5 +11,8 @@ export default {
                 name: 'TikTok'
             }
         ]
+    },
+    downloads: {
+        android: 'https://app.buraky.live/android'
     }
 };

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import config from '$config';
 
     const navbarItems = [
         { name: 'Home', href: '/' },
@@ -86,9 +87,8 @@
             {/each}
         </div>
         <div class="p-4">
-            <a href="/">
-                <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl disabled:opacity-50"
-                        disabled={true}>
+            <a href={config.downloads.android} download>
+                <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl disabled:opacity-50">
                     Mobile App
                 </button>
             </a>
