@@ -1,22 +1,31 @@
 import { FastifyInstance } from 'fastify';
 import { Request, Response } from '@/interfaces';
-import fs from 'fs/promises';
 import getMimeType from '@/utils/getMimeType';
+import fs from 'fs/promises';
+import path from 'path';
 
-import type { TiktokAsset } from '@/schemas/assets';
-import { tiktokAsset } from '@/schemas/assets';
+import type { AssetParams } from '@/schemas/assets';
+import { assetParams } from '@/schemas/assets';
 
 export default async (fastify: FastifyInstance) => {
     fastify.route({
         method: 'GET',
-        url: '/:platform/:name',
+        url: '/*',
         schema: {
-            params: tiktokAsset
+            params: assetParams
         },
         handler: async (request: Request, response: Response) => {
-            const { platform, name } = request.params as TiktokAsset;
+            const params = request.params as AssetParams;
+            const name = params['*'];
 
-            const file = await fs.readFile(`./public/${platform}/${name}`).catch(() => null);
+            const requestedPath = path.resolve(`./public/${name}`);
+
+            if (!requestedPath.startsWith(path.resolve('./public'))) {
+                response.sendError('File not found', 404);
+                return;
+            }
+
+            const file = await fs.readFile(`./public/${name}`).catch(() => null);
             if (!file) {
                 response.sendError('File not found', 404);
                 return;

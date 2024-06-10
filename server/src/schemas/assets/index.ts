@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-export const tiktokAsset = z.object({
-    name: z.string(),
-    platform: z.enum(['tiktok'])
+export const assetParams = z.object({
+    '*': z.string()
 });
-export type TiktokAsset = z.infer<typeof tiktokAsset>;
+export type AssetParams = z.infer<typeof assetParams>;
