@@ -19,7 +19,6 @@ export default async (fastify: FastifyInstance) => {
             const name = params['*'];
 
             const requestedPath = path.resolve(`./public/${name}`);
-
             if (!requestedPath.startsWith(path.resolve('./public'))) {
                 response.sendError('File not found', 404);
                 return;
@@ -34,6 +33,7 @@ export default async (fastify: FastifyInstance) => {
             const extension = name.slice(name.lastIndexOf('.'));
             response.header('Content-Type', getMimeType(extension));
             response.header('Content-Disposition', `attachment; filename=${name}`);
+
             response.code(200).send(file);
         }
     });
