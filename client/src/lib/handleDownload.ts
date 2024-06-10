@@ -42,7 +42,7 @@ export async function handleDownload(
 
     if (!response || !response.ok) {
         const isJson = response && response.headers.get('content-type')?.includes('application/json');
-        const message = isJson ? (await response.json()).error : 'An unknown error occurred';
+        const message = isJson && response ? (await response.json()).error : 'An unknown error occurred';
         addToast(message, 'error');
         return;
     }

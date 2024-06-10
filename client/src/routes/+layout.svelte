@@ -4,8 +4,8 @@
 
 <script lang="ts">
     import '$lib/styles/app.css';
-    import Navbar from '$components/Navbar/Navbar.svelte';
-    import Footer from '$components/Footer/Footer.svelte';
+    import Navbar from '$components/Navbar.svelte';
+    import Footer from '$components/Footer.svelte';
     import ToastContainer from '$components/Toast/ToastContainer.svelte';
 </script>
 

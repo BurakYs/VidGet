@@ -1,7 +1,9 @@
+const environment = process.env.NODE_ENV?.toLowerCase() || 'production';
+
 export default {
     hostname: 'vidget.buraky.live',
     discordUrl: 'https://discord.gg/z8aBnDa6Xa',
-    rootUrl: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://vidget-api.buraky.live',
+    rootUrl: environment === 'development' ? 'http://localhost:3000' : 'https://vidget-api.buraky.live',
     scrapers: {
         supportedHosts: [
             {
