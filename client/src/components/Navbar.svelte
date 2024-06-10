@@ -1,14 +1,15 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import config from '$config';
+    import isNative from '$lib/isNative';
+
+    let isSidebarOpen = false;
 
     const navbarItems = [
         { name: 'Home', href: '/' },
         { name: 'About Us', href: '/about' },
         { name: 'Source Code', href: 'https://github.com/BurakYs/VidGet' }
     ];
-
-    let isSidebarOpen = false;
 
     function toggleSidebar() {
         isSidebarOpen = !isSidebarOpen;
@@ -86,12 +87,14 @@
                 <a href={item.href} class="block p-4 text-secondary-text font-light">{item.name}</a>
             {/each}
         </div>
-        <div class="p-4">
-            <a href={config.downloads.android} download>
-                <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl disabled:opacity-50">
-                    Mobile App
-                </button>
-            </a>
-        </div>
+        {#if !isNative()}
+            <div class="p-4">
+                <a href={config.downloads.android} download>
+                    <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl disabled:opacity-50">
+                        Mobile App
+                    </button>
+                </a>
+            </div>
+        {/if}
     </div>
 </div>
