@@ -2,6 +2,7 @@
 /dist
 .env
 package-lock.json
+pnpm-lock.yaml
 
 /public/tiktok/*
 !/**/.gitkeep
