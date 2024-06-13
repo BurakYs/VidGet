@@ -35,8 +35,8 @@
     <div class="container mx-auto flex items-center">
         <div class="flex items-center flex-1">
             <a href="/">
-                <div class="flex items-center">
-                    <img src="/icon_64.png" alt="Logo" width="32" height="32" class="mr-2">
+                <div class="flex items-center gap-x-2 select-none">
+                    <img src="/icon_64.png" alt="Logo" width="32" height="32">
                     <div class="text-3xl font-semibold">VidGet</div>
                 </div>
             </a>
@@ -70,8 +70,8 @@
      class={`fixed top-0 right-0 w-64 h-full bg-secondary transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0 z-20' : 'translate-x-full'} `}>
     <div class="flex flex-col h-full">
         <div class="flex justify-between">
-            <div class="flex items-center px-4 py-6">
-                <img src="/icon_64.png" alt="Logo" width="32" height="32" class="mr-2">
+            <div class="flex items-center px-4 py-6 gap-x-2 select-none">
+                <img src="/icon_64.png" alt="Logo" width="32" height="32">
                 <div class="text-3xl font-semibold">VidGet</div>
             </div>
             <button on:click={closeSidebar} class="text-white p-4" aria-label="Close Sidebar">
@@ -91,7 +91,7 @@
             <div class="p-4">
                 <a href={config.downloads.android} download>
                     <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl disabled:opacity-50">
-                        Mobile App
+                        Android App
                     </button>
                 </a>
             </div>
