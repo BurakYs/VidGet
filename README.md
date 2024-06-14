@@ -38,10 +38,10 @@ cd server && npm run dev
 ## 📋 Todo
 - [ ] Organize the project structure
 - [x] Redesign the video details page
-- [ ] Add Instagram, Twitter Spotify download support
+- [ ] Add Instagram, Twitter, YouTube and Spotify download support
 - [ ] Add a download history page
 - [ ] Add a "Direct Download" preference
-- [ ] Convert to a mobile app using Capacitor
+- [x] Convert to a mobile app using Capacitor
 
 ## 🤝 Community
 
