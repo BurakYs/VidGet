@@ -1,9 +1,10 @@
 import ScraperError from '@/utils/classes/ScraperError';
-import puppeteer, { Browser, ResourceType } from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 import fs from 'fs/promises';
 import { createWriteStream } from 'fs';
+import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
 import app from '@/config/app';
 
 export default class TikTokScraper {
@@ -35,21 +36,7 @@ export default class TikTokScraper {
         });
         const page = await browser.newPage();
 
-        await page.setRequestInterception(true);
-
-        page.on('request', (req) => {
-            this.requestCount++;
-            const isMaxed = this.requestCount >= this.maxRequests;
-            if (isMaxed) throw new ScraperError('Max requests reached');
-
-            const unallowedResources: ResourceType[] = ['stylesheet', 'image', 'media', 'font', 'script', 'texttrack', 'xhr', 'fetch', 'prefetch', 'eventsource', 'websocket', 'manifest', 'signedexchange', 'ping', 'cspviolationreport', 'preflight', 'other'];
-            const isJsFile = req.url().endsWith('.js');
-            if (unallowedResources.includes(req.resourceType()) || isJsFile || isMaxed) {
-                req.abort();
-            } else {
-                req.continue();
-            }
-        });
+        await applyPuppeteerInterception(page);
 
         await page.goto(url);
 
