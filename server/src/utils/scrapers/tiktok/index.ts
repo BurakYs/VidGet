@@ -57,11 +57,6 @@ export default class TikTokScraper {
     }
 
     async fetchVideoHtml(browser: Browser, url: string) {
-        const { hostname } = new URL(url);
-        if (!hostname.endsWith('tiktok.com')) {
-            throw new ScraperError('Invalid TikTok URL');
-        }
-
         const page = await browser.newPage();
         await page.goto(url);
         const html = await page.content();
