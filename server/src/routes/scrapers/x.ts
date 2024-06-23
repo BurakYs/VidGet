@@ -30,6 +30,11 @@ export default async (fastify: FastifyInstance) => {
 
             try {
                 const scraped = await XScraper.scrape(url);
+                if (!scraped.post.media?.length) {
+                    response.sendError('This post doesn\'t contain any media', 400);
+                    return;
+                }
+
                 response.sendSuccess(scraped, 200);
             } catch (error) {
                 if (error instanceof ScraperError) {

@@ -9,6 +9,10 @@ export default {
             {
                 host: ['vm.tiktok.com', 'www.tiktok.com', 'tiktok.com'],
                 name: 'TikTok'
+            },
+            {
+                host: ['twitter.com', 'x.com'],
+                name: 'X'
             }
         ]
     },

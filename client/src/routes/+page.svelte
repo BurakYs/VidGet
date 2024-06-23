@@ -10,8 +10,10 @@
     import DownloadIcon from 'lucide-svelte/icons/download';
 
     import TiktokDetails from '$components/Scrapers/TikTok/Details.svelte';
+    import XDetails from '$components/Scrapers/X/Details.svelte';
     const detailsComponents: Record<string, any> = {
-        TikTok: TiktokDetails
+        TikTok: TiktokDetails,
+        X: XDetails
     };
 
     let scraperName = '';

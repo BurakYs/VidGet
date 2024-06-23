@@ -82,13 +82,13 @@ export default class XScraper {
                 media: postData.mediaDetails?.map((media: AnObject) => ({
                     shortUrl: media.display_url.startsWith('http') ? media.display_url : `https://${media.display_url}`,
                     expandedUrl: media.expanded_url,
-                    poster: media.poster || undefined,
+                    poster: media.poster || media.media_url_https || undefined,
                     videoDuration: media.type === 'video' ? media.duration_millis : undefined,
                     url: media.type === 'photo' ? media.media_url_https : media.video_info.variants
                         .sort((a: AnObject, b: AnObject) => (b.bitrate || 0) - (a.bitrate || 0))
                         .find((variant: AnObject) => variant.content_type === 'video/mp4').url || media.video_info.variants.sort((a: AnObject, b: AnObject) => (b.bitrate || 0) - (a.bitrate || 0))[0].url,
                     type: media.type
-                })) || null
+                }))
             },
             author: {
                 id: postData.user.id_str,

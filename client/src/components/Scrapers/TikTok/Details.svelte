@@ -56,12 +56,12 @@
 
             <div class="w-fit sm:w-full">
                 <div class="mt-4 flex justify-between space-x-1">
-                    <TiktokDownloadButton {details} key="video.withoutWatermark" text="No Watermark"/>
-                    <TiktokDownloadButton {details} key="video.withWatermark" text="Watermark"/>
+                    <TiktokDownloadButton {details} url={details.video.withoutWatermark} text="No Watermark"/>
+                    <TiktokDownloadButton {details} url={details.video.withWatermark} text="Watermark"/>
                 </div>
 
                 <div class="mt-2 wrap">
-                    <TiktokDownloadButton {details} key="music.playUrl" text="Only Sound"/>
+                    <TiktokDownloadButton {details} url={details.music.playUrl} text="Only Sound"/>
                 </div>
             </div>
         </div>
