@@ -89,7 +89,7 @@
         </div>
         {#if !isNative()}
             <div class="p-4">
-                <a href={config.downloads.android} download>
+                <a href={config.downloads.android} download="VidGet">
                     <button class="bg-primary-button w-full text-white py-3 px-6 rounded-xl disabled:opacity-50">
                         Android App
                     </button>
