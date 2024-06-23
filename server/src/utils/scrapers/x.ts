@@ -26,7 +26,7 @@ export default class XScraper {
     }
 
     static async scrapePost(postUrL: string) {
-        const id = postUrL.split('/')[5];
+        const id = postUrL.split('/')[5].split('?')[0];
 
         if (isNaN(Number(id)))
             throw new ScraperError('Invalid post ID');
