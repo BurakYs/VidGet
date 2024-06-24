@@ -17,6 +17,7 @@ module.exports = {
     },
     ignorePatterns: ['dist/'],
     rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
         indent: [
             'error',
             4

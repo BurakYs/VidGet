@@ -9,9 +9,9 @@ export default {
                 'primary-button': '#0077FF',
                 'secondary-button': '#FFFFFF',
                 'primary-text': '#FFFFFF',
-                'secondary-text': '#BFBFBF'
+                'secondary-text': '#9CA3AF'
             }
         }
     },
-    plugins: []
+    plugins: [require('@tailwindcss/forms')]
 };

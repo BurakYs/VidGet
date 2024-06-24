@@ -8,11 +8,8 @@
     export let details: Record<string, any>;
 
     let currentMediaIndex = 0;
-    let currentMedia = details.post.media[currentMediaIndex];
     $: currentMedia = details.post.media[currentMediaIndex];
 
-    let canPrev = currentMediaIndex > 0;
-    let canNext = currentMediaIndex < details.post.media.length - 1;
     $: canPrev = currentMediaIndex > 0;
     $: canNext = currentMediaIndex < details.post.media.length - 1;
 
@@ -28,7 +25,7 @@
 <!-- TOOD: Needs a proper rework -->
 <Modal>
     <div class="relative w-full sm:max-w-48 flex items-center justify-center">
-        <img src="{currentMedia.poster || currentMedia.url}" alt="Media"
+        <img src={currentMedia.poster || currentMedia.url} alt="Media"
              class="w-full max-h-80 sm:h-full rounded-t-lg sm:rounded-l-lg sm:rounded-r-none object-contain"/>
 
         {#if canPrev}

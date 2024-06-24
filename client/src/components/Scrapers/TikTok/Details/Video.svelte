@@ -31,14 +31,6 @@
 </script>
 
 <Modal>
-    <div class="absolute inset-0 bg-cover bg-center rounded-lg sm:hidden"
-         style="background-image: url('{details.video.cover}');"></div>
-    <div class="absolute inset-0 bg-black bg-opacity-70 rounded-lg sm:hidden"></div>
-
-    <div class="relative hidden sm:block sm:w-48">
-        <img src="{details.video.cover}" alt="Cover" class="w-full h-full rounded-lg sm:rounded-r-none"/>
-    </div>
-
     <div class="relative flex flex-col p-3 sm:p-4 sm:bg-secondary">
         <div class="max-w-72">
             <h2 class="text-left text-2xl font-semibold wrap">{details.author.username}</h2>
@@ -56,12 +48,12 @@
 
             <div class="w-fit sm:w-full">
                 <div class="mt-4 flex justify-between space-x-1">
-                    <TiktokDownloadButton {details} url={details.video.withoutWatermark} text="No Watermark"/>
-                    <TiktokDownloadButton {details} url={details.video.withWatermark} text="Watermark"/>
+                    <TiktokDownloadButton url={details.video.withoutWatermark} text="No Watermark"/>
+                    <TiktokDownloadButton url={details.video.withWatermark} text="Watermark"/>
                 </div>
 
                 <div class="mt-2 wrap">
-                    <TiktokDownloadButton {details} url={details.music.playUrl} text="Only Sound"/>
+                    <TiktokDownloadButton url={details.music.playUrl} text="Only Sound"/>
                 </div>
             </div>
         </div>

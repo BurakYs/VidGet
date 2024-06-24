@@ -7,22 +7,22 @@ import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
 type AnObject = Record<string, any>;
 
 export default class XScraper {
-    static async scrape(postUrL: string) {
-        const url = new URL(postUrL);
-        if (url.hostname.startsWith('t.co')) {
+    static async scrape(postUrl: string) {
+        const url = new URL(postUrl);
+        if (url.hostname === 't.co') {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
 
             await applyPuppeteerInterception(page);
 
-            await page.goto(postUrL);
+            await page.goto(postUrl);
             const finalUrl = page.url();
             await browser.close();
 
             return await this.scrapePost(finalUrl);
         }
 
-        return await this.scrapePost(postUrL);
+        return await this.scrapePost(postUrl);
     }
 
     static async scrapePost(postUrL: string) {

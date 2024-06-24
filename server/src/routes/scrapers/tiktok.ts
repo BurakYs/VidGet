@@ -29,8 +29,7 @@ export default async (fastify: FastifyInstance) => {
             }
 
             try {
-                const tiktokScraper = new TiktokScraper();
-                const scraped = await tiktokScraper.scrapeVideo(url);
+                const scraped = await TiktokScraper.scrape(url);
                 response.sendSuccess(scraped, 200);
             } catch (error) {
                 if (error instanceof ScraperError) {
