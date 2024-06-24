@@ -34,7 +34,7 @@
     <div class="relative flex flex-col p-3 sm:p-4 sm:bg-secondary">
         <div class="max-w-72">
             <h2 class="text-left text-2xl font-semibold wrap">{details.author.username}</h2>
-            <p class="mt-1 text-left text-sm text-gray-400 wrap">{details.description?.slice(0, 128)}</p>
+            <p class="mt-1 text-left text-sm text-gray-400 wrap">{details.post.description?.slice(0, 128)}</p>
         </div>
         <div class="mt-6 sm:mt-auto">
             <div class="flex items-center justify-between">
