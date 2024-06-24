@@ -31,22 +31,21 @@ cd server && npm run dev
 
 ## 📦 Built With
 
-- [Svelte](https://svelte.dev/) - Cybernetically enhanced web apps
-- [Fastify](https://www.fastify.io/) - Fast and low overhead web framework for Node.js
-- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for rapid UI development
+- [Svelte](https://svelte.dev) - Cybernetically enhanced web apps
+- [Tailwind CSS](https://tailwindcss.com) - A utility-first CSS framework for rapid UI development
+- [Fastify](https://fastify.dev) - Fast and low overhead web framework for Node.js
 
 ## 📋 Todo
+
 - [ ] Organize the project structure
-- [x] Redesign the video details page
-- [ ] Add Instagram, Twitter, YouTube and Spotify download support
+- [ ] Add Instagram and YouTube download support
 - [ ] Add a download history page
+- [ ] Add a FAQ section
 - [ ] Add a "Direct Download" preference
-- [x] Convert to a mobile app using Capacitor
 
 ## 🤝 Community
 
 Join the [Discord Server](https://discord.gg/z8aBnDa6Xa) to chat with the community and get help with the project.
-
 
 ## 📄 Contributing
 
