@@ -3,6 +3,7 @@
 </svelte:head>
 
 <script lang="ts">
+    import type { ComponentType } from 'svelte';
     import { writable } from 'svelte/store';
     import { handleDownload } from '$lib/handleDownload';
 
@@ -13,7 +14,7 @@
     import TiktokDetails from '$components/Scrapers/TikTok/BaseDetails.svelte';
     import XDetails from '$components/Scrapers/X/Details.svelte';
 
-    const detailsComponents: Record<string, any> = {
+    const detailsComponents: Record<string, ComponentType> = {
         TikTok: TiktokDetails,
         X: XDetails
     };
@@ -31,7 +32,7 @@
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-white">
     <h1 class="text-5xl font-semibold mb-2">Start Downloading</h1>
     <p class="mb-4 text-secondary-text">No ads, no BS. Download your favorite media.</p>
-    <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-6 space-y-4 md:space-y-0">
+    <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-4 space-y-4 md:space-y-0">
         <div class="relative w-full md:mr-4">
             <SearchIcon class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"/>
             <input
@@ -43,10 +44,9 @@
             />
         </div>
         <button
-                class="bg-secondary text-white p-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto"
+                class="bg-secondary text-white p-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto disabled:opacity-50"
                 on:click={download}
-                disabled={$isLoading}
-                class:opacity-50={$isLoading}
+                disabled={$isLoading || !$url}
         >
             {#if $isLoading}
                 <LoaderCircleIcon class="w-5 h-5 animate-spin"/>
