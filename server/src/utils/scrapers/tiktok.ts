@@ -12,7 +12,9 @@ export default class TikTokScraper {
     static async scrape(postUrl: string) {
         const url = new URL(postUrl);
         if (url.hostname === 'vm.tiktok.com') {
-            const browser = await puppeteer.launch();
+            const browser = await puppeteer.launch({
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
+            });
             const page = await browser.newPage();
 
             await applyPuppeteerInterception(page);
