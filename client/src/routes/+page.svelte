@@ -40,11 +40,11 @@
                     bind:value={$url}
                     on:keydown={(e) => e.key === 'Enter' && download()}
                     placeholder="Download TikToks, Reels or Tweets"
-                    class="appearance-none border-0 p-4 pl-12 rounded-md w-full bg-secondary outline-none placeholder-secondary-text focus:ring-0"
+                    class="appearance-none border-0 p-4 pl-12 rounded-lg w-full bg-secondary outline-none placeholder-secondary-text focus:ring-0"
             />
         </div>
         <button
-                class="bg-secondary text-white p-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto disabled:opacity-50"
+                class="bg-secondary text-white p-4 px-6 rounded-lg flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto disabled:opacity-50"
                 on:click={download}
                 disabled={$isLoading || !$url}
         >
