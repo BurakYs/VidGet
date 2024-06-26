@@ -53,8 +53,8 @@ export default class TikTokScraper {
         const additionalData: Record<string, any> = {};
         if (!videoData.image_post_info) {
             const [withoutWatermark, withWatermark] = await Promise.all([
-                this.downloadAsset(video.playAddr, `${videoData.id}.mp4`),
-                this.downloadAsset(video.downloadAddr, `${videoData.id}_watermark.mp4`)
+                this.downloadAsset(video.play_addr.url_list.at(-1), `${videoData.aweme_id}.mp4`),
+                this.downloadAsset(video.download_addr.url_list.at(-1), `${videoData.aweme_id}_watermark.mp4`)
             ]);
 
             additionalData.video = {
@@ -69,9 +69,7 @@ export default class TikTokScraper {
             const slideshows = videoData.image_post_info.images.map((image: any) => image.display_image.url_list.at(-1));
             const images = await Promise.all(slideshows.map((image: string, index: number) => this.downloadAsset(image, `${videoData.aweme_id}_${index}.png`)));
 
-            additionalData.slideshow = {
-                images
-            };
+            additionalData.slideshow = { images };
         }
 
         return {
