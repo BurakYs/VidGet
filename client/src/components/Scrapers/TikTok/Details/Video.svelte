@@ -31,6 +31,10 @@
 </script>
 
 <Modal>
+    <div class="relative hidden sm:block sm:w-48">
+        <img src="{details.video.cover}" alt="Cover" class="w-full h-full rounded-lg sm:rounded-r-none"/>
+    </div>
+
     <div class="relative flex flex-col p-3 sm:p-4 sm:bg-secondary">
         <div class="max-w-72">
             <h2 class="text-left text-2xl font-semibold wrap">{details.author.username}</h2>
