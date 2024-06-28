@@ -7,23 +7,12 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "rootDir": "./src",
-    "types": [
-      "node"
-    ],
-    "typeRoots": [
-      "node_modules/@types",
-      "src/types"
-    ],
+    "types": ["node"],
+    "typeRoots": ["node_modules/@types", "src/types"],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

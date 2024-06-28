@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "@BurakYs",
+  "license": "ISC",
   "private": true,
   "scripts": {
     "dev": "node .",
     "start": "node . --production",
     "build": "tsc",
+    "check": "tsc --noEmit",
     "test": "vitest",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "check": "tsc --noEmit"
+    "lint": "biome lint",
+    "lint:fix": "biome lint --write"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
@@ -28,14 +29,10 @@
     "tslog": "^4.9.2",
     "zod": "^3.22.4"
   },
-  "license": "ISC",
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@types/module-alias": "^2.0.4",
-    "@types/node": "^20.12.7",
-    "@typescript-eslint/eslint-plugin": "^7.11.0",
-    "@typescript-eslint/parser": "^7.11.0",
-    "eslint": "^8.57.0",
-    "typescript-eslint": "^7.11.0"
+    "@types/node": "^20.12.7"
   },
   "_moduleAliases": {
     "@": "./dist"
