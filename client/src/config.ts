@@ -6,7 +6,7 @@ export default {
     hostname: 'vidget.buraky.live',
     githubUrl: 'https://github.com/BurakYs/VidGet',
     discordUrl: 'https://discord.gg/z8aBnDa6Xa',
-    rootUrl: environment === 'development' ? 'http://localhost:3000' : 'https://vidget-api.buraky.live',
+    apiUrl: environment === 'development' ? 'http://localhost:3000' : 'https://vidget-api.buraky.live',
     socials: [
         {
             name: 'GitHub',

@@ -32,7 +32,7 @@ export async function handleDownload(
 
     isLoadingStore.set(true);
 
-    const response = await fetch(`${config.rootUrl}/scrapers/${scraperName.toLowerCase()}`, {
+    const response = await fetch(`${config.apiUrl}/scrapers/${scraperName.toLowerCase()}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
