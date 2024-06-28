@@ -90,7 +90,8 @@
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "formatWithErrors": true
+    "formatWithErrors": true,
+    "lineWidth": 160
   },
   "files": {
     "ignore": ["**/dist/", "./dist"]
