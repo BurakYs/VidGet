@@ -23,7 +23,7 @@
     import ToastContainer from '$components/Toast/ToastContainer.svelte';
 </script>
 
-<main class="flex flex-col min-h-screen bg-primary text-primary-text scrollbar">
+<main class="flex flex-col min-h-screen bg-primary text-primary-text">
     <Navbar/>
     <slot/>
     <ToastContainer/>

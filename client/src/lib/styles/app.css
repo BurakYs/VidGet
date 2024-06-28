@@ -9,7 +9,9 @@
 }
 
 * {
-    font-family: 'Geist', sans-serif;
+    font-family: "Geist", sans-serif;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 ::-webkit-scrollbar {
