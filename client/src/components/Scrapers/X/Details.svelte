@@ -31,14 +31,14 @@
         {#if canPrev}
             <div class="absolute top-1/2 left-0 transform -translate-y-1/2">
                 <button on:click={prevMedia} class="p-2 bg-gray-800 bg-opacity-50 rounded-full shadow-2xl">
-                    <ArrowLeftIcon class="text-white"/>
+                    <ArrowLeftIcon class="text-primary-text"/>
                 </button>
             </div>
         {/if}
         {#if canNext}
             <div class="absolute top-1/2 right-0 transform -translate-y-1/2">
                 <button on:click={nextMedia} class="p-2 bg-gray-800 bg-opacity-50 rounded-full shadow-lg">
-                    <ArrowRightIcon class="text-white"/>
+                    <ArrowRightIcon class="text-primary-text"/>
                 </button>
             </div>
         {/if}

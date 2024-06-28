@@ -31,6 +31,7 @@ export async function handleDownload(
     scraperNameStore.set(scraperName);
 
     isLoadingStore.set(true);
+
     const response = await fetch(`${config.rootUrl}/scrapers/${scraperName.toLowerCase()}`, {
         method: 'POST',
         headers: {
@@ -38,6 +39,7 @@ export async function handleDownload(
         },
         body: JSON.stringify({ url: get(urlStore).replace(/http:\/\//, 'https://') })
     }).catch(() => null);
+
     isLoadingStore.set(false);
 
     if (!response || !response.ok) {

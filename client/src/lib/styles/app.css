@@ -6,39 +6,12 @@
     font-family: 'Geist';
     src: url('/fonts/GeistVF.woff2') format('woff2'),
     url('/fonts/GeistVF.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
 }
 
 * {
     font-family: 'Geist', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
 }
 
 ::-webkit-scrollbar {
     display: none;
-}
-
-html, body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    flex: 1 0 auto;
-}
-
-footer {
-    flex-shrink: 0;
 }

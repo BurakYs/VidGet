@@ -5,7 +5,7 @@
     export let type: 'success' | 'error' | 'info' = 'info';
 </script>
 
-<div class={`bg-[#292933] fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-md px-4 py-3 text-white shadow-lg animate-fade-in min-w-64`}
+<div class={`bg-[#292933] fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-md px-4 py-3 text-primary-text shadow-lg animate-fade-in min-w-64`}
      transition:fade={{ duration: 500 }}>
     <div class="rounded-md p-2">
         {#if type === 'success'}

@@ -12,7 +12,7 @@
          role="button"
          tabindex="0"
     >
-        <div class="relative flex flex-col sm:flex-row bg-secondary text-white rounded-lg shadow-lg animate-fade-in max-w-xs sm:max-w-2xl sm:w-auto h-auto"
+        <div class="relative flex flex-col sm:flex-row bg-secondary text-primary-text rounded-lg shadow-lg animate-fade-in max-w-xs sm:max-w-2xl sm:w-auto h-auto"
              on:click|stopPropagation
              on:keydown={(e) => e.key === 'Escape' && (isModalOpen = false)}
              aria-label="Modal"
