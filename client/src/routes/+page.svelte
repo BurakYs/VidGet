@@ -31,7 +31,7 @@
 </script>
 
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-primary-text">
-    <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-2 font-semibold">Start Downloading</h1>
+    <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">Start Downloading</h1>
     <p class="mb-3 text-secondary-text">No ads, no BS. Download your favorite media.</p>
     <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-4 space-y-4 md:space-y-0">
         <div class="relative w-full md:mr-4">
