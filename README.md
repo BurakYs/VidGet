@@ -51,8 +51,7 @@ Join the [Discord Server](https://discord.gg/z8aBnDa6Xa) to chat with the commun
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are
 **greatly appreciated**. \
-Please refer to the [Contributing](.github/CONTRIBUTING.md) and [Code of Conduct](.github/CODE_OF_CONDUCT.md)
-for more information.
+Please refer to the [Contributing](.github/CONTRIBUTING.md) and [Code of Conduct](.github/CODE_OF_CONDUCT.md) for more information.
 
 ## 📝 License
 
