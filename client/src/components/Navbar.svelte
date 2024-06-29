@@ -2,6 +2,7 @@
     import { fly } from 'svelte/transition';
     import { writable } from 'svelte/store';
     import isNative from '$lib/isNative';
+    import * as m from '$lib/paraglide/messages.js';
     import config from '$config';
 
     const isSidebarOpen = writable(false);
@@ -15,9 +16,9 @@
     };
 
     const navbarItems = [
-        { name: 'Home', href: '/' },
-        { name: 'About Us', href: '/about' },
-        { name: 'Source Code', href: config.githubUrl }
+        { name: m.navigation_home(), href: '/' },
+        { name: m.navigation_about_us(), href: '/about' },
+        { name: m.navigation_source_code(), href: config.githubUrl }
     ];
 </script>
 
@@ -95,7 +96,7 @@
                 <div class="absolute bottom-0 w-full p-4">
                     <a href={config.downloads.android}
                        class="bg-primary-button w-full text-primary-text py-3 px-6 rounded-xl disabled:opacity-50 text-center block">
-                        Android App
+                        {m.navigation_android_app()}
                     </a>
                 </div>
             {/if}

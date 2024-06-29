@@ -1,31 +1,32 @@
 <script lang="ts">
+    import * as m from '$lib/paraglide/messages.js';
     import config from '$config';
 
     const footerItems = [
         {
-            title: 'About',
+            title: m.footer_block_about(),
             items: [
-                { name: 'About Us', href: '/about' },
-                { name: 'Contact Us', href: '/' }
+                { name: m.footer_block_about_about_us(), href: '/about' },
+                { name: m.footer_block_about_contact_us(), href: '/' }
             ]
         },
         {
-            title: 'Support Us',
+            title: m.footer_block_support_us(),
             items: config.supportOptions.map(option => ({
                 name: option.name,
                 href: option.url
             }))
         },
         {
-            title: 'Legal',
+            title: m.footer_block_legal(),
             items: [
-                { name: 'Terms of Service', href: '/legal/terms' },
-                { name: 'Privacy Policy', href: '/legal/privacy' },
-                { name: 'Cookie Policy', href: '/legal/cookie-policy' }
+                { name: m.footer_block_legal_terms(), href: '/legal/terms' },
+                { name: m.footer_block_legal_privacy(), href: '/legal/privacy' },
+                { name: m.footer_block_legal_cookies(), href: '/legal/cookie-policy' }
             ]
         },
         {
-            title: 'Social',
+            title: m.footer_block_social(),
             items: config.socials.map(link => ({
                 name: link.name,
                 href: link.url
@@ -58,7 +59,7 @@
     </div>
     <div class="bg-secondary py-4">
         <div class="container mx-auto text-center text-secondary-text">
-            <p>&copy; {new Date().getFullYear()} {config.hostname}. All rights reserved.</p>
+            <p>{m.footer_copyright({ year: new Date().getFullYear(), company: config.hostname })}</p>
         </div>
     </div>
 </div>

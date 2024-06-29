@@ -6,6 +6,7 @@
     import type { ComponentType } from 'svelte';
     import { writable } from 'svelte/store';
     import { handleDownload } from '$lib/handleDownload';
+    import * as m from '$lib/paraglide/messages.js';
     import config from '$config';
 
     import SearchIcon from 'lucide-svelte/icons/search';
@@ -31,8 +32,8 @@
 </script>
 
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-primary-text">
-    <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">Start Downloading</h1>
-    <p class="mb-3 text-secondary-text">No ads, no BS. Download your favorite media.</p>
+    <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">{m.start_downloading()}</h1>
+    <p class="mb-3 text-secondary-text">{m.start_downloading_description()}</p>
     <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-4 space-y-4 md:space-y-0">
         <div class="relative w-full md:mr-4">
             <SearchIcon class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"/>
@@ -40,7 +41,7 @@
                     type="text"
                     bind:value={$url}
                     on:keydown={(e) => e.key === 'Enter' && download()}
-                    placeholder="Download TikToks, Reels or Tweets"
+                    placeholder={m.start_downloading_input_placeholder()}
                     class="appearance-none border-0 p-4 pl-12 rounded-lg w-full bg-secondary outline-none placeholder-secondary-text focus:ring-0"
             />
         </div>
@@ -54,13 +55,11 @@
             {:else}
                 <DownloadIcon class="w-5 h-5"/>
             {/if}
-            <span>Download</span>
+            <span>{m.start_downloading_button()}</span>
         </button>
     </div>
 
-    <p class="text-sm text-gray-500">
-        By using our Service you agree to our <a href="/legal/terms" class="underline">Terms of Service</a>
-        and <a href="/legal/privacy" class="underline">Privacy Policy</a>.</p>
+    <p class="text-sm text-gray-500">{@html m.start_downloading_disclaimer()}</p>
 
     {#if $details && !$isLoading}
         <svelte:component this={detailsComponents[$scraperName]} details={$details}/>
