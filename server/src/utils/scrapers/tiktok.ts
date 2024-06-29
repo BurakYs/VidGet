@@ -44,7 +44,7 @@ export default class TikTokScraper {
     );
 
     if (!videoFullData.status.toString().startsWith('2'))
-      throw new ScraperError('Failed to fetch video data');
+      throw new ScraperError('Failed to fetch post data', videoFullData.data);
 
     const videoData = videoFullData.data.aweme_list.find(
       (video: any) => video.aweme_id === id,

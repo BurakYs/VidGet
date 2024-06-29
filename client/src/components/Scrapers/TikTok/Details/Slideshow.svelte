@@ -1,14 +1,9 @@
 <script lang="ts">
     export let details: Record<string, any>;
 
-    import formatNumber from '$lib/formatNumber';
     import Modal from '$components/Modal.svelte';
     import TiktokDownloadButton from '$components/Scrapers/TikTok/DownloadButton.svelte';
 
-    import PlayIcon from 'lucide-svelte/icons/play';
-    import HeartIcon from 'lucide-svelte/icons/heart';
-    import CommentIcon from 'lucide-svelte/icons/message-circle';
-    import ShareIcon from 'lucide-svelte/icons/share';
     import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
     import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
 
@@ -28,24 +23,6 @@
         if (currentMediaIndex < images.length - 1) currentMediaIndex += 1;
     }
 
-    let stats = [
-        {
-            icon: PlayIcon,
-            count: formatNumber(details.stats.plays)
-        },
-        {
-            icon: HeartIcon,
-            count: formatNumber(details.stats.likes)
-        },
-        {
-            icon: CommentIcon,
-            count: formatNumber(details.stats.comments)
-        },
-        {
-            icon: ShareIcon,
-            count: formatNumber(details.stats.shares)
-        }
-    ];
 </script>
 
 <Modal>
@@ -74,15 +51,6 @@
             <p class="mt-1 text-left text-sm text-gray-400">{details.post.description?.slice(0, 128)}</p>
         </div>
         <div class="flex flex-col mt-3 sm:mt-auto">
-            <div class="flex items-center justify-between">
-                {#each stats as stat}
-                    <div class="flex items-center justify-between gap-x-1">
-                        <svelte:component this={stat.icon} class="w-5 h-5"/>
-                        <p>{stat.count}</p>
-                    </div>
-                {/each}
-            </div>
-
             <div class="w-full mt-5 flex flex-col gap-y-3">
                 <TiktokDownloadButton url={currentMedia} text="Download This"/>
                 <TiktokDownloadButton url={details.music.playUrl} text="Only Sound"/>

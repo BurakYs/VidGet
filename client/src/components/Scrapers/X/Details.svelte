@@ -22,7 +22,6 @@
     }
 </script>
 
-<!-- TOOD: Needs a proper rework -->
 <Modal>
     <div class="relative w-full sm:max-w-48 flex items-center justify-center">
         <img src={currentMedia.poster || currentMedia.url} alt="Media"
