@@ -2,7 +2,7 @@ const environment = process.env.NODE_ENV?.toLowerCase() || 'production';
 
 export default {
   appName: 'VidGet',
-  description: 'A free online video downloader that allows you to download videos from TikTok, Instagram and Twitter.',
+  description: 'A free online video downloader that allows you to download videos from various platforms.',
   hostname: 'vidget.buraky.live',
   githubUrl: 'https://github.com/BurakYs/VidGet',
   discordUrl: 'https://discord.gg/z8aBnDa6Xa',
