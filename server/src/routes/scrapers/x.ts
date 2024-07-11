@@ -20,21 +20,22 @@ export default async (fastify: FastifyInstance) => {
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
       if (!hostname || !xHosts.includes(hostname)) {
-        response.sendError('Invalid X URL', 400);
+        response.sendError(
+          new ScraperError({
+            code: 'errors.x.invalid_url',
+            message: 'Invalid X URL'
+          }),
+          400
+        );
         return;
       }
 
       try {
         const scraped = await XScraper.scrape(url);
-        if (!scraped.post.media?.length) {
-          response.sendError("This post doesn't contain any media", 400);
-          return;
-        }
-
         response.sendSuccess(scraped, 200);
       } catch (error) {
         if (error instanceof ScraperError) {
-          response.sendError(error.message, 500);
+          response.sendError(error, 500);
         } else {
           throw error;
         }

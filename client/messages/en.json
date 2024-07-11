@@ -23,13 +23,25 @@
   "error_server_error": "An error occurred on our side. Please try again later.",
   "error_redirect_home": "You will be redirected to the home page in 5 seconds.",
 
-  "start_downloading": "Start Downloading",
-  "start_downloading_description": "No ads, no BS. Download your favorite media.",
-  "start_downloading_input_placeholder": "Download TikToks, Reels or Tweets",
-  "start_downloading_button": "Download",
-  "start_downloading_disclaimer": "By using our Service you agree to our <a href=\"/legal/terms\" class=\"underline\">Terms of Service</a> and <a href=\"/legal/privacy\" class=\"underline\">Privacy Policy</a>.",
+  "downloader": "Start Downloading",
+  "downloader_description": "No ads, no BS. Download your favorite media.",
+  "downloader_input_placeholder": "Download TikToks, Reels or Tweets",
+  "downloader_button": "Download",
+  "downloader_disclaimer": "By using our Service you agree to our <a href=\"/legal/terms\" class=\"underline\">Terms of Service</a> and <a href=\"/legal/privacy\" class=\"underline\">Privacy Policy</a>.",
+  "downloader_error_no_url": "Please enter a URL",
+  "downloader_error_invalid_url": "Please enter a valid URL",
+  "downloader_error_unsupported_platform": "We don't support this platform",
 
   "about_title": "About",
   "about_project": "About Our Project",
-  "about_project_description": "This is a project that allows users to download videos from various social media platforms.<br>We are committed to providing a service that is free of ads, tracking, and unnecessary complications."
+  "about_project_description": "This is a project that allows users to download videos from various social media platforms.<br>We are committed to providing a service that is free of ads, tracking, and unnecessary complications.",
+
+  "errors_tiktok_invalid_url": "Please enter a valid TikTok URL",
+  "errors_tiktok_post_not_found": "Post could not be found",
+  "errors_tiktok_post_fetch_failed": "Failed to fetch post data",
+  "errors.x.invalid_post_id": "Invalid post ID",
+  "errors.x.post_fetch_failed": "Failed to fetch post data",
+  "errors.x.age_restricted": "Cannot fetch age-restricted content",
+  "errors.x.no_media": "No media found in the post",
+  "errors_unknown_error": "An unknown error occurred"
 }

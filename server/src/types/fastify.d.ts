@@ -1,4 +1,5 @@
 import './fastify';
+import { SendFunction } from '@/interfaces/Response';
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -6,15 +7,7 @@ declare module 'fastify' {
   }
 
   interface FastifyReply {
-    sendSuccess: (
-      message: unknown,
-      status: number,
-      otherProperties?: Record<string, unknown>,
-    ) => FastifyReply;
-    sendError: (
-      message: unknown,
-      status: number,
-      otherProperties?: Record<string, unknown>,
-    ) => FastifyReply;
+    sendSuccess: SendFunction;
+    sendError: SendFunction;
   }
 }

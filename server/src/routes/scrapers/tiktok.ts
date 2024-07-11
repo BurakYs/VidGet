@@ -3,24 +3,30 @@ import { Request, Response } from '@/interfaces';
 import ScraperError from '@/utils/classes/ScraperError';
 import TiktokScraper from '@/utils/scrapers/tiktok';
 
-import type { ScrapeVideo } from '@/schemas/scrapers/tiktok';
-import { scrapeVideo } from '@/schemas/scrapers/tiktok';
+import type { ScrapePost } from '@/schemas/scrapers/tiktok';
+import { scrapePost } from '@/schemas/scrapers/tiktok';
 
 export default async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'POST',
     url: '/',
     schema: {
-      body: scrapeVideo,
+      body: scrapePost
     },
     handler: async (request: Request, response: Response) => {
-      const { url } = request.body as ScrapeVideo;
+      const { url } = request.body as ScrapePost;
 
       const tiktokHosts = ['tiktok.com', 'www.tiktok.com', 'vm.tiktok.com', 'vt.tiktok.com'];
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
       if (!hostname || !tiktokHosts.includes(hostname)) {
-        response.sendError('Invalid TikTok URL', 400);
+        response.sendError(
+          new ScraperError({
+            code: 'errors.tiktok.invalid_url',
+            message: 'Invalid TikTok URL'
+          }),
+          400
+        );
         return;
       }
 
@@ -29,7 +35,7 @@ export default async (fastify: FastifyInstance) => {
         response.sendSuccess(scraped, 200);
       } catch (error) {
         if (error instanceof ScraperError) {
-          response.sendError(error.message, 500);
+          response.sendError(error, 500);
         } else {
           throw error;
         }
