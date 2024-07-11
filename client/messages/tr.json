@@ -17,6 +17,12 @@
   "footer_block_social": "Sosyal",
   "footer_copyright": "© {year} {company}. Tüm hakları saklıdır.",
 
+  "error_title": "Hata",
+  "error_status_code": "Hata {statusCode}",
+  "error_page_not_found": "Sayfa bulunamadı",
+  "error_server_error": "Bizden kaynaklanan bir sorun oluştu. Lütfen daha sonra tekrar deneyin.",
+  "error_redirect_home": "5 saniye içinde anasayfaya yönlendirileceksiniz.",
+
   "start_downloading": "İndirmeye Başla",
   "start_downloading_description": "Reklam yok. Favori medyanızı indirin.",
   "start_downloading_input_placeholder": "TikTok, Reels veya Tweetleri indirin",

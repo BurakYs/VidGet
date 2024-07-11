@@ -17,6 +17,12 @@
   "footer_block_social": "Social",
   "footer_copyright": "© {year} {company}. All rights reserved.",
 
+  "error_title": "Error",
+  "error_status_code": "Error {statusCode}",
+  "error_page_not_found": "Page not found",
+  "error_server_error": "An error occurred on our side. Please try again later.",
+  "error_redirect_home": "You will be redirected to the home page in 5 seconds.",
+
   "start_downloading": "Start Downloading",
   "start_downloading_description": "No ads, no BS. Download your favorite media.",
   "start_downloading_input_placeholder": "Download TikToks, Reels or Tweets",
