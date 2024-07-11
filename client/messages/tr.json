@@ -39,9 +39,9 @@
   "errors_tiktok_invalid_url": "Lütfen geçerli bir TikTok URL'si girin",
   "errors_tiktok_post_not_found": "Gönderi bulunamadı",
   "errors_tiktok_post_fetch_failed": "Gönderi verileri alınamadı",
-  "errors.x.invalid_post_id": "Geçersiz gönderi ID'si",
-  "errors.x.post_fetch_failed": "Gönderi verileri alınamadı",
-  "errors.x.age_restricted": "Yaş sınırlaması olan içerik alınamaz",
-  "errors.x.no_media": "Gönderide medya bulunamadı",
+  "errors_x_invalid_post_id": "Geçersiz gönderi ID'si",
+  "errors_x_post_fetch_failed": "Gönderi verileri alınamadı",
+  "errors_x_age_restricted": "Yaş sınırlaması olan içerik alınamaz",
+  "errors_x_no_media": "Gönderide medya bulunamadı",
   "errors_unknown_error": "Bilinmeyen bir hata oluştu"
 }

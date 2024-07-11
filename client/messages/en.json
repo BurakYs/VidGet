@@ -39,9 +39,9 @@
   "errors_tiktok_invalid_url": "Please enter a valid TikTok URL",
   "errors_tiktok_post_not_found": "Post could not be found",
   "errors_tiktok_post_fetch_failed": "Failed to fetch post data",
-  "errors.x.invalid_post_id": "Invalid post ID",
-  "errors.x.post_fetch_failed": "Failed to fetch post data",
-  "errors.x.age_restricted": "Cannot fetch age-restricted content",
-  "errors.x.no_media": "No media found in the post",
+  "errors_x_invalid_post_id": "Invalid post ID",
+  "errors_x_post_fetch_failed": "Failed to fetch post data",
+  "errors_x_age_restricted": "Cannot fetch age-restricted content",
+  "errors_x_no_media": "No media found in the post",
   "errors_unknown_error": "An unknown error occurred"
 }
