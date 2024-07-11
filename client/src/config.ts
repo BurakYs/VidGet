@@ -38,7 +38,7 @@ export default {
     scrapers: {
         supportedHosts: [
             {
-                host: ['vm.tiktok.com', 'www.tiktok.com', 'tiktok.com'],
+                host: ['vm.tiktok.com', 'vt.tiktok.com', 'www.tiktok.com', 'tiktok.com'],
                 name: 'TikTok'
             },
             {

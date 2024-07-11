@@ -34,7 +34,7 @@ export default async (fastify: FastifyInstance) => {
         response.sendSuccess(scraped, 200);
       } catch (error) {
         if (error instanceof ScraperError) {
-          response.sendError(error.message, 400);
+          response.sendError(error.message, 500);
         } else {
           throw error;
         }

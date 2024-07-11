@@ -16,7 +16,7 @@ export default async (fastify: FastifyInstance) => {
     handler: async (request: Request, response: Response) => {
       const { url } = request.body as ScrapeVideo;
 
-      const tiktokHosts = ['tiktok.com', 'www.tiktok.com', 'vm.tiktok.com'];
+      const tiktokHosts = ['tiktok.com', 'www.tiktok.com', 'vm.tiktok.com', 'vt.tiktok.com'];
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
       if (!hostname || !tiktokHosts.includes(hostname)) {
@@ -29,7 +29,7 @@ export default async (fastify: FastifyInstance) => {
         response.sendSuccess(scraped, 200);
       } catch (error) {
         if (error instanceof ScraperError) {
-          response.sendError(error.message, 400);
+          response.sendError(error.message, 500);
         } else {
           throw error;
         }
