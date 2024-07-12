@@ -7,6 +7,8 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
 
+  const redirectMs = 3000;
+
   const errors: Record<string, string> = {
     '4': 'The page you are looking for does not exist.',
     '5': 'An error occurred on our side. Please try again later.'
@@ -17,12 +19,12 @@
   onMount(() => {
     setTimeout(() => {
       goto(`/`);
-    }, 5000);
+    }, redirectMs);
   });
 </script>
 
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-primary-text">
     <h1 class="text-5xl font-semibold mb-2">Error {$page.status}</h1>
     <p class="mb-2 text-lg text-secondary-text">{error}</p>
-    <p class="mb-8 text-lg text-secondary-text">You will be redirected to the home page in 5 seconds.</p>
+    <p class="mb-8 text-lg text-secondary-text">You will be redirected to the home page in {redirectMs / 1000} seconds.</p>
 </div>
