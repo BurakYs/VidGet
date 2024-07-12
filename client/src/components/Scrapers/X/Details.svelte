@@ -1,25 +1,25 @@
 <script lang="ts">
-    import Modal from '$components/Modal.svelte';
-    import XDownloadButton from '$components/Scrapers/X/DownloadButton.svelte';
+  import Modal from '$components/Modal.svelte';
+  import XDownloadButton from '$components/Scrapers/X/DownloadButton.svelte';
 
-    import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
-    import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
+  import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
+  import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
 
-    export let details: Record<string, any>;
+  export let details: Record<string, any>;
 
-    let currentMediaIndex = 0;
-    $: currentMedia = details.post.media[currentMediaIndex];
+  let currentMediaIndex = 0;
+  $: currentMedia = details.post.media[currentMediaIndex];
 
-    $: canPrev = currentMediaIndex > 0;
-    $: canNext = currentMediaIndex < details.post.media.length - 1;
+  $: canPrev = currentMediaIndex > 0;
+  $: canNext = currentMediaIndex < details.post.media.length - 1;
 
-    function prevMedia() {
-        if (currentMediaIndex > 0) currentMediaIndex -= 1;
-    }
+  function prevMedia() {
+    if (currentMediaIndex > 0) currentMediaIndex -= 1;
+  }
 
-    function nextMedia() {
-        if (currentMediaIndex < details.post.media.length - 1) currentMediaIndex += 1;
-    }
+  function nextMedia() {
+    if (currentMediaIndex < details.post.media.length - 1) currentMediaIndex += 1;
+  }
 </script>
 
 <Modal>

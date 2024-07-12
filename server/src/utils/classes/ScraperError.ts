@@ -1,13 +1,9 @@
-import type { Translatable } from '@/interfaces/Response';
+type ErrorMessage = unknown;
 
 export default class ScraperError {
-  code: Translatable['code'];
-  message: Translatable['message'];
-  variables?: Translatable['variables'];
+  message: ErrorMessage;
 
-  constructor(data: Translatable) {
-    this.code = data.code;
-    this.message = data.message;
-    this.variables = data.variables;
+  constructor(message: ErrorMessage) {
+    this.message = message;
   }
 }

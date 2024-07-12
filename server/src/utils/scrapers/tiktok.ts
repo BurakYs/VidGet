@@ -40,18 +40,10 @@ export default class TikTokScraper {
       }
     });
 
-    if (!videoFullData.status.toString().startsWith('2'))
-      throw new ScraperError({
-        code: 'errors.tiktok.post_fetch_failed',
-        message: 'Failed to fetch post data'
-      });
+    if (!videoFullData.status.toString().startsWith('2')) throw new ScraperError('Failed to fetch post data');
 
     const videoData = videoFullData.data.aweme_list.find((video: any) => video.aweme_id === id);
-    if (!videoData)
-      throw new ScraperError({
-        code: 'errors.tiktok.post_not_found',
-        message: 'Post not found'
-      });
+    if (!videoData) throw new ScraperError('Post not found');
 
     const { video, author, music, statistics } = videoData;
 

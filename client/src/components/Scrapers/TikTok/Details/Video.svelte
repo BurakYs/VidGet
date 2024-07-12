@@ -1,8 +1,8 @@
 <script lang="ts">
-    export let details: Record<string, any>;
+  export let details: Record<string, any>;
 
-    import Modal from '$components/Modal.svelte';
-    import TiktokDownloadButton from '$components/Scrapers/TikTok/DownloadButton.svelte';
+  import Modal from '$components/Modal.svelte';
+  import TiktokDownloadButton from '$components/Scrapers/TikTok/DownloadButton.svelte';
 </script>
 
 <Modal>

@@ -6,7 +6,6 @@
   import type { ComponentType } from 'svelte';
   import { writable } from 'svelte/store';
   import { handleDownload } from '$lib/handleDownload';
-  import * as m from '$lib/paraglide/messages.js';
   import config from '$config';
 
   import SearchIcon from 'lucide-svelte/icons/search';
@@ -17,23 +16,23 @@
   import XDetails from '$components/Scrapers/X/Details.svelte';
 
   const detailsComponents: Record<string, ComponentType> = {
-        TikTok: TiktokDetails,
-        X: XDetails
-    };
+    TikTok: TiktokDetails,
+    X: XDetails
+  };
 
-    export const scraperName = writable('');
-    export const url = writable('');
-    export const details = writable({});
-    export const isLoading = writable(false);
+  export const scraperName = writable('');
+  export const url = writable('');
+  export const details = writable({});
+  export const isLoading = writable(false);
 
-    async function download() {
-        await handleDownload(url, scraperName, details, isLoading);
-    }
+  async function download() {
+    await handleDownload(url, scraperName, details, isLoading);
+  }
 </script>
 
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-primary-text">
-    <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">{m.downloader()}</h1>
-    <p class="mb-3 text-secondary-text">{m.downloader_description()}</p>
+    <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">Start Downloading</h1>
+    <p class="mb-3 text-secondary-text">No ads, no BS. Download your favorite media.</p>
     <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-4 space-y-4 md:space-y-0">
         <div class="relative w-full md:mr-4">
             <SearchIcon class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"/>
@@ -41,7 +40,7 @@
                     type="text"
                     bind:value={$url}
                     on:keydown={(e) => e.key === 'Enter' && download()}
-                    placeholder={m.downloader_input_placeholder()}
+                    placeholder="Download TikToks, Reels or Tweets"
                     class="appearance-none border-0 p-4 pl-12 rounded-lg w-full bg-secondary outline-none placeholder-secondary-text focus:ring-0"
             />
         </div>
@@ -55,11 +54,14 @@
             {:else}
                 <DownloadIcon class="w-5 h-5"/>
             {/if}
-            <span>{m.downloader_button()}</span>
+            <span>Download</span>
         </button>
     </div>
 
-    <p class="text-sm text-gray-500">{@html m.downloader_disclaimer()}</p>
+    <p class="text-sm text-gray-500">
+        By using our Service you agree to our <a class="underline" href="/legal/terms">Terms of Service</a> and <a class="underline" href="/legal/privacy">Privacy
+        Policy</a>
+    </p>
 
     {#if $details && !$isLoading}
         <svelte:component this={detailsComponents[$scraperName]} details={$details}/>

@@ -15,22 +15,17 @@
 </svelte:head>
 
 <script lang="ts">
-    import { ParaglideJS } from '@inlang/paraglide-sveltekit';
-    import { i18n } from '$lib/i18n';
+  import config from '$config';
 
-    import config from '$config';
-
-    import '$lib/styles/app.css';
-    import Navbar from '$components/Navbar.svelte';
-    import Footer from '$components/Footer.svelte';
-    import ToastContainer from '$components/Toast/ToastContainer.svelte';
+  import '$lib/styles/app.css';
+  import Navbar from '$components/Navbar.svelte';
+  import Footer from '$components/Footer.svelte';
+  import ToastContainer from '$components/Toast/ToastContainer.svelte';
 </script>
 
-<ParaglideJS {i18n}>
-    <main class="flex flex-col min-h-screen bg-primary text-primary-text">
-        <Navbar/>
-        <slot/>
-        <ToastContainer/>
-    </main>
-    <Footer/>
-</ParaglideJS>
+<main class="flex flex-col min-h-screen bg-primary text-primary-text">
+    <Navbar/>
+    <slot></slot>
+    <ToastContainer/>
+</main>
+<Footer/>

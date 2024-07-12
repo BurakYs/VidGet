@@ -1,12 +1,6 @@
 type SuccessData = unknown;
 
-type ErrorData =
-  | string
-  | {
-  code: string;
-  message: string;
-  variables: Record<string, string | number>;
-};
+type ErrorData = string
 
 export type APIResponse<Success = true> = {
   success: Success;

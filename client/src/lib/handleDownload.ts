@@ -1,9 +1,8 @@
 import { get, type Writable } from 'svelte/store';
 import { addToast } from '$stores/toastStore';
-import * as m from '$lib/paraglide/messages.js';
+import { handleErrorMessage } from '$lib/handleErrorMessage';
 import formatNumber from '$lib/formatNumber';
 import config from '$config';
-import { handleErrorTranslation } from '$lib/handleErrorTranslation';
 
 export async function handleDownload(
   urlStore: Writable<string>,
@@ -12,20 +11,20 @@ export async function handleDownload(
   isLoadingStore: Writable<boolean>
 ) {
   if (!get(urlStore)?.trim()) {
-    addToast(m.downloader_error_no_url(), 'error');
+    addToast('Please enter a URL', 'error');
     return;
   }
 
   const isProperUrl = URL.canParse(get(urlStore));
   if (!isProperUrl) {
-    addToast(m.downloader_error_invalid_url(), 'error');
+    addToast('Please enter a valid URL', 'error');
     return;
   }
 
   const parsedUrl = new URL(get(urlStore));
   const hostData = config.scrapers.supportedHosts.find(x => x.host.includes(parsedUrl.hostname));
   if (!hostData) {
-    addToast(m.downloader_error_unsupported_platform(), 'error');
+    addToast('We don\'t support this platform yet', 'error');
     return;
   }
 
@@ -45,7 +44,7 @@ export async function handleDownload(
   isLoadingStore.set(false);
 
   if (!response || !response.ok) {
-    const message = await handleErrorTranslation(response);
+    const message = await handleErrorMessage(response);
 
     addToast(message, 'error');
     return;

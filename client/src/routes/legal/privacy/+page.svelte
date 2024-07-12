@@ -35,5 +35,4 @@
     <h2>7. Contact Us</h2>
     <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:burakyhs@duck.com">burakyhs@duck.com</a>
     </p>
-
 </div>

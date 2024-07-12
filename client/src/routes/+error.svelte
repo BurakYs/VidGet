@@ -1,30 +1,28 @@
 <svelte:head>
-    <title>{m.error_title()}</title>
+    <title>Error</title>
 </svelte:head>
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { languageTag } from '$lib/paraglide/runtime.js';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
-  import * as m from '$lib/paraglide/messages.js';
 
   const errors: Record<string, string> = {
-    '4': m.error_page_not_found(),
-    '5': m.error_server_error()
+    '4': 'The page you are looking for does not exist.',
+    '5': 'An error occurred on our side. Please try again later.'
   };
 
   const error = errors[$page.status.toString()[0]];
 
   onMount(() => {
     setTimeout(() => {
-      goto(`/${languageTag()}`);
+      goto(`/`);
     }, 5000);
   });
 </script>
 
 <div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-primary-text">
-    <h1 class="text-5xl font-semibold mb-2">{m.error_status_code({ statusCode: $page.status })}</h1>
+    <h1 class="text-5xl font-semibold mb-2">Error {$page.status}</h1>
     <p class="mb-2 text-lg text-secondary-text">{error}</p>
-    <p class="mb-8 text-lg text-secondary-text">{m.error_redirect_home()}</p>
+    <p class="mb-8 text-lg text-secondary-text">You will be redirected to the home page in 5 seconds.</p>
 </div>

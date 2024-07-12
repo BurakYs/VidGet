@@ -1,38 +1,37 @@
 <script lang="ts">
-    import * as m from '$lib/paraglide/messages.js';
-    import config from '$config';
+  import config from '$config';
 
-    const footerItems = [
-        {
-            title: m.footer_block_about(),
-            items: [
-                { name: m.footer_block_about_about_us(), href: '/about' },
-                { name: m.footer_block_about_contact_us(), href: '/' }
-            ]
-        },
-        {
-            title: m.footer_block_support_us(),
-            items: config.supportOptions.map(option => ({
-                name: option.name,
-                href: option.url
-            }))
-        },
-        {
-            title: m.footer_block_legal(),
-            items: [
-                { name: m.footer_block_legal_terms(), href: '/legal/terms' },
-                { name: m.footer_block_legal_privacy(), href: '/legal/privacy' },
-                { name: m.footer_block_legal_cookies(), href: '/legal/cookie-policy' }
-            ]
-        },
-        {
-            title: m.footer_block_social(),
-            items: config.socials.map(link => ({
-                name: link.name,
-                href: link.url
-            }))
-        }
-    ];
+  const footerItems = [
+    {
+      title: 'About',
+      items: [
+        { name: 'About Us', href: '/about' },
+        { name: 'Contact Us', href: '/' }
+      ]
+    },
+    {
+      title: 'Support Us',
+      items: config.supportOptions.map(option => ({
+        name: option.name,
+        href: option.url
+      }))
+    },
+    {
+      title: 'Legal',
+      items: [
+        { name: 'Terms of Service', href: '/legal/terms' },
+        { name: 'Privacy Policy', href: '/legal/privacy' },
+        { name: 'Cookie Policy', href: '/legal/cookie-policy' }
+      ]
+    },
+    {
+      title: 'Social',
+      items: config.socials.map(link => ({
+        name: link.name,
+        href: link.url
+      }))
+    }
+  ];
 </script>
 
 <div class="bg-secondary text-primary-text">
@@ -59,7 +58,7 @@
     </div>
     <div class="bg-secondary py-4">
         <div class="container mx-auto text-center text-secondary-text">
-            <p>{m.footer_copyright({ year: new Date().getFullYear(), company: config.hostname })}</p>
+            <p>&copy; {new Date().getFullYear()} {config.hostname}</p>
         </div>
     </div>
 </div>

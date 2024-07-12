@@ -1,27 +1,27 @@
 <script lang="ts">
-    export let details: Record<string, any>;
+  export let details: Record<string, any>;
 
-    import Modal from '$components/Modal.svelte';
-    import TiktokDownloadButton from '$components/Scrapers/TikTok/DownloadButton.svelte';
+  import Modal from '$components/Modal.svelte';
+  import TiktokDownloadButton from '$components/Scrapers/TikTok/DownloadButton.svelte';
 
-    import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
-    import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
+  import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
+  import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
 
-    const images = details.slideshow.images;
+  const images = details.slideshow.images;
 
-    let currentMediaIndex = 0;
-    $: currentMedia = images[currentMediaIndex];
+  let currentMediaIndex = 0;
+  $: currentMedia = images[currentMediaIndex];
 
-    $: canPrev = currentMediaIndex > 0;
-    $: canNext = currentMediaIndex < images.length - 1;
+  $: canPrev = currentMediaIndex > 0;
+  $: canNext = currentMediaIndex < images.length - 1;
 
-    function prevMedia() {
-        if (currentMediaIndex > 0) currentMediaIndex -= 1;
-    }
+  function prevMedia() {
+    if (currentMediaIndex > 0) currentMediaIndex -= 1;
+  }
 
-    function nextMedia() {
-        if (currentMediaIndex < images.length - 1) currentMediaIndex += 1;
-    }
+  function nextMedia() {
+    if (currentMediaIndex < images.length - 1) currentMediaIndex += 1;
+  }
 
 </script>
 

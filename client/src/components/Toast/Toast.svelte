@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { fade } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
-    export let message: string = '';
-    export let type: 'success' | 'error' | 'info' = 'info';
+  export let message: string = '';
+  export let type: 'success' | 'error' | 'info' = 'info';
 </script>
 
 <div class={`bg-[#292933] fixed bottom-4 right-4 z-50 flex items-center gap-1 rounded-md px-4 py-3 text-primary-text shadow-lg animate-fade-in min-w-64`}

@@ -1,10 +1,10 @@
 <script lang="ts">
-    import config from '$config';
+  import config from '$config';
 
-    import DownloadIcon from 'lucide-svelte/icons/download';
+  import DownloadIcon from 'lucide-svelte/icons/download';
 
-    export let url: string;
-    export let text: string = 'Download';
+  export let url: string;
+  export let text: string = 'Download';
 </script>
 
 <a href={url} download={`${config.appName}_${Date.now()}`}>

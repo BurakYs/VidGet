@@ -1,7 +1,7 @@
 <script lang="ts">
-    import '$lib/styles/fade.css';
+  import '$lib/styles/fade.css';
 
-    let isModalOpen = true;
+  let isModalOpen = true;
 </script>
 
 {#if isModalOpen}

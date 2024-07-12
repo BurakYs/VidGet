@@ -20,13 +20,7 @@ export default async (fastify: FastifyInstance) => {
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
       if (!hostname || !tiktokHosts.includes(hostname)) {
-        response.sendError(
-          new ScraperError({
-            code: 'errors.tiktok.invalid_url',
-            message: 'Invalid TikTok URL'
-          }),
-          400
-        );
+        response.sendError(new ScraperError('Invalid TikTok URL'), 400);
         return;
       }
 
@@ -40,6 +34,6 @@ export default async (fastify: FastifyInstance) => {
           throw error;
         }
       }
-    },
+    }
   });
 };
