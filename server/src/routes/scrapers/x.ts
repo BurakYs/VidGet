@@ -11,7 +11,7 @@ export default async (fastify: FastifyInstance) => {
     method: 'POST',
     url: '/',
     schema: {
-      body: scrapePost,
+      body: scrapePost
     },
     handler: async (request: Request, response: Response) => {
       const { url } = request.body as ScrapePost;
@@ -20,13 +20,7 @@ export default async (fastify: FastifyInstance) => {
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
       if (!hostname || !xHosts.includes(hostname)) {
-        response.sendError(
-          new ScraperError({
-            code: 'errors.x.invalid_url',
-            message: 'Invalid X URL'
-          }),
-          400
-        );
+        response.sendError(new ScraperError('Invalid X URL'), 400);
         return;
       }
 
@@ -40,6 +34,6 @@ export default async (fastify: FastifyInstance) => {
           throw error;
         }
       }
-    },
+    }
   });
 };

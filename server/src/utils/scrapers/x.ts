@@ -27,11 +27,7 @@ export default class XScraper {
   static async scrapePost(postUrL: string) {
     const id = postUrL.split('/')[5].split('?')[0];
 
-    if (isNaN(Number(id)))
-      throw new ScraperError({
-        code: 'errors.x.invalid_post_id',
-        message: 'Invalid post ID'
-      });
+    if (isNaN(Number(id))) throw new ScraperError('Invalid post ID');
 
     const token = this.getToken(id);
 
@@ -61,38 +57,20 @@ export default class XScraper {
     url.searchParams.set('token', token);
 
     const response = await axios.get(url.toString());
-    if (!response.data)
-      throw new ScraperError({
-        code: 'errors.x.post_fetch_failed',
-        message: 'Failed to fetch post data'
-      });
+    if (!response.data) throw new ScraperError('Failed to fetch post data');
 
     const tombstoneErrors = [
       {
         prefix: 'Age-restricted',
-        error: new ScraperError({
-          code: 'errors.x.age_restricted',
-          message: 'Cannot fetch age-restricted content'
-        })
+        error: new ScraperError('Cannot fetch age-restricted content')
       }
     ];
 
     const postData = response.data;
     const tombstoneError = postData.tombstone && tombstoneErrors.find((error) => postData.tombstone.text.text.startsWith(error.prefix));
-    if (tombstoneError || postData.tombstone)
-      throw (
-        tombstoneError.error ||
-        new ScraperError({
-          code: 'errors.x.post_fetch_failed',
-          message: 'Failed to fetch post data'
-        })
-      );
+    if (tombstoneError || postData.tombstone) throw tombstoneError.error || new ScraperError('Failed to fetch post data');
 
-    if (!postData.mediaDetails?.length)
-      throw new ScraperError({
-        code: 'errors.x.no_media',
-        message: 'No media found in the post'
-      });
+    if (!postData.mediaDetails?.length) throw new ScraperError('No media found in the post');
 
     return {
       post: {
