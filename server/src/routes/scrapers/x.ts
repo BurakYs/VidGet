@@ -20,7 +20,7 @@ export default async (fastify: FastifyInstance) => {
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
       if (!hostname || !xHosts.includes(hostname)) {
-        response.sendError(new ScraperError('Invalid X URL'), 400);
+        response.sendError('Invalid X URL', 400);
         return;
       }
 
@@ -29,7 +29,7 @@ export default async (fastify: FastifyInstance) => {
         response.sendSuccess(scraped, 200);
       } catch (error) {
         if (error instanceof ScraperError) {
-          response.sendError(error, 500);
+          response.sendError(error.message, 500);
         } else {
           throw error;
         }
