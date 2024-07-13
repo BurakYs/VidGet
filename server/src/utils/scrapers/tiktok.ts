@@ -1,10 +1,10 @@
-import ScraperError from '@/utils/classes/ScraperError';
 import { createWriteStream } from 'fs';
-import puppeteer from 'puppeteer';
-import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
-import fs from 'fs/promises';
-import axios from 'axios';
 import app from '@/config/app';
+import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
+import ScraperError from '@/utils/classes/ScraperError';
+import axios from 'axios';
+import fs from 'fs/promises';
+import puppeteer from 'puppeteer';
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
 
@@ -12,7 +12,7 @@ export default class TikTokScraper {
   static async scrape(postUrl: string) {
     const url = new URL(postUrl);
 
-    if (url.hostname === 'vm.tiktok.com') {
+    if (url.hostname !== 'tiktok.com') {
       const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox']
       });
