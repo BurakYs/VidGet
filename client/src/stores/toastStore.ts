@@ -1,20 +1,24 @@
 import { writable } from 'svelte/store';
 
-type ToastType = 'success' | 'error' | 'info'
-
-interface Toast {
-  id: number;
+type Toast = {
+  id: string;
   message: string;
-  type: ToastType;
+  type: 'success' | 'error' | 'info';
+  timeout?: number;
 }
 
 export const toasts = writable<Toast[]>([]);
 
-export function addToast(message: string, type: ToastType = 'info') {
-  const id = Date.now();
+export default function addToast(message: Toast['message'], config: Omit<Toast, 'id' | 'message'>) {
+  const id = Math.random().toString(36).substring(2, 9);
+  const type = config.type || 'info';
+  const timeout = config.timeout || 5000;
+
   toasts.set([{ id, message, type }]);
+
+  if (timeout <= 0) return;
 
   setTimeout(() => {
     toasts.update(allToasts => allToasts.filter(t => t.id !== id));
-  }, 5000);
+  }, timeout);
 }

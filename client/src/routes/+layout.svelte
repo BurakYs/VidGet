@@ -20,12 +20,14 @@
   import '$lib/styles/app.css';
   import Navbar from '$components/Navbar.svelte';
   import Footer from '$components/Footer.svelte';
-  import ToastContainer from '$components/Toast/ToastContainer.svelte';
+  import Toasts from '$components/Toast/Toasts.svelte';
 </script>
 
-<main class="flex flex-col min-h-screen bg-primary text-primary-text">
-    <Navbar/>
-    <slot></slot>
-    <ToastContainer/>
+<main class="flex flex-col bg-primary text-primary-text">
+    <div class="flex flex-col min-h-screen">
+        <Navbar/>
+        <Toasts/>
+        <slot/>
+    </div>
+    <Footer/>
 </main>
-<Footer/>

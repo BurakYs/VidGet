@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Video from '$components/Scrapers/TikTok/Details/Video.svelte';
-  import Slideshow from '$components/Scrapers/TikTok/Details/Slideshow.svelte';
+  import Video from './Details/Video.svelte';
+  import Slideshow from './Details/Slideshow.svelte';
 
   export let details: Record<string, any>;
 </script>

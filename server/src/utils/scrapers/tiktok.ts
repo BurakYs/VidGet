@@ -1,117 +1,121 @@
 import { createWriteStream } from 'fs';
 import app from '@/config/app';
-import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
+import Cookie from '@/utils/classes/Cookie';
 import ScraperError from '@/utils/classes/ScraperError';
 import axios from 'axios';
 import fs from 'fs/promises';
-import puppeteer from 'puppeteer';
 
-const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
+const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
 
 export default class TikTokScraper {
   static async scrape(postUrl: string) {
     const url = new URL(postUrl);
 
-    if (url.hostname !== 'tiktok.com') {
-      const browser = await puppeteer.launch({
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-      });
-      const page = await browser.newPage();
-
-      await applyPuppeteerInterception(page);
-
-      await page.goto(postUrl);
-      const finalUrl = page.url();
-      await browser.close();
-
-      const id = finalUrl.split('/')[5].split('?')[0];
-
+    if (url.hostname === 'tiktok.com') {
+      const id = postUrl.split('/')[5].split('?')[0];
       return await this.scrapePost(id);
     }
 
-    const id = postUrl.split('/')[5].split('?')[0];
-    return await this.scrapePost(id);
-  }
-
-  static async scrapePost(id: string) {
-    const videoFullData = await axios.options(`https://api22-normal-c-alisg.tiktokv.com/aweme/v1/feed/?aweme_id=${id}`, {
+    const response = await axios.get(postUrl, {
       headers: {
         'User-Agent': userAgent
       }
     });
 
-    if (!videoFullData.status.toString().startsWith('2')) throw new ScraperError('Failed to fetch post data');
+    const finalUrl = response.request.res.responseUrl;
+    const id = finalUrl.split('/')[5].split('?')[0];
+    return await this.scrapePost(id);
+  }
 
-    const videoData = videoFullData.data.aweme_list.find((video: any) => video.aweme_id === id);
-    if (!videoData) throw new ScraperError('Post not found');
+  static async scrapePost(postId: string) {
+    const cookieManager = new Cookie();
 
-    const { video, author, music, statistics } = videoData;
+    const response = await axios.get(`https://tiktok.com/@i/video/${postId}`, {
+      headers: {
+        'User-Agent': userAgent,
+        Cookie: cookieManager.toString()
+      }
+    });
 
-    const musicPlay = await this.downloadAsset(music.play_url.url_list.at(-1), `${music.id}.mp3`);
+    cookieManager.addMany(response.headers['set-cookie']!);
+
+    let details: Record<string, any> = {};
+
+    try {
+      const data = response.data.split('<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__" type="application/json">')[1].split('</script>')[0];
+      details = JSON.parse(data)['__DEFAULT_SCOPE__']['webapp.video-detail']['itemInfo']['itemStruct'];
+    } catch {
+      throw new ScraperError('Failed to fetch post details. Please try again later');
+    }
 
     const additionalData: Record<string, any> = {};
-    if (!videoData.image_post_info) {
+    const isSlideshow = !!details.imagePost.images;
+    if (isSlideshow) {
+      const slideshows = details.imagePost.images.map((x: any) => x.imageURL.urlList[0]);
+      const images = await Promise.all(slideshows.map((x: string, i: number) => this.downloadAsset(x, `${postId}_${i}.jpg`, cookieManager.toString())));
+
+      additionalData.slideshow = { images };
+    } else {
+      const { video } = details;
+
       const [withoutWatermark, withWatermark] = await Promise.all([
-        this.downloadAsset(video.play_addr.url_list.at(-1), `${videoData.aweme_id}.mp4`),
-        this.downloadAsset(video.download_addr.url_list.at(-1), `${videoData.aweme_id}_watermark.mp4`)
+        this.downloadAsset(details.video.playAddr, `${postId}.mp4`, cookieManager.toString()),
+        this.downloadAsset(details.video.downloadAddr, `${postId}_watermark.mp4`, cookieManager.toString())
       ]);
 
       additionalData.video = {
         height: video.height,
         width: video.width,
         duration: video.duration,
-        cover: video.cover.url_list.at(-1),
+        cover: video.cover,
         withoutWatermark,
         withWatermark
       };
-    } else {
-      const slideshows = videoData.image_post_info.images.map((image: any) => image.display_image.url_list.at(-1));
-      const images = await Promise.all(slideshows.map((image: string, index: number) => this.downloadAsset(image, `${videoData.aweme_id}_${index}.png`)));
-
-      additionalData.slideshow = { images };
     }
 
     return {
-      type: additionalData.video ? 'video' : 'slideshow',
       ...additionalData,
+      type: isSlideshow ? 'slideshow' : 'video',
       post: {
-        id: videoData.aweme_id,
-        description: videoData.desc?.trim(),
-        createdAt: new Date(videoData.create_time * 1000).getTime()
+        id: details.id,
+        description: details.desc?.trim(),
+        createdAt: new Date(details.createTime * 1000).getTime()
       },
       author: {
-        id: author.uid,
-        username: author.unique_id,
-        nickname: author.nickname,
-        avatar: author.avatar_larger.url_list.at(-1)
+        id: details.author.uid,
+        username: details.author.uniqueId,
+        nickname: details.author.nickname,
+        avatar: details.author.avatarLarger
       },
       music: {
-        id: music.id_str,
-        title: music.title,
-        author: music.authorName,
-        cover: music.cover_large.url_list.at(-1),
-        duration: music.duration,
-        playUrl: musicPlay
+        id: details.music.id_str,
+        title: details.music.title,
+        author: details.music.authorName,
+        original: details.music.original,
+        cover: details.music.coverLarge,
+        duration: details.music.duration,
+        playUrl: await this.downloadAsset(details.music.playUrl, `${details.music.id_str}.mp3`, cookieManager.toString())
       },
       stats: {
-        likes: Number(statistics.digg_count),
-        shares: Number(statistics.share_count),
-        comments: Number(statistics.comment_count),
-        plays: Number(statistics.play_count),
-        favorites: Number(statistics.collect_count),
-        reposts: Number(statistics.repost_count)
+        likes: Number(details.statsV2.diggCount),
+        shares: Number(details.statsV2.shareCount),
+        comments: Number(details.statsV2.commentCount),
+        plays: Number(details.stats.playCount),
+        favorites: Number(details.statsV2.shareCount),
+        reposts: Number(details.statsV2.shareCount)
       }
     };
   }
 
-  static async downloadAsset(url: string, name: string) {
-    const doesFileExist = await fs.stat(`./public/tiktok/${name}`).catch(() => null);
-    if (doesFileExist) return app.rootUrl + `/assets/tiktok/${name}`;
+  static async downloadAsset(url: string, name: string, cookie: string) {
+    const fileExists = await fs.stat(`./public/tiktok/${name}`).catch(() => null);
+    if (fileExists) return app.rootUrl + `/assets/tiktok/${name}`;
 
     try {
       const response = await axios.get(url, {
         headers: {
-          'User-Agent': userAgent
+          'User-Agent': userAgent,
+          Cookie: cookie
         },
         responseType: 'stream'
       });

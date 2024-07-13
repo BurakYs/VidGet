@@ -1,6 +1,6 @@
 import type { APIResponse } from '$lib/types';
 
-export async function handleErrorMessage(response?: Response | APIResponse | null) {
+export default async function handleErrorMessage(response?: Response | APIResponse | null) {
   if (!response) return 'An unknown error occurred';
 
   const isJson = response instanceof Response && response.headers.get('content-type')?.includes('application/json');

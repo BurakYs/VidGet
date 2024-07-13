@@ -2,7 +2,7 @@
   export let details: Record<string, any>;
 
   import Modal from '$components/Modal.svelte';
-  import TiktokDownloadButton from '$components/Scrapers/TikTok/DownloadButton.svelte';
+  import DownloadButton from '$components/Scrapers/DownloadButton.svelte';
 </script>
 
 <Modal>
@@ -17,8 +17,8 @@
         </div>
         <div class="flex flex-col mt-3 sm:mt-auto">
             <div class="w-full mt-5 flex flex-col gap-y-3">
-                <TiktokDownloadButton url={details.video.withoutWatermark} text="No Watermark"/>
-                <TiktokDownloadButton url={details.music.playUrl} text="Only Sound"/>
+                <DownloadButton text="No Watermark" url={details.video.withoutWatermark}/>
+                <DownloadButton text="Only Sound" url={details.music.playUrl}/>
             </div>
         </div>
     </div>

@@ -76,14 +76,20 @@
         "useValidTypeof": "error"
       }
     },
-    "ignore": ["**/dist/", "./dist"]
+    "ignore": [
+      "**/dist/",
+      "./dist"
+    ]
   },
   "javascript": {
-    "globals": ["logger"],
+    "globals": [
+      "logger"
+    ],
     "formatter": {
       "enabled": true,
       "semicolons": "always",
-      "quoteStyle": "single"
+      "quoteStyle": "single",
+      "trailingCommas": "none"
     }
   },
   "formatter": {
@@ -94,6 +100,9 @@
     "lineWidth": 160
   },
   "files": {
-    "ignore": ["**/dist/", "./dist"]
+    "ignore": [
+      "**/dist/",
+      "./dist"
+    ]
   }
 }

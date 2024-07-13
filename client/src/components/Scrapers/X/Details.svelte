@@ -1,47 +1,15 @@
 <script lang="ts">
+  import MediaPagination from '$components/Pagination/MediaPagination.svelte';
   import Modal from '$components/Modal.svelte';
-  import XDownloadButton from '$components/Scrapers/X/DownloadButton.svelte';
-
-  import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
-  import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
+  import DownloadButton from '$components/Scrapers/DownloadButton.svelte';
 
   export let details: Record<string, any>;
-
-  let currentMediaIndex = 0;
-  $: currentMedia = details.post.media[currentMediaIndex];
-
-  $: canPrev = currentMediaIndex > 0;
-  $: canNext = currentMediaIndex < details.post.media.length - 1;
-
-  function prevMedia() {
-    if (currentMediaIndex > 0) currentMediaIndex -= 1;
-  }
-
-  function nextMedia() {
-    if (currentMediaIndex < details.post.media.length - 1) currentMediaIndex += 1;
-  }
+  let currentMedia: Record<string, any> = {};
 </script>
 
 <Modal>
-    <div class="relative w-full sm:max-w-48 flex items-center justify-center">
-        <img src={currentMedia.poster || currentMedia.url} alt="Media"
-             class="w-full max-h-80 sm:h-full rounded-t-lg sm:rounded-l-lg sm:rounded-r-none object-contain"/>
-
-        {#if canPrev}
-            <div class="absolute top-1/2 left-0 transform -translate-y-1/2">
-                <button on:click={prevMedia} class="p-2 bg-gray-800 bg-opacity-50 rounded-full shadow-2xl">
-                    <ArrowLeftIcon class="text-primary-text"/>
-                </button>
-            </div>
-        {/if}
-        {#if canNext}
-            <div class="absolute top-1/2 right-0 transform -translate-y-1/2">
-                <button on:click={nextMedia} class="p-2 bg-gray-800 bg-opacity-50 rounded-full shadow-lg">
-                    <ArrowRightIcon class="text-primary-text"/>
-                </button>
-            </div>
-        {/if}
-    </div>
+    <MediaPagination bind:currentMedia className="w-full max-h-80 sm:h-full object-contain" getMediaUrl={(media) => media.poster || media.url}
+                     mediaList={details.post.media}/>
 
     <div class="relative flex flex-col p-3 sm:p-4 sm:bg-secondary">
         <div class="max-w-72">
@@ -50,7 +18,7 @@
         </div>
         <div class="flex flex-col sm:mt-auto">
             <div class="w-full mt-5">
-                <XDownloadButton url={currentMedia.url}/>
+                <DownloadButton text="Download Current" url={currentMedia.url}/>
             </div>
         </div>
     </div>

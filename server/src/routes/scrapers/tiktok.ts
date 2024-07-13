@@ -1,7 +1,7 @@
-import { FastifyInstance } from 'fastify';
 import { Request, Response } from '@/interfaces';
 import ScraperError from '@/utils/classes/ScraperError';
 import TiktokScraper from '@/utils/scrapers/tiktok';
+import { FastifyInstance } from 'fastify';
 
 import type { ScrapePost } from '@/schemas/scrapers/tiktok';
 import { scrapePost } from '@/schemas/scrapers/tiktok';

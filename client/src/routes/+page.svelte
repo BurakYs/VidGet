@@ -5,7 +5,7 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte';
   import { writable } from 'svelte/store';
-  import { handleDownload } from '$lib/handleDownload';
+  import handleDownload from '$lib/handleDownload';
   import config from '$config';
 
   import SearchIcon from 'lucide-svelte/icons/search';
@@ -63,7 +63,7 @@
         Policy</a>
     </p>
 
-    {#if $details && !$isLoading}
+    {#if Object.keys($details).length && !$isLoading}
         <svelte:component this={detailsComponents[$scraperName]} details={$details}/>
     {/if}
 </div>

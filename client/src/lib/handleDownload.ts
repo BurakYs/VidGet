@@ -1,30 +1,32 @@
 import { get, type Writable } from 'svelte/store';
-import { addToast } from '$stores/toastStore';
-import { handleErrorMessage } from '$lib/handleErrorMessage';
+import addToast from '$stores/toastStore';
+import handleErrorMessage from '$lib/handleErrorMessage';
 import formatNumber from '$lib/formatNumber';
 import config from '$config';
 
-export async function handleDownload(
+export default async function handleDownload(
   urlStore: Writable<string>,
   scraperNameStore: Writable<string>,
   detailsStore: Writable<any>,
   isLoadingStore: Writable<boolean>
 ) {
-  if (!get(urlStore)?.trim()) {
-    addToast('Please enter a URL', 'error');
+  const url = get(urlStore);
+
+  if (!url?.trim()) {
+    addToast('Please enter a URL', { type: 'error' });
     return;
   }
 
-  const isProperUrl = URL.canParse(get(urlStore));
+  const isProperUrl = URL.canParse(url);
   if (!isProperUrl) {
-    addToast('Please enter a valid URL', 'error');
+    addToast('Please enter a valid URL', { type: 'error' });
     return;
   }
 
-  const parsedUrl = new URL(get(urlStore));
+  const parsedUrl = new URL(url);
   const hostData = config.scrapers.supportedHosts.find(x => x.host.includes(parsedUrl.hostname));
   if (!hostData) {
-    addToast('We don\'t support this platform yet', 'error');
+    addToast('We don\'t support this platform yet', { type: 'error' });
     return;
   }
 
@@ -38,7 +40,7 @@ export async function handleDownload(
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ url: get(urlStore).replace(/http:\/\//, 'https://') })
+    body: JSON.stringify({ url: url.replace(/http:\/\//, 'https://') })
   }).catch(() => null);
 
   isLoadingStore.set(false);
@@ -46,7 +48,7 @@ export async function handleDownload(
   if (!response || !response.ok) {
     const message = await handleErrorMessage(response);
 
-    addToast(message, 'error');
+    addToast(message, { type: 'error' });
     return;
   }
 
