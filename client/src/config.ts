@@ -36,6 +36,9 @@ export default {
     }
   ],
   downloads: {
-    android: 'https://app.buraky.live/android'
+    android: {
+      enabled: false,
+      url: 'https://app.buraky.live/android'
+    }
   }
 };

@@ -91,9 +91,9 @@
                        on:click={closeSidebar}>{item.name}</a>
                 {/each}
             </div>
-            {#if !isNative()}
+            {#if !isNative() && config.downloads.android.enabled}
                 <div class="absolute bottom-0 w-full p-4">
-                    <a href={config.downloads.android}
+                    <a href={config.downloads.android.url}
                        class="bg-primary-button w-full text-primary-text py-3 px-6 rounded-xl disabled:opacity-50 text-center block">
                         Android App
                     </a>
