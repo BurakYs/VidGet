@@ -10,7 +10,7 @@
 </script>
 
 <Modal>
-    <MediaPagination className="w-52 h-64 sm:h-[20rem]" getMediaUrl={(media) => media} mediaList={images}/>
+    <MediaPagination bind:currentMedia className="w-52 h-64 sm:h-[20rem]" getMediaUrl={(media) => media} mediaList={images}/>
 
     <div class="relative flex flex-col p-3 sm:p-4 sm:bg-secondary">
         <div class="max-w-72">
