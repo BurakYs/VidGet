@@ -1,9 +1,7 @@
-import { createWriteStream } from 'fs';
 import Cookie from '@/utils/classes/Cookie';
 import ScraperError from '@/utils/classes/ScraperError';
-import fs from 'fs/promises';
-import app from '@/config/app';
 import axios from 'axios';
+import cacheAsset from '@/utils/cacheAsset';
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
 
@@ -88,13 +86,13 @@ export default class TikTokScraper {
         avatar: details.author.avatarLarger
       },
       music: {
-        id: details.music.id_str,
+        id: details.music.id,
         title: details.music.title,
         author: details.music.authorName,
         original: details.music.original,
         cover: details.music.coverLarge,
         duration: details.music.duration,
-        playUrl: await this.downloadAsset(details.music.playUrl, `${details.music.id_str}.mp3`, cookieManager.toString())
+        playUrl: await this.downloadAsset(details.music.playUrl, `${details.music.id}.mp3`, cookieManager.toString())
       },
       stats: {
         likes: Number(details.statsV2.diggCount),
@@ -108,27 +106,9 @@ export default class TikTokScraper {
   }
 
   static async downloadAsset(url: string, name: string, cookie: string) {
-    const fileExists = await fs.stat(`./public/tiktok/${name}`).catch(() => null);
-    if (fileExists) return app.rootUrl + `/assets/tiktok/${name}`;
-
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          'User-Agent': userAgent,
-          Cookie: cookie
-        },
-        responseType: 'stream'
-      });
-
-      const writer = createWriteStream(`./public/tiktok/${name}`);
-      response.data.pipe(writer);
-
-      return new Promise((resolve, reject) => {
-        writer.on('finish', () => resolve(app.rootUrl + `/assets/tiktok/${name}`));
-        writer.on('error', reject);
-      });
-    } catch {
-      return null;
-    }
+    return await cacheAsset(url, 'tiktok/' + name, {
+      'User-Agent': userAgent,
+      Cookie: cookie
+    });
   }
 }
