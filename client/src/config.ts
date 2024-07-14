@@ -35,18 +35,6 @@ export default {
       url: '/'
     }
   ],
-  scrapers: {
-    supportedHosts: [
-      {
-        host: ['vm.tiktok.com', 'vt.tiktok.com', 'www.tiktok.com', 'tiktok.com'],
-        name: 'TikTok'
-      },
-      {
-        host: ['twitter.com', 'x.com', 't.co'],
-        name: 'X'
-      }
-    ]
-  },
   downloads: {
     android: 'https://app.buraky.live/android'
   }

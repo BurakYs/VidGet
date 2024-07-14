@@ -1,7 +1,6 @@
 import { get, type Writable } from 'svelte/store';
 import addToast from '$stores/toastStore';
 import handleErrorMessage from '$lib/handleErrorMessage';
-import formatNumber from '$lib/formatNumber';
 import config from '$config';
 
 export default async function handleDownload(
@@ -23,19 +22,9 @@ export default async function handleDownload(
     return;
   }
 
-  const parsedUrl = new URL(url);
-  const hostData = config.scrapers.supportedHosts.find(x => x.host.includes(parsedUrl.hostname));
-  if (!hostData) {
-    addToast('We don\'t support this platform yet', { type: 'error' });
-    return;
-  }
-
-  const scraperName = hostData.name;
-  scraperNameStore.set(scraperName);
-
   isLoadingStore.set(true);
 
-  const response = await fetch(`${config.apiUrl}/scrapers/${scraperName.toLowerCase()}`, {
+  const response = await fetch(`${config.apiUrl}/scrapers/auto`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -54,10 +43,9 @@ export default async function handleDownload(
 
   urlStore.set('');
 
-  const responseData = (await response.json()).data;
-  for (const key in responseData.stats) {
-    responseData.stats[key] = formatNumber(responseData.stats[key]);
-  }
+  const scraperName = response.url.split('/').pop()!;
+  scraperNameStore.set(scraperName);
 
+  const responseData = (await response.json()).data;
   detailsStore.set(responseData);
 }

@@ -16,8 +16,8 @@
   import XDetails from '$components/Scrapers/X/Details.svelte';
 
   const detailsComponents: Record<string, ComponentType> = {
-    TikTok: TiktokDetails,
-    X: XDetails
+    tiktok: TiktokDetails,
+    x: XDetails
   };
 
   export const scraperName = writable('');
@@ -63,7 +63,7 @@
         Policy</a>
     </p>
 
-    {#if Object.keys($details).length && !$isLoading}
+    {#if Object.keys($details || {}).length && !$isLoading}
         <svelte:component this={detailsComponents[$scraperName]} details={$details}/>
     {/if}
 </div>
