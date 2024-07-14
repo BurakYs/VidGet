@@ -5,7 +5,7 @@ import { createWriteStream } from 'fs';
 
 export default async function cacheAsset(url: string, name: string, headers: RawAxiosRequestHeaders) {
   const fileExists = await fs.stat(`./public/${name}`).catch(() => null);
-  //if (fileExists) return app.rootUrl + `/assets/${name}`;
+  if (fileExists) return app.rootUrl + `/assets/${name}`;
 
   const isDirectory = name.split('/').length;
   const directory = isDirectory && name.split('/').slice(0, -1).join('/');
