@@ -23,7 +23,7 @@
     }
   }
 
-  export let getMediaUrl: (media: any) => string;
+  export let getMediaUrl: (media: typeof currentMedia) => string;
   export let className: string;
 </script>
 

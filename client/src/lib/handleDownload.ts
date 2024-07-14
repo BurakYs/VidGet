@@ -6,9 +6,11 @@ import config from '$config';
 export default async function handleDownload(
   urlStore: Writable<string>,
   scraperNameStore: Writable<string>,
-  detailsStore: Writable<any>,
+  detailsStore: Writable<Record<string, any>>,
   isLoadingStore: Writable<boolean>
 ) {
+  detailsStore.set({});
+
   const url = get(urlStore);
 
   if (!url?.trim()) {

@@ -12,7 +12,7 @@ export const toasts = writable<Toast[]>([]);
 export default function addToast(message: Toast['message'], config: Omit<Toast, 'id' | 'message'>) {
   const id = Math.random().toString(36).substring(2, 9);
   const type = config.type || 'info';
-  const timeout = config.timeout || 5000;
+  const timeout = config.timeout ?? 5000;
 
   toasts.set([{ id, message, type }]);
 
