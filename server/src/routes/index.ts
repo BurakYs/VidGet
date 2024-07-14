@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify';
-import { Request, Response } from '@/interfaces';
+import type { FastifyInstance } from 'fastify';
+import type { Request, Response } from '@/types';
 import fs from 'fs';
 
 const favicon = fs.readFileSync('./public/favicon.ico');
@@ -10,7 +10,7 @@ export default async (fastify: FastifyInstance) => {
     url: '/',
     handler: async (_request: Request, response: Response) => {
       response.code(200).send('ok');
-    },
+    }
   });
 
   fastify.route({
@@ -18,7 +18,7 @@ export default async (fastify: FastifyInstance) => {
     url: '/healthcheck',
     handler: async (_request: Request, response: Response) => {
       response.code(200).send('ok');
-    },
+    }
   });
 
   fastify.route({
@@ -26,6 +26,6 @@ export default async (fastify: FastifyInstance) => {
     url: '/favicon.ico',
     handler: async (_request: Request, response: Response) => {
       response.code(200).send(favicon);
-    },
+    }
   });
 };

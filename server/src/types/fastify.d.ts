@@ -1,5 +1,4 @@
-import './fastify';
-import { SendFunction } from '@/interfaces/Response';
+import type { SendCustomResponse } from '@/types';
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -7,7 +6,7 @@ declare module 'fastify' {
   }
 
   interface FastifyReply {
-    sendSuccess: SendFunction;
-    sendError: SendFunction;
+    sendSuccess: SendCustomResponse;
+    sendError: SendCustomResponse;
   }
 }

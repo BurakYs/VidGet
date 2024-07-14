@@ -1,9 +1,9 @@
 import { createWriteStream } from 'fs';
-import app from '@/config/app';
 import Cookie from '@/utils/classes/Cookie';
 import ScraperError from '@/utils/classes/ScraperError';
-import axios from 'axios';
 import fs from 'fs/promises';
+import app from '@/config/app';
+import axios from 'axios';
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
 

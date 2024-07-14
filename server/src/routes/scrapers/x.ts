@@ -1,7 +1,7 @@
-import { Request, Response } from '@/interfaces';
+import type { FastifyInstance } from 'fastify';
+import type { Request, Response } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
 import XScraper from '@/utils/scrapers/x';
-import { FastifyInstance } from 'fastify';
 
 import type { ScrapePost } from '@/schemas/scrapers/x';
 import { scrapePost } from '@/schemas/scrapers/x';

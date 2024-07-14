@@ -11,31 +11,10 @@ export default async function (page: Page, maxRequests: number = 50) {
     const isMaxed = requestCount >= maxRequests;
     if (isMaxed) throw new ScraperError('Max requests reached');
 
-    const unallowedResources: ResourceType[] = [
-      'stylesheet',
-      'image',
-      'media',
-      'font',
-      'script',
-      'texttrack',
-      'xhr',
-      'fetch',
-      'prefetch',
-      'eventsource',
-      'websocket',
-      'manifest',
-      'signedexchange',
-      'ping',
-      'cspviolationreport',
-      'preflight',
-      'other',
-    ];
+    const unallowedResources: ResourceType[] = ['stylesheet', 'image', 'media', 'font', 'script', 'texttrack', 'xhr', 'fetch', 'prefetch', 'eventsource', 'websocket', 'manifest', 'signedexchange', 'ping', 'cspviolationreport', 'preflight', 'other'];
     const isJsFile = req.url().endsWith('.js');
-    if (
-      unallowedResources.includes(req.resourceType()) ||
-      isJsFile ||
-      isMaxed
-    ) {
+
+    if (unallowedResources.includes(req.resourceType()) || isJsFile || isMaxed) {
       req.abort();
     } else {
       req.continue();

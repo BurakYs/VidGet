@@ -1,9 +1,9 @@
 {
-  "name": "video-downloader",
+  "name": "vidget",
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "@BurakYs",
-  "license": "ISC",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "node .",
@@ -11,8 +11,8 @@
     "build": "tsc",
     "check": "tsc --noEmit",
     "test": "vitest",
-    "lint": "biome lint",
-    "lint:fix": "biome lint --write"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
@@ -30,7 +30,6 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
     "@types/module-alias": "^2.0.4",
     "@types/node": "^20.12.7"
   },

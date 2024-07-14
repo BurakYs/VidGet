@@ -2,11 +2,9 @@ import { ILogObj, ISettingsParam } from 'tslog';
 
 const loggerSettings: ISettingsParam<ILogObj> = {
   type: 'pretty',
-  prettyLogTemplate:
-    '{{dd}}-{{mm}}-{{yyyy}} {{hh}}:{{mm}}:{{ss}} {{logLevelName}} {{filePathWithLine}}{{name}}  ',
+  prettyLogTemplate: '{{dd}}-{{mm}}-{{yyyy}} {{hh}}:{{mm}}:{{ss}} {{logLevelName}} {{filePathWithLine}}{{name}}  ',
   prettyErrorTemplate: '{{errorName}} {{errorMessage}}\n{{errorStack}}',
-  prettyErrorStackTemplate:
-    '  • {{fileName}} - {{method}} - {{filePathWithLine}}',
+  prettyErrorStackTemplate: '  • {{fileName}} - {{method}} - {{filePathWithLine}}',
   prettyLogTimeZone: 'UTC',
   stylePrettyLogs: true,
   prettyLogStyles: {
@@ -19,7 +17,7 @@ const loggerSettings: ISettingsParam<ILogObj> = {
       WARN: ['bold', 'yellow'],
       ERROR: ['bold', 'red'],
       FATAL: ['bold', 'redBright'],
-      REQUEST: ['bold', 'whiteBright'],
+      REQUEST: ['bold', 'whiteBright']
     },
     dateIsoStr: 'yellow',
     filePathWithLine: 'white',
@@ -27,8 +25,8 @@ const loggerSettings: ISettingsParam<ILogObj> = {
     nameWithDelimiterPrefix: ['white', 'bold'],
     nameWithDelimiterSuffix: ['white', 'bold'],
     errorName: ['bold', 'bgRedBright', 'white'],
-    fileName: ['yellow'],
-  },
+    fileName: ['yellow']
+  }
 };
 
 export default loggerSettings;

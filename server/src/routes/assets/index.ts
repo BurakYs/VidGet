@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify';
-import { Request, Response } from '@/interfaces';
+import type { FastifyInstance } from 'fastify';
+import type { Request, Response } from '@/types';
 import getMimeType from '@/utils/getMimeType';
 import fs from 'fs/promises';
 import path from 'path';
@@ -12,7 +12,7 @@ export default async (fastify: FastifyInstance) => {
     method: 'GET',
     url: '/*',
     schema: {
-      params: assetParams,
+      params: assetParams
     },
     handler: async (request: Request, response: Response) => {
       const params = request.params as AssetParams;
@@ -35,6 +35,6 @@ export default async (fastify: FastifyInstance) => {
       response.header('Content-Disposition', `attachment; filename=${name}`);
 
       response.code(200).send(file);
-    },
+    }
   });
 };

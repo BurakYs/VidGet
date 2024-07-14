@@ -1,4 +1,4 @@
-import { FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 
 export default function ip(request: FastifyRequest) {
   const headersToCheck = [
@@ -8,17 +8,10 @@ export default function ip(request: FastifyRequest) {
     'x-cluster-client-ip',
     'x-forwarded',
     'forwarded-for',
-    'forwarded',
+    'forwarded'
   ];
 
-  return (
-    headersToCheck.reduce(
-      (acc: string | undefined, header: string): string | undefined => {
-        return acc || (request.headers[header] as string);
-      },
-      undefined,
-    ) ||
-    request.socket?.remoteAddress ||
-    request.ip
-  );
+  return headersToCheck.reduce((acc: string | undefined, header: string): string | undefined => acc || (request.headers[header] as string), undefined)
+    || request.socket?.remoteAddress
+    || request.ip;
 }

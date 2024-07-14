@@ -3,7 +3,7 @@ import { z } from 'zod';
 export default function sendZodError(
   validator: (val: string) => boolean,
   val: string,
-  path: (string | number)[],
+  path: (string | number)[]
 ) {
   try {
     validator(val);
@@ -13,8 +13,8 @@ export default function sendZodError(
       {
         message: (error as Error).message,
         path,
-        code: 'custom',
-      },
+        code: 'custom'
+      }
     ]);
   }
 }

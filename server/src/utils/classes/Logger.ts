@@ -1,4 +1,4 @@
-import { ILogObj, ILogObjMeta, Logger } from 'tslog';
+import { type ILogObj, type ILogObjMeta, Logger } from 'tslog';
 import loggerSettings from '@/config/logger';
 
 export default class CustomLogger extends Logger<ILogObj> {

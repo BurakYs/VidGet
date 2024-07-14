@@ -1,5 +1,5 @@
 import fp from 'fastify-plugin';
-import fastifyRateLimit, { RateLimitPluginOptions } from '@fastify/rate-limit';
+import fastifyRateLimit, { type RateLimitPluginOptions } from '@fastify/rate-limit';
 
 const rateLimiter = fp(async (fastify) => {
   fastify.register(fastifyRateLimit, {
@@ -15,13 +15,13 @@ const rateLimiter = fp(async (fastify) => {
       'x-ratelimit-limit': false,
       'x-ratelimit-remaining': false,
       'x-ratelimit-reset': true,
-      'retry-after': false,
+      'retry-after': false
     },
     addHeaders: {
       'x-ratelimit-limit': false,
       'x-ratelimit-remaining': true,
-      'x-ratelimit-reset': false,
-    },
+      'x-ratelimit-reset': false
+    }
   } as RateLimitPluginOptions);
 });
 

@@ -11,7 +11,7 @@ export default function getMimeType(extension: string) {
     '.json': 'application/json',
     '.mp3': 'audio/mpeg',
     '.mp4': 'video/mp4',
-    '.mov': 'video/quicktime',
+    '.mov': 'video/quicktime'
   };
 
   return mimeTypes[extension.toLowerCase()] || 'application/octet-stream';
