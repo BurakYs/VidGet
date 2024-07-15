@@ -17,24 +17,17 @@ export default class Server {
   public async create() {
     const ipAddressesToIgnore = process.env.LOG_IGNORE_IPS?.split(',') || [];
 
-    this.server.withTypeProvider<ZodTypeProvider>().setValidatorCompiler(validatorCompiler).setSerializerCompiler(serializerCompiler);
+    this.server
+      .withTypeProvider<ZodTypeProvider>()
+      .setValidatorCompiler(validatorCompiler)
+      .setSerializerCompiler(serializerCompiler);
 
     this.server.decorateReply('sendError', function (message, status, otherProperties) {
-      return this.code(status).send({
-        success: false,
-        status,
-        error: message,
-        ...otherProperties
-      });
+      return this.code(status).send({ success: false, status, error: message, ...otherProperties });
     });
 
     this.server.decorateReply('sendSuccess', function (message, status, otherProperties) {
-      return this.code(status).send({
-        success: true,
-        status,
-        data: message,
-        ...otherProperties
-      });
+      return this.code(status).send({ success: true, status, data: message, ...otherProperties });
     });
 
     this.server.addHook('onRequest', async (request) => {
@@ -51,7 +44,7 @@ export default class Server {
 
     this.server.setErrorHandler((error: ZodError & FastifyError, _request: Request, response: Response) => {
       if (error.code === 'FST_ERR_VALIDATION') {
-        response.sendError('Invalid Parameters', 400, {
+        response.sendError('Invalid parameters provided', 400, {
           validationFailures: error.issues.map((x) => ({
             path: x.path.join('.'),
             message: x.message
@@ -60,12 +53,12 @@ export default class Server {
         return;
       }
       if (error.statusCode === 429) {
-        response.sendError('Too Many Requests', 429);
+        response.sendError('Too many requests', 429);
         return;
       }
 
       global.logger.error(error);
-      response.sendError('Internal Server Error', 500);
+      response.sendError('An error occurred on our side', 500);
     });
 
     this.server.setNotFoundHandler((_request: Request, response: Response) => {
@@ -105,6 +98,7 @@ export default class Server {
 
     for (let file of files) {
       file = './' + file.replace(/\\/g, '/').substring(file.indexOf('plugins'));
+
       const plugin = await import(file);
       this.server.register(plugin.default);
     }
