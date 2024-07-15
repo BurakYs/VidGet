@@ -47,7 +47,8 @@ export default class TikTokScraper {
     }
 
     const additionalData: Record<string, any> = {};
-    const isSlideshow = !!details.imagePost.images;
+    const isSlideshow = !!details.imagePost?.images;
+
     if (isSlideshow) {
       const slideshows = details.imagePost.images.map((x: any) => x.imageURL.urlList[0]);
       const images = await Promise.all(slideshows.map((x: string, i: number) => this.downloadAsset(x, `${postId}_${i}.jpg`, cookieManager.toString())));
