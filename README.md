@@ -40,7 +40,6 @@ cd server && npm run dev
 - [ ] Organize the project structure
 - [ ] Add Instagram and YouTube download support
 - [ ] Add a download history page
-- [ ] Add a FAQ section
 - [ ] Add a "Direct Download" preference
 
 ## 🤝 Community
