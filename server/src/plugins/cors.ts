@@ -5,7 +5,7 @@ import app from '@/config/app';
 const cors = fp(async (fastify) => {
   fastify.register(fastifyCors, {
     methods: ['GET', 'POST'],
-    origin: app.frontEndUrl
+    origin: process.env.NODE_ENV === 'development' ? '*' : app.frontEndUrl
   } as FastifyCorsOptions);
 });
 
