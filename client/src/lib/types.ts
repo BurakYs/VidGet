@@ -18,7 +18,7 @@ export type ScraperPostAsset = {
 export type ScraperPost = {
   id: string;
   description?: string;
-  assets: Array<ScraperPostAsset>
+  assets: Array<ScraperPostAsset>;
 }
 
 export type ScraperAuthor = {
