@@ -7,7 +7,9 @@ const root = path.join(__dirname, '../../public');
 const staticServer = fp(async (fastify) => {
   fastify.register(fastifyStatic, {
     root,
-    prefix: '/assets'
+    prefix: '/assets',
+    cacheControl: true,
+    maxAge: '15m'
   } as FastifyStaticOptions);
 
   fastify.get('/favicon.ico', (_request, response) => {
