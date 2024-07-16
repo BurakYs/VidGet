@@ -1,7 +1,7 @@
 const { NODE_ENV = '', PORT = 3000, FRONTEND_PORT = 5173 } = process.env;
 
 const isProduction = ['prod', 'production'].includes(NODE_ENV.toLowerCase());
-const productionUrl = 'https://vidget-api.buraky.live';
+const productionUrl = 'https://api.vidget.xyz';
 
 const frontEndUrl = 'https://vidget.buraky.live';
 const frontEndPort = FRONTEND_PORT;
