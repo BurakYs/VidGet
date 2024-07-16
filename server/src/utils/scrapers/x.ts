@@ -2,6 +2,7 @@ import ScraperError from '@/utils/classes/ScraperError';
 import puppeteer from 'puppeteer';
 import axios from 'axios';
 import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
+import { ScraperResult } from '@/types';
 
 type AnObject = Record<string, any>;
 
@@ -73,34 +74,29 @@ export default class XScraper {
     if (!postData.mediaDetails?.length) throw new ScraperError('No media found in the post');
 
     return {
+      type: postData.mediaDetails?.length > 1 ? 'slideshow' : 'video',
       post: {
         id: postData.id_str,
-        text: postData.text,
-        favoriteCount: postData.favorite_count,
-        media: postData.mediaDetails.map((media: AnObject) => ({
-          shortUrl: media.display_url.startsWith('http') ? media.display_url : `https://${media.display_url}`,
-          expandedUrl: media.expanded_url,
-          poster: media.poster || media.media_url_https || undefined,
-          videoDuration: media.type === 'video' ? media.duration_millis : undefined,
-          url:
+        description: postData.text,
+        assets: postData.mediaDetails.map((media: AnObject) => ({
+          type: media.type,
+          cover: media.poster || media.media_url_https || undefined,
+          download:
             media.type === 'photo'
               ? media.media_url_https
               : media.video_info.variants
                 .sort((a: AnObject, b: AnObject) => (b.bitrate || 0) - (a.bitrate || 0))
                 .find((variant: AnObject) => variant.content_type === 'video/mp4').url ||
-              media.video_info.variants.sort((a: AnObject, b: AnObject) => (b.bitrate || 0) - (a.bitrate || 0))[0].url,
-          type: media.type
+              media.video_info.variants.sort((a: AnObject, b: AnObject) => (b.bitrate || 0) - (a.bitrate || 0))[0].url
         }))
       },
       author: {
         id: postData.user.id_str,
         username: postData.user.screen_name,
-        name: postData.user.name,
-        profilePicture: postData.user.profile_image_url_https.replace('_normal.', '_400x400.'),
-        verified: postData.user.verified,
-        verifiedType: postData.user.verified_type
+        nickname: postData.user.name,
+        avatar: postData.user.profile_image_url_https.replace('_normal.', '_400x400.')
       }
-    };
+    } as ScraperResult;
   }
 
   static getToken(id: string) {

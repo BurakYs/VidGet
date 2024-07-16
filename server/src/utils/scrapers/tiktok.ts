@@ -2,6 +2,7 @@ import Cookie from '@/utils/classes/Cookie';
 import ScraperError from '@/utils/classes/ScraperError';
 import axios from 'axios';
 import cacheAsset from '@/utils/cacheAsset';
+import { ScraperResult } from '@/types';
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
 
@@ -46,39 +47,28 @@ export default class TikTokScraper {
       throw new ScraperError('Failed to fetch post details. Please try again later');
     }
 
-    const additionalData: Record<string, any> = {};
+    let assets: ScraperResult['post']['assets'];
     const isSlideshow = !!details.imagePost?.images;
 
     if (isSlideshow) {
       const slideshows = details.imagePost.images.map((x: any) => x.imageURL.urlList[0]);
       const images = await Promise.all(slideshows.map((x: string, i: number) => this.downloadAsset(x, `${postId}_${i}.jpg`, cookieManager.toString())));
 
-      additionalData.slideshow = { images };
+      assets = images.map(x => ({ cover: x, download: x }));
     } else {
       const { video } = details;
 
-      const [withoutWatermark, withWatermark] = await Promise.all([
-        this.downloadAsset(details.video.playAddr, `${postId}.mp4`, cookieManager.toString()),
-        this.downloadAsset(details.video.downloadAddr, `${postId}_watermark.mp4`, cookieManager.toString())
-      ]);
+      const playUrl = await this.downloadAsset(details.video.playAddr, `${postId}.mp4`, cookieManager.toString());
 
-      additionalData.video = {
-        height: video.height,
-        width: video.width,
-        duration: video.duration,
-        cover: video.cover,
-        withoutWatermark,
-        withWatermark
-      };
+      assets = [{ cover: video.cover, download: playUrl }];
     }
 
     return {
-      ...additionalData,
       type: isSlideshow ? 'slideshow' : 'video',
       post: {
         id: details.id,
         description: details.desc?.trim(),
-        createdAt: new Date(details.createTime * 1000).getTime()
+        assets
       },
       author: {
         id: details.author.uid,
@@ -86,14 +76,14 @@ export default class TikTokScraper {
         nickname: details.author.nickname,
         avatar: details.author.avatarLarger
       },
-      music: {
+      audio: {
         id: details.music.id,
         title: details.music.title,
         author: details.music.authorName,
         original: details.music.original,
         cover: details.music.coverLarge,
         duration: details.music.duration,
-        playUrl: await this.downloadAsset(details.music.playUrl, `${details.music.id}.mp3`, cookieManager.toString())
+        download: await this.downloadAsset(details.music.playUrl, `${details.music.id}.mp3`, cookieManager.toString())
       },
       stats: {
         likes: Number(details.statsV2.diggCount),
@@ -103,7 +93,7 @@ export default class TikTokScraper {
         favorites: Number(details.statsV2.shareCount),
         reposts: Number(details.statsV2.shareCount)
       }
-    };
+    } as ScraperResult;
   }
 
   static async downloadAsset(url: string, name: string, cookie: string) {

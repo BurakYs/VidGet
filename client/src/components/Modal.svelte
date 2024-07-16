@@ -1,7 +1,7 @@
 <script lang="ts">
   import '$lib/styles/fade.css';
 
-  let isModalOpen = true;
+  export let isModalOpen = true;
 
   function closeModal() {
     isModalOpen = false;
@@ -9,7 +9,7 @@
 </script>
 
 {#if isModalOpen}
-    <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out"
+    <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out cursor-default"
          on:click={closeModal}
          on:keydown={(e) => e.key === 'Escape' && closeModal()}
          aria-label="Close Modal"

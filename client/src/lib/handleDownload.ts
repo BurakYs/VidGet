@@ -1,4 +1,5 @@
 import { get, type Writable } from 'svelte/store';
+import type { ScraperResult } from '$lib/types';
 import addToast from '$stores/toastStore';
 import handleErrorMessage from '$lib/handleErrorMessage';
 import config from '$config';
@@ -6,7 +7,7 @@ import config from '$config';
 export default async function handleDownload(
   urlStore: Writable<string>,
   scraperNameStore: Writable<string>,
-  detailsStore: Writable<Record<string, any>>,
+  detailsStore: Writable<ScraperResult | object>,
   isLoadingStore: Writable<boolean>
 ) {
   detailsStore.set({});

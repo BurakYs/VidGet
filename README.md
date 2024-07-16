@@ -37,7 +37,7 @@ cd server && npm run dev
 
 ## 📋 Todo
 
-- [ ] Organize the project structure
+- [X] Organize the project structure
 - [ ] Add Instagram and YouTube download support
 - [ ] Add a download history page
 - [ ] Add a "Direct Download" preference

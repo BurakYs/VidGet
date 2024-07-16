@@ -3,8 +3,8 @@
 </svelte:head>
 
 <script lang="ts">
-  import type { ComponentType } from 'svelte';
-  import { writable } from 'svelte/store';
+  import { type Writable, writable } from 'svelte/store';
+  import type { ScraperResult as TScraperResult } from '$lib/types';
   import handleDownload from '$lib/handleDownload';
   import config from '$config';
 
@@ -12,17 +12,11 @@
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import DownloadIcon from 'lucide-svelte/icons/download';
 
-  import TiktokDetails from '$components/Scrapers/TikTok/BaseDetails.svelte';
-  import XDetails from '$components/Scrapers/X/Details.svelte';
-
-  const detailsComponents: Record<string, ComponentType> = {
-    tiktok: TiktokDetails,
-    x: XDetails
-  };
+  import ScraperResult from '$components/ScraperResult.svelte';
 
   export const scraperName = writable('');
   export const url = writable('');
-  export const details = writable({});
+  export const details: Writable<TScraperResult> = writable();
   export const isLoading = writable(false);
 
   async function download() {
@@ -64,6 +58,6 @@
     </p>
 
     {#if Object.keys($details || {}).length && !$isLoading}
-        <svelte:component this={detailsComponents[$scraperName]} details={$details}/>
+        <ScraperResult details={$details}/>
     {/if}
 </div>
