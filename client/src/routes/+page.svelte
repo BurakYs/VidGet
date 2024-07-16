@@ -12,7 +12,7 @@
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import DownloadIcon from 'lucide-svelte/icons/download';
 
-  import ScraperResult from '$components/ScraperResult.svelte';
+  import ScraperResult from '$components/Scraper/Result.svelte';
 
   export const scraperName = writable('');
   export const url = writable('');

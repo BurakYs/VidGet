@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { ScraperPostAsset, ScraperResult } from '$lib/types';
-  import DownloadIcon from 'lucide-svelte/icons/download';
-  import FileAudioIcon from 'lucide-svelte/icons/file-audio';
   import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
   import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
+  import DownloadButton from '$components/Scraper/DownloadButton.svelte';
+  import { writable } from 'svelte/store';
 
   export let mediaList: ScraperResult['post']['assets'] = [];
   export let getMediaData: (media: ScraperPostAsset) => ScraperPostAsset;
@@ -25,6 +25,9 @@
   function nextMedia() {
     if (canNext) currentMediaIndex += 1;
   }
+
+  let assetsDownloading = writable(mediaList.map(x => ({ url: x.download || x.cover, isDownloading: false })));
+  let audiosDownloading = writable([{ url: soundUrl, isDownloading: false }]);
 </script>
 
 <div class="relative w-full flex items-center justify-center">
@@ -38,16 +41,10 @@
                 </button>
 
                 <div class="flex items-center justify-center font-medium space-x-6">
-                    <a class="flex items-center space-x-1" href={currentMediaData.download || currentMediaData.cover} target="_blank" download>
-                        <DownloadIcon class="w-5 h-5"/>
-                        <span>Download</span>
-                    </a>
+                    <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} fileStore={assetsDownloading} text="Download"/>
 
                     {#if soundUrl}
-                        <a class="flex items-center space-x-1" href={soundUrl} target="_blank" download>
-                            <FileAudioIcon class="w-5 h-5"/>
-                            <span>Sound</span>
-                        </a>
+                        <DownloadButton downloadUrl={soundUrl} fileStore={audiosDownloading} text="Sound"/>
                     {/if}
                 </div>
 
@@ -57,21 +54,11 @@
             {:else}
                 {#if soundUrl}
                     <div class="flex items-center justify-center font-medium space-x-6">
-                        <a class="flex items-center space-x-1" href={currentMediaData.download || currentMediaData.cover} target="_blank" download>
-                            <DownloadIcon class="w-5 h-5"/>
-                            <span>Download</span>
-                        </a>
-                        <a class="flex items-center space-x-1" href={soundUrl} target="_blank" download>
-                            <FileAudioIcon class="w-5 h-5"/>
-                            <span>Sound</span>
-                        </a>
+                        <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} fileStore={assetsDownloading} text="Download"/>
+                        <DownloadButton downloadUrl={soundUrl} fileStore={audiosDownloading} text="Sound"/>
                     </div>
                 {:else}
-                    <a class="flex items-center justify-center space-x-1 w-full" href={currentMediaData.download || currentMediaData.cover} target="_blank"
-                       download>
-                        <DownloadIcon class="w-5 h-5"/>
-                        <span>Download</span>
-                    </a>
+                    <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} fileStore={assetsDownloading} text="Download"/>
                 {/if}
             {/if}
         </div>
