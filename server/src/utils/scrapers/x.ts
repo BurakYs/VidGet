@@ -1,8 +1,6 @@
 import type { ScraperResult } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
 import NodeCache from 'node-cache';
-import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
-import puppeteer from 'puppeteer';
 import axios from 'axios';
 import app from '@/config/app';
 
@@ -10,24 +8,6 @@ const cache = new NodeCache({ stdTTL: app.standardCacheTTL });
 
 export default class XScraper {
   static async scrape(postUrl: string) {
-    const url = new URL(postUrl);
-    if (url.hostname === 't.co') {
-      const browser = await puppeteer.launch();
-      const page = await browser.newPage();
-
-      await applyPuppeteerInterception(page);
-
-      await page.goto(postUrl);
-      const finalUrl = page.url();
-      await browser.close();
-
-      return await this.scrapePost(finalUrl);
-    }
-
-    return await this.scrapePost(postUrl);
-  }
-
-  static async scrapePost(postUrl: string) {
     const id = postUrl.split('/')[5].split('?')[0];
     if (isNaN(Number(id))) throw new ScraperError('Invalid post ID');
 

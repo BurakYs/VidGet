@@ -17,7 +17,7 @@ const AppConfig = {
       name: 'TikTok'
     },
     {
-      hosts: ['twitter.com', 'x.com', 't.co'],
+      hosts: ['twitter.com', 'x.com'],
       name: 'X'
     }
   ]
