@@ -38,7 +38,7 @@ export default {
   downloads: {
     android: {
       enabled: false,
-      url: 'https://app.buraky.live/android'
+      url: 'https://app.vidget.xyz/android'
     }
   }
 };
