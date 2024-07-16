@@ -31,8 +31,6 @@
 
         <div class="flex items-center justify-center">
             <MediaPagination
-                    getMediaData={(media) => ({ cover: media.cover, download: media.download })}
-                    makePagination={details.type === 'slideshow'}
                     mediaList={assets}
                     soundUrl={details.audio?.download}
             />
