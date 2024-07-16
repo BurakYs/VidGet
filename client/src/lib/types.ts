@@ -1,13 +1,13 @@
 type SuccessData = unknown;
 
-type ErrorData = string
+type ErrorData = string;
 
 export type APIResponse<Success = true> = {
   success: Success;
   status: number;
   data: Success extends true ? SuccessData : null;
   error: Success extends false ? ErrorData : null;
-};
+}
 
 export type ScraperPostAsset = {
   type?: string;
@@ -19,14 +19,14 @@ export type ScraperPost = {
   id: string;
   description?: string;
   assets: Array<ScraperPostAsset>
-};
+}
 
 export type ScraperAuthor = {
   id: string;
   username: string;
   nickname: string;
   avatar: string;
-};
+}
 
 export type ScraperAudio = {
   id: string;
@@ -36,7 +36,7 @@ export type ScraperAudio = {
   cover: string;
   duration: number;
   download: string;
-};
+}
 
 export type ScraperStats = Partial<{
   likes: number;
@@ -45,7 +45,7 @@ export type ScraperStats = Partial<{
   plays: number;
   favorites: number;
   reposts: number;
-}>;
+}>
 
 export type ScraperResult = {
   type: 'video' | 'slideshow';
