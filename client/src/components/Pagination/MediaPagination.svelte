@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { ScraperResult } from '$lib/types';
+  import type { ScraperPostAsset, ScraperResult } from '$lib/types';
   import DownloadIcon from 'lucide-svelte/icons/download';
   import FileAudioIcon from 'lucide-svelte/icons/file-audio';
   import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
   import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
 
   export let mediaList: ScraperResult['post']['assets'] = [];
-  export let getMediaData: (media: typeof currentMedia) => { cover: string, download?: string | null };
+  export let getMediaData: (media: ScraperPostAsset) => ScraperPostAsset;
   export let soundUrl: string;
   export let makePagination: boolean = true;
 
