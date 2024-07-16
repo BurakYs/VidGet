@@ -93,7 +93,7 @@ export default class TikTokScraper {
         favorites: Number(details.statsV2.shareCount),
         reposts: Number(details.statsV2.shareCount)
       }
-    } as ScraperResult;
+    } satisfies ScraperResult;
   }
 
   static async downloadAsset(url: string, name: string, cookie: string) {

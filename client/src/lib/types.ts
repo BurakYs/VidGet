@@ -35,7 +35,7 @@ export type ScraperAudio = {
   original?: boolean;
   cover: string;
   duration: number;
-  download: string;
+  download?: string;
 }
 
 export type ScraperStats = Partial<{
@@ -51,6 +51,6 @@ export type ScraperResult = {
   type: 'video' | 'slideshow';
   post: ScraperPost;
   author: ScraperAuthor;
-  audio: ScraperAudio;
+  audio?: ScraperAudio;
   stats?: ScraperStats;
 }

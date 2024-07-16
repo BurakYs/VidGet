@@ -96,7 +96,7 @@ export default class XScraper {
         nickname: postData.user.name,
         avatar: postData.user.profile_image_url_https.replace('_normal.', '_400x400.')
       }
-    } as ScraperResult;
+    } satisfies ScraperResult;
   }
 
   static getToken(id: string) {

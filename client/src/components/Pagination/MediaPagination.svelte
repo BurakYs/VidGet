@@ -11,7 +11,7 @@
 
   export let mediaList: ScraperResult['post']['assets'] = [];
   export let getMediaData: (media: ScraperPostAsset) => ScraperPostAsset;
-  export let soundUrl: string;
+  export let soundUrl: string | null | undefined;
   export let makePagination: boolean = true;
 
   let currentMediaIndex = 0;

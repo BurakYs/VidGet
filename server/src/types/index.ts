@@ -28,14 +28,14 @@ export type ScraperResult = {
     nickname: string;
     avatar: string;
   };
-  audio: {
+  audio?: {
     id: string;
     title: string;
     author?: string;
     original?: boolean;
     cover: string;
     duration: number;
-    download: string;
+    download?: string | null;
   };
   stats?: Partial<{
     likes: number;
