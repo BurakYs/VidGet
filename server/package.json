@@ -26,6 +26,7 @@
     "fastify-type-provider-zod": "^1.1.9",
     "glob": "^10.3.12",
     "module-alias": "^2.2.3",
+    "node-cache": "^5.1.2",
     "puppeteer": "^22.10.0",
     "tslog": "^4.9.2",
     "zod": "^3.22.4"

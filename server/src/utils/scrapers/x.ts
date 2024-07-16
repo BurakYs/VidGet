@@ -1,10 +1,12 @@
+import type { ScraperResult } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
+import NodeCache from 'node-cache';
+import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
 import puppeteer from 'puppeteer';
 import axios from 'axios';
-import applyPuppeteerInterception from '@/utils/applyPuppeteerInterception';
-import { ScraperResult } from '@/types';
+import app from '@/config/app';
 
-type AnObject = Record<string, any>;
+const cache = new NodeCache({ stdTTL: app.standardCacheTTL });
 
 export default class XScraper {
   static async scrape(postUrl: string) {
@@ -25,13 +27,14 @@ export default class XScraper {
     return await this.scrapePost(postUrl);
   }
 
-  static async scrapePost(postUrL: string) {
-    const id = postUrL.split('/')[5].split('?')[0];
-
+  static async scrapePost(postUrl: string) {
+    const id = postUrl.split('/')[5].split('?')[0];
     if (isNaN(Number(id))) throw new ScraperError('Invalid post ID');
 
-    const token = this.getToken(id);
+    const cachedData = cache.get(id);
+    if (cachedData) return cachedData;
 
+    const token = this.getToken(id);
     const url = new URL('https://cdn.syndication.twimg.com/tweet-result');
 
     url.searchParams.set('id', id);
@@ -73,21 +76,20 @@ export default class XScraper {
 
     if (!postData.mediaDetails?.length) throw new ScraperError('No media found in the post');
 
-    return {
-      type: postData.mediaDetails?.length > 1 ? 'slideshow' : 'video',
+    const data = {
       post: {
         id: postData.id_str,
         description: postData.text,
-        assets: postData.mediaDetails.map((media: AnObject) => ({
+        assets: postData.mediaDetails.map((media: any) => ({
           type: media.type,
           cover: media.poster || media.media_url_https || undefined,
           download:
             media.type === 'photo'
               ? media.media_url_https
               : media.video_info.variants
-                .sort((a: AnObject, b: AnObject) => (b.bitrate || 0) - (a.bitrate || 0))
-                .find((variant: AnObject) => variant.content_type === 'video/mp4').url ||
-              media.video_info.variants.sort((a: AnObject, b: AnObject) => (b.bitrate || 0) - (a.bitrate || 0))[0].url
+                .sort((a: any, b: any) => (b.bitrate || 0) - (a.bitrate || 0))
+                .find((variant: any) => variant.content_type === 'video/mp4').url ||
+              media.video_info.variants.sort((a: any, b: any) => (b.bitrate || 0) - (a.bitrate || 0))[0].url
         }))
       },
       author: {
@@ -97,6 +99,10 @@ export default class XScraper {
         avatar: postData.user.profile_image_url_https.replace('_normal.', '_400x400.')
       }
     } satisfies ScraperResult;
+
+    cache.set(id, data);
+
+    return;
   }
 
   static getToken(id: string) {

@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import type { Request, Response } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
 import XScraper from '@/utils/scrapers/x';
+import app from '@/config/app';
 
 import type { ScrapePost } from '@/schemas/scrapers/x';
 import { scrapePost } from '@/schemas/scrapers/x';
@@ -16,7 +17,7 @@ export default async (fastify: FastifyInstance) => {
     handler: async (request: Request, response: Response) => {
       const { url } = request.body as ScrapePost;
 
-      const xHosts = ['twitter.com', 'x.com', 't.co'];
+      const xHosts = app.supportedPlatforms.find(platform => platform.name === 'X')!.hosts;
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
       if (!hostname || !xHosts.includes(hostname)) {
@@ -26,6 +27,7 @@ export default async (fastify: FastifyInstance) => {
 
       try {
         const scraped = await XScraper.scrape(url);
+        response.header('Cache-Control', `public, max-age=${app.standardCacheTTL}`);
         response.sendSuccess(scraped, 200);
       } catch (error) {
         if (error instanceof ScraperError) {

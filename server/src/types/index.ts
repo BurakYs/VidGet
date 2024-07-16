@@ -12,7 +12,6 @@ export type Response = FastifyReply & {
 }
 
 export type ScraperResult = {
-  type: 'video' | 'slideshow';
   post: {
     id: string;
     description?: string;

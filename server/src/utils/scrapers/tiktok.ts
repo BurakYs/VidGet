@@ -1,10 +1,12 @@
+import type { ScraperResult } from '@/types';
 import Cookie from '@/utils/classes/Cookie';
 import ScraperError from '@/utils/classes/ScraperError';
+import NodeCache from 'node-cache';
 import axios from 'axios';
 import cacheAsset from '@/utils/cacheAsset';
-import { ScraperResult } from '@/types';
+import app from '@/config/app';
 
-const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
+const cache = new NodeCache({ stdTTL: app.standardCacheTTL });
 
 export default class TikTokScraper {
   static async scrape(postUrl: string) {
@@ -17,7 +19,7 @@ export default class TikTokScraper {
 
     const response = await axios.get(postUrl, {
       headers: {
-        'User-Agent': userAgent
+        'User-Agent': app.defaultUserAgent
       }
     });
 
@@ -27,11 +29,14 @@ export default class TikTokScraper {
   }
 
   static async scrapePost(postId: string) {
+    const cachedData = cache.get(postId);
+    if (cachedData) return cachedData;
+
     const cookieManager = new Cookie();
 
     const response = await axios.get(`https://tiktok.com/@i/video/${postId}`, {
       headers: {
-        'User-Agent': userAgent,
+        'User-Agent': app.defaultUserAgent,
         Cookie: cookieManager.toString()
       }
     });
@@ -63,8 +68,7 @@ export default class TikTokScraper {
       assets = [{ cover: video.cover, download: playUrl }];
     }
 
-    return {
-      type: isSlideshow ? 'slideshow' : 'video',
+    const data = {
       post: {
         id: details.id,
         description: details.desc?.trim(),
@@ -94,11 +98,15 @@ export default class TikTokScraper {
         reposts: Number(details.statsV2.shareCount)
       }
     } satisfies ScraperResult;
+
+    cache.set(postId, data);
+
+    return data;
   }
 
   static async downloadAsset(url: string, name: string, cookie: string) {
     return await cacheAsset(url, 'tiktok/' + name, {
-      'User-Agent': userAgent,
+      'User-Agent': app.defaultUserAgent,
       Cookie: cookie
     });
   }
