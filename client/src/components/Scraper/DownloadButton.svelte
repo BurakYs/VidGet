@@ -1,17 +1,18 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
+  import type { ComponentType } from 'svelte';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
-  import FileAudioIcon from 'lucide-svelte/icons/file-audio';
   import saveFile from '$lib/saveFile';
 
   export let downloadUrl: string;
+  export let defaultIcon: ComponentType;
   export let fileStore: Writable<Array<{ url: string, isDownloading: boolean }>>;
   export let text: string;
   $: isDownloading = $fileStore.find(x => x.url === downloadUrl)?.isDownloading;
 
   $: currentComponent = isDownloading
     ? { component: LoaderCircleIcon, className: 'w-5 h-5 animate-spin' }
-    : { component: FileAudioIcon, className: 'w-5 h-5' };
+    : { component: defaultIcon, className: 'w-5 h-5' };
 </script>
 
 <button

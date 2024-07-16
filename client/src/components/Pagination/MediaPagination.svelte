@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { ScraperPostAsset, ScraperResult } from '$lib/types';
+
   import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
   import ArrowRightIcon from 'lucide-svelte/icons/arrow-right';
+  import DownloadIcon from 'lucide-svelte/icons/download';
+  import FileAudioIcon from 'lucide-svelte/icons/file-audio';
+
   import DownloadButton from '$components/Scraper/DownloadButton.svelte';
   import { writable } from 'svelte/store';
 
@@ -41,10 +45,11 @@
                 </button>
 
                 <div class="flex items-center justify-center font-medium space-x-6">
-                    <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} fileStore={assetsDownloading} text="Download"/>
+                    <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} defaultIcon={DownloadIcon} fileStore={assetsDownloading}
+                                    text="Download"/>
 
                     {#if soundUrl}
-                        <DownloadButton downloadUrl={soundUrl} fileStore={audiosDownloading} text="Sound"/>
+                        <DownloadButton downloadUrl={soundUrl} defaultIcon={FileAudioIcon} fileStore={audiosDownloading} text="Sound"/>
                     {/if}
                 </div>
 
@@ -54,11 +59,14 @@
             {:else}
                 {#if soundUrl}
                     <div class="flex items-center justify-center font-medium space-x-6">
-                        <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} fileStore={assetsDownloading} text="Download"/>
-                        <DownloadButton downloadUrl={soundUrl} fileStore={audiosDownloading} text="Sound"/>
+                        <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} defaultIcon={DownloadIcon}
+                                        fileStore={assetsDownloading}
+                                        text="Download"/>
+                        <DownloadButton downloadUrl={soundUrl} defaultIcon={FileAudioIcon} fileStore={audiosDownloading} text="Sound"/>
                     </div>
                 {:else}
-                    <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} fileStore={assetsDownloading} text="Download"/>
+                    <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} defaultIcon={DownloadIcon} fileStore={assetsDownloading}
+                                    text="Download"/>
                 {/if}
             {/if}
         </div>
