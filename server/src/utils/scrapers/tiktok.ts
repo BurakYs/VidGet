@@ -1,9 +1,9 @@
-import type { ScraperResult } from '@/types';
+import type { ScraperResult, ScraperReturnData } from '@/types';
 import Cookie from '@/utils/classes/Cookie';
 import ScraperError from '@/utils/classes/ScraperError';
 import NodeCache from 'node-cache';
-import axios from 'axios';
 import cacheAsset from '@/utils/cacheAsset';
+import axios from 'axios';
 import app from '@/config/app';
 
 const cache = new NodeCache({ stdTTL: app.standardCacheTTL });
@@ -28,9 +28,9 @@ export default class TikTokScraper {
     return await this.scrapePost(id);
   }
 
-  static async scrapePost(postId: string) {
+  static async scrapePost(postId: string): Promise<ScraperReturnData> {
     const cachedData = cache.get(postId);
-    if (cachedData) return cachedData;
+    if (cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(postId) };
 
     const cookieManager = new Cookie();
 
@@ -68,7 +68,7 @@ export default class TikTokScraper {
       assets = [{ cover: video.cover, download: playUrl }];
     }
 
-    const data = {
+    const data: ScraperResult = {
       post: {
         id: details.id,
         description: details.desc?.trim(),
@@ -97,11 +97,11 @@ export default class TikTokScraper {
         favorites: Number(details.statsV2.shareCount),
         reposts: Number(details.statsV2.shareCount)
       }
-    } satisfies ScraperResult;
+    };
 
     cache.set(postId, data);
 
-    return data;
+    return { data };
   }
 
   static async downloadAsset(url: string, name: string, cookie: string) {

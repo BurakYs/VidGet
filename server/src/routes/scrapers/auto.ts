@@ -16,7 +16,10 @@ export default async (fastify: FastifyInstance) => {
       const { url } = request.body as ScrapeAuto;
 
       const scraper = app.supportedPlatforms.find(platform => platform.hosts.includes(new URL(url).hostname));
-      if (!scraper) return response.sendError('We don\'t support this platform yet', 400);
+      if (!scraper) {
+        response.sendError('We don\'t support this platform yet', 400);
+        return;
+      }
 
       response.code(307).redirect(`/scrapers/${scraper.name.toLowerCase()}`);
     }

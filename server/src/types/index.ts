@@ -45,3 +45,5 @@ export type ScraperResult = {
     reposts: number;
   }>;
 }
+
+export type ScraperReturnData = { data: ScraperResult, cacheTTL?: number };

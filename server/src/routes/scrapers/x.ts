@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import type { Request, Response } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
 import XScraper from '@/utils/scrapers/x';
+import calculateTTLSeconds from '@/utils/calculateTTLSeconds';
 import app from '@/config/app';
 
 import type { ScrapePost } from '@/schemas/scrapers/x';
@@ -27,8 +28,8 @@ export default async (fastify: FastifyInstance) => {
 
       try {
         const scraped = await XScraper.scrape(url);
-        response.header('Cache-Control', `public, max-age=${app.standardCacheTTL}`);
-        response.sendSuccess(scraped, 200);
+        response.header('Cache-Control', `public, max-age=${calculateTTLSeconds(scraped.cacheTTL)}`);
+        response.sendSuccess(scraped.data, 200);
       } catch (error) {
         if (error instanceof ScraperError) {
           response.sendError(error.message, 500);

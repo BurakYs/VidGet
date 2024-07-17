@@ -1,4 +1,4 @@
-import type { ScraperResult } from '@/types';
+import type { ScraperResult, ScraperReturnData } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
 import NodeCache from 'node-cache';
 import axios from 'axios';
@@ -7,12 +7,12 @@ import app from '@/config/app';
 const cache = new NodeCache({ stdTTL: app.standardCacheTTL });
 
 export default class XScraper {
-  static async scrape(postUrl: string) {
+  static async scrape(postUrl: string): Promise<ScraperReturnData> {
     const id = postUrl.split('/')[5].split('?')[0];
     if (isNaN(Number(id))) throw new ScraperError('Invalid post ID');
 
     const cachedData = cache.get(id);
-    if (cachedData) return cachedData;
+    if (cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(id) };
 
     const token = this.getToken(id);
     const url = new URL('https://cdn.syndication.twimg.com/tweet-result');
@@ -56,7 +56,7 @@ export default class XScraper {
 
     if (!postData.mediaDetails?.length) throw new ScraperError('No media found in the post');
 
-    const data = {
+    const data: ScraperResult = {
       post: {
         id: postData.id_str,
         description: postData.text,
@@ -78,11 +78,11 @@ export default class XScraper {
         nickname: postData.user.name,
         avatar: postData.user.profile_image_url_https.replace('_normal.', '_400x400.')
       }
-    } satisfies ScraperResult;
+    };
 
     cache.set(id, data);
 
-    return;
+    return { data };
   }
 
   static getToken(id: string) {
