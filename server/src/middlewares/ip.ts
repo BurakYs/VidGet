@@ -1,17 +1,11 @@
-import type { FastifyRequest } from 'fastify';
+import type { Request } from '@/types';
 
-export default function ip(request: FastifyRequest) {
+export default function ip(request: Request) {
   const headersToCheck = [
-    'x-client-ip',
-    'x-forwarded-for',
-    'x-real-ip',
-    'x-cluster-client-ip',
-    'x-forwarded',
-    'forwarded-for',
-    'forwarded'
+    'x-forwarded-for'
   ];
 
-  return headersToCheck.reduce((acc: string | undefined, header: string): string | undefined => acc || (request.headers[header] as string), undefined)
-    || request.socket?.remoteAddress
+  request.clientIp = headersToCheck
+    .reduce((prev: string, curr: string) => prev || (request.headers[curr] as string))
     || request.ip;
 }

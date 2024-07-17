@@ -31,7 +31,7 @@ export default class Server {
     });
 
     this.server.addHook('onRequest', async (request) => {
-      request.clientIp = middlewares.ip(request);
+      middlewares.ip(request);
     });
 
     this.server.addHook('onResponse', async (request, response) => {
