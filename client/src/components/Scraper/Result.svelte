@@ -34,7 +34,7 @@
         <div class="flex items-center justify-center">
             <MediaPagination
                     mediaList={assets}
-                    soundUrl={details.audio?.download}
+                    soundUrl={details.audio?.download || null}
             />
         </div>
     </div>

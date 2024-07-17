@@ -10,7 +10,7 @@
   import { writable } from 'svelte/store';
 
   export let mediaList: ScraperAsset[] = [];
-  export let soundUrl: string | null | undefined;
+  export let soundUrl: string | null;
 
   let makePagination = mediaList.length > 1;
   let isLoading = writable(false);
@@ -68,13 +68,13 @@
 
             {#if soundUrl}
                 <div class="flex items-center justify-center font-medium space-x-6">
-                    <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} defaultIcon={DownloadIcon}
-                                    fileStore={assetsDownloading} text="Download" disabled={$isLoading}/>
+                    <DownloadButton downloadUrl={currentMediaData.download} defaultIcon={DownloadIcon} fileStore={assetsDownloading} text="Download"
+                                    disabled={$isLoading}/>
                     <DownloadButton downloadUrl={soundUrl} defaultIcon={FileAudioIcon} fileStore={audiosDownloading} text="Sound" disabled={$isLoading}/>
                 </div>
             {:else}
-                <DownloadButton downloadUrl={currentMediaData.download || currentMediaData.cover} defaultIcon={DownloadIcon} fileStore={assetsDownloading}
-                                text="Download" disabled={$isLoading}/>
+                <DownloadButton downloadUrl={currentMediaData.download} defaultIcon={DownloadIcon} fileStore={assetsDownloading} text="Download"
+                                disabled={$isLoading}/>
             {/if}
 
             {#if makePagination}

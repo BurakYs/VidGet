@@ -12,7 +12,7 @@ export type APIResponse<Success = true> = {
 export type ScraperAsset = {
   type?: string;
   cover: string;
-  download?: string | null;
+  download: string | null;
 }
 
 export type ScraperResult = {
@@ -34,7 +34,7 @@ export type ScraperResult = {
     original?: boolean;
     cover: string;
     duration: number;
-    download?: string | null;
+    download: string | null;
   };
   stats?: Partial<{
     likes: number;

@@ -72,7 +72,12 @@ export default class Server {
 
     axios.interceptors.response.use(
       (response) => response,
-      (error) => error.response
+      (error) => {
+        const isStream = error.response.config.responseType === 'stream';
+        if (isStream) throw error;
+
+        return error.response;
+      }
     );
 
     deleteAssets();

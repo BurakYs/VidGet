@@ -18,7 +18,7 @@ export type ScraperResult = {
     assets: Array<{
       type?: string;
       cover: string;
-      download?: string | null;
+      download: string | null;
     }>
   };
   author: {
@@ -34,7 +34,7 @@ export type ScraperResult = {
     original?: boolean;
     cover: string;
     duration: number;
-    download?: string | null;
+    download: string | null;
   };
   stats?: Partial<{
     likes: number;
