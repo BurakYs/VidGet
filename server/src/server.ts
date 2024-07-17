@@ -4,7 +4,6 @@ import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-
 import type { Request, Response } from '@/types';
 import { glob } from 'glob';
 import axios from 'axios';
-import * as middlewares from '@/middlewares';
 //import deleteAssets from '@/utils/deleteAssets';
 
 export default class Server {
@@ -31,7 +30,7 @@ export default class Server {
     });
 
     this.server.addHook('onRequest', async (request) => {
-      middlewares.ip(request);
+      request.clientIp = (request.headers['x-forwarded-for'] as string || request.ip).split(',').at(-1)!;
     });
 
     this.server.addHook('onResponse', async (request, response) => {
