@@ -21,10 +21,7 @@ export default async (fastify: FastifyInstance) => {
       const xHosts = app.supportedPlatforms.find(platform => platform.name === 'X')!.hosts;
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
-      if (!hostname || !xHosts.includes(hostname)) {
-        response.sendError('Invalid X URL', 400);
-        return;
-      }
+      if (!hostname || !xHosts.includes(hostname)) return response.sendError('Invalid X URL', 400);
 
       try {
         const scraped = await XScraper.scrape(url);

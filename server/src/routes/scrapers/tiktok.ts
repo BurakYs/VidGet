@@ -21,10 +21,7 @@ export default async (fastify: FastifyInstance) => {
       const tiktokHosts = app.supportedPlatforms.find(platform => platform.name === 'TikTok')!.hosts;
 
       const hostname = URL.canParse(url) && new URL(url).hostname;
-      if (!hostname || !tiktokHosts.includes(hostname)) {
-        response.sendError('Invalid TikTok URL', 400);
-        return;
-      }
+      if (!hostname || !tiktokHosts.includes(hostname)) return response.sendError('Invalid TikTok URL', 400);
 
       try {
         const scraped = await TiktokScraper.scrape(url);
