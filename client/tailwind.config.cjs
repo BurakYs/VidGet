@@ -12,6 +12,20 @@ export default {
         'secondary-button': '#FFFFFF',
         'primary-text': '#FFFFFF',
         'secondary-text': '#9CA3AF'
+      },
+      animation: {
+        'fade-in': 'fade-in 0.3s ease-in-out',
+        'fade-out': 'fade-out 0.3s ease-in-out'
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0', scale: '0.9' },
+          '100%': { opacity: '1', scale: '1' }
+        },
+        'fade-out': {
+          '0%': { opacity: '1', scale: '1' },
+          '100%': { opacity: '0', scale: '0.9' }
+        }
       }
     }
   },

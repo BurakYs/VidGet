@@ -1,14 +1,14 @@
 <script lang="ts">
-  import '$lib/styles/fade.css';
+  import { writable } from 'svelte/store';
 
-  export let isModalOpen = true;
+  export let isModalOpen = writable(true);
 
   function closeModal() {
-    isModalOpen = false;
+    isModalOpen.set(false);
   }
 </script>
 
-{#if isModalOpen}
+{#if $isModalOpen}
     <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out cursor-default"
          on:click={closeModal}
          on:keydown={(e) => e.key === 'Escape' && closeModal()}
@@ -17,7 +17,7 @@
          tabindex="0"
     >
         <div
-                class="relative flex flex-col sm:flex-row bg-secondary text-primary-text rounded-lg shadow-lg animate-fade-in max-w-xs sm:max-w-2xl sm:w-auto cursor-default"
+                class="relative flex flex-col sm:flex-row bg-secondary text-primary-text rounded-lg animate-fade-in cursor-default"
                 on:click|stopPropagation
                 on:keydown={(e) => e.key === 'Escape' && closeModal()}
                 aria-label="Modal"
