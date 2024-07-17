@@ -39,8 +39,7 @@ cd server && npm run dev
 
 - [X] Organize the project structure
 - [ ] Add Instagram and YouTube download support
-- [ ] Add a download history page
-- [ ] Add a "Direct Download" preference
+- [ ] Add a settings part to change preferred quality and one-click download options
 
 ## 🤝 Community
 
