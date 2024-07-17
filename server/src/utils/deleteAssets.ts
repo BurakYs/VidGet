@@ -3,6 +3,8 @@ import fs from 'fs/promises';
 import app from '@/config/app';
 
 export default function deleteAssets() {
+  if (process.env.NODE_ENV === 'development') return;
+
   const platforms = app.supportedPlatforms.map(x => x.name.toLowerCase());
 
   for (const platform of platforms) {

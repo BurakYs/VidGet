@@ -4,7 +4,7 @@ import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-
 import type { Request, Response } from '@/types';
 import { glob } from 'glob';
 import axios from 'axios';
-//import deleteAssets from '@/utils/deleteAssets';
+import deleteAssets from '@/utils/deleteAssets';
 
 export default class Server {
   public server: FastifyInstance;
@@ -74,7 +74,8 @@ export default class Server {
       (response) => response,
       (error) => error.response
     );
-    //deleteAssets();
+
+    deleteAssets();
 
     return port;
   }
