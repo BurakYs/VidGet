@@ -58,8 +58,8 @@
          on:load={() => handleMediaLoad()}
          src={currentMediaData.cover}/>
 
-    <div class="absolute bottom-4 w-[calc(100%-1rem)] h-10 bg-white rounded-lg text-black border-black border-2">
-        <div class="flex items-center {makePagination ? 'justify-between' : 'justify-center'} m-1.5">
+    <div class="absolute bottom-4 w-[calc(100%-1rem)] h-10 bg-white rounded-lg text-black border-black border">
+        <div class="flex items-center {makePagination ? 'justify-between' : 'justify-center'} m-2">
             {#if makePagination}
                 <button class="disabled:opacity-50" disabled={!canPrev} on:click={prevMedia}>
                     <ArrowLeftIcon class="w-6 h-6"/>
