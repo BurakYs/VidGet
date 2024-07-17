@@ -2,12 +2,16 @@
     <title>Cookie Policy</title>
 </svelte:head>
 
+<script lang="ts">
+  import config from '$config';
+</script>
+
 <div class="policy">
     <h1>Cookie Policy</h1>
     <p>Effective Date: 9 June 2024</p>
 
     <h2>1. Introduction</h2>
-    <p>VidGet ("we," "us," "our") uses cookies to enhance your experience while using our Service. This Cookie Policy
+    <p>{config.appName} ("we," "us," "our") uses cookies to enhance your experience while using our Service. This Cookie Policy
         explains what cookies are, how we use them, and your choices regarding cookies.</p>
 
     <h2>2. What Are Cookies</h2>
@@ -44,6 +48,6 @@
         constitutes your acceptance of the new Cookie Policy.</p>
 
     <h2>6. Contact Us</h2>
-    <p>If you have any questions about this Cookie Policy, please contact us at: <a href="mailto:burakyhs@duck.com">burakyhs@duck.com</a>
+    <p>If you have any questions about this Cookie Policy, please contact us at: <a href="mailto:burakyhs@duck.com">{config.contactEmail}</a>
     </p>
 </div>

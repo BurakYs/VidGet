@@ -2,12 +2,16 @@
     <title>Privacy Policy</title>
 </svelte:head>
 
+<script lang="ts">
+  import config from '$config';
+</script>
+
 <div class="policy">
     <h1>Privacy Policy</h1>
     <p>Effective Date: 9 June 2024</p>
 
     <h2>1. Introduction</h2>
-    <p>VidGet ("we," "us," "our") values your privacy. This Privacy Policy describes the information we collect from you
+    <p>{config.appName} ("we," "us," "our") values your privacy. This Privacy Policy describes the information we collect from you
         when you use our website and services ("Service"). By using our Service, you agree to the collection and use of
         information in accordance with this policy.</p>
 
@@ -33,6 +37,6 @@
         constitutes your acceptance of the new Privacy Policy.</p>
 
     <h2>7. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:burakyhs@duck.com">burakyhs@duck.com</a>
+    <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:burakyhs@duck.com">{config.contactEmail}</a>
     </p>
 </div>
