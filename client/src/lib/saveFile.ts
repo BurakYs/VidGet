@@ -24,7 +24,7 @@ export default async function saveFile(url: string, filename?: string, downloadi
   const anchor = document.createElement('a');
 
   anchor.href = blobUrl;
-  anchor.download = filename || url.split('/').pop()!;
+  anchor.download = (filename || url.split('/').pop()!).split('?')[0];
   anchor.click();
   URL.revokeObjectURL(blobUrl);
   anchor.remove();
