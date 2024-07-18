@@ -1,9 +1,9 @@
+import axios, { RawAxiosRequestHeaders } from 'axios';
 import fs from 'fs/promises';
 import app from '@/config/app';
-import axios, { RawAxiosRequestHeaders } from 'axios';
 import { createWriteStream } from 'fs';
 
-export default async function cacheAsset(url: string, name: string, headers: RawAxiosRequestHeaders): Promise<string | null> {
+export default async function cacheAsset(url: string, name: string, headers: RawAxiosRequestHeaders, stream?: boolean): Promise<string | null> {
   const fileExists = await fs.stat(`./public/${name}`).catch(() => null);
   if (fileExists) return app.rootUrl + `/assets/${name}`;
 
@@ -18,16 +18,21 @@ export default async function cacheAsset(url: string, name: string, headers: Raw
   try {
     const response = await axios.get(url, {
       headers,
-      responseType: 'stream'
+      responseType: stream ? 'stream' : 'arraybuffer'
     });
 
-    const writer = createWriteStream(`./public/${name}`);
-    response.data.pipe(writer);
+    if (!stream) {
+      await fs.writeFile(`./public/${name}`, response.data);
+      return app.rootUrl + `/assets/${name}`;
+    } else {
+      const writer = createWriteStream(`./public/${name}`);
+      response.data.pipe(writer);
 
-    return new Promise((resolve, reject) => {
-      writer.on('finish', () => resolve(app.rootUrl + `/assets/${name}`));
-      writer.on('error', reject);
-    });
+      return new Promise((resolve, reject) => {
+        writer.on('finish', () => resolve(app.rootUrl + `/assets/${name}`));
+        writer.on('error', reject);
+      });
+    }
   } catch {
     return null;
   }

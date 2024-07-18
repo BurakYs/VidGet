@@ -107,7 +107,7 @@ export default class TikTokScraper {
   static async downloadAsset(url: string, name: string, cookie: string) {
     return await cacheAsset(url, 'tiktok/' + name, {
       'User-Agent': app.defaultUserAgent,
-      Cookie: cookie
+      'Cookie': cookie
     });
   }
 }
