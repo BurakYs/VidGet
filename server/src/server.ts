@@ -1,4 +1,4 @@
-import Fastify, { FastifyError, type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyError, type FastifyInstance } from 'fastify';
 import { ZodError } from 'zod';
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 import type { Request, Response } from '@/types';
@@ -51,6 +51,7 @@ export default class Server {
         });
         return;
       }
+
       if (error.statusCode === 429) {
         response.sendError('Too many requests', 429);
         return;
@@ -73,7 +74,7 @@ export default class Server {
     axios.interceptors.response.use(
       (response) => response,
       (error) => {
-        const isStream = error.response.config.responseType === 'stream';
+        const isStream = error.response.config?.responseType === 'stream';
         if (isStream) throw error;
 
         return error.response;
