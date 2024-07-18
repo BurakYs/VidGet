@@ -3,11 +3,11 @@ const environment = process.env.NODE_ENV?.toLowerCase() || 'production';
 export default {
   appName: 'VidGet',
   description: 'A free online video downloader that allows you to download videos from various platforms.',
-  contactEmail: 'contact@vidget.xyz',
-  hostname: 'vidget.xyz',
+  contactEmail: 'burakyhs@duck.com',
+  hostname: 'vidget.buraky.live',
   githubUrl: 'https://github.com/BurakYs/VidGet',
   discordUrl: 'https://discord.gg/z8aBnDa6Xa',
-  apiUrl: environment === 'development' ? 'http://localhost:3000' : 'https://api.vidget.xyz',
+  apiUrl: environment === 'development' ? 'http://localhost:3000' : 'https://vidget-api.buraky.live',
   socials: [
     {
       name: 'GitHub',
@@ -39,7 +39,7 @@ export default {
   downloads: {
     android: {
       enabled: false,
-      url: 'https://app.vidget.xyz/android'
+      url: 'https://app.vidget.buraky.live/android'
     }
   }
 };

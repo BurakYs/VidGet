@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://vidget.xyz/sitemap.xml
+Sitemap: https://vidget.buraky.live/sitemap.xml

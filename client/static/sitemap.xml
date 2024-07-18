@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://vidget.xyz/</loc>
+        <loc>https://vidget.buraky.live/</loc>
         <lastmod>2024-06-02</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://vidget.xyz/about</loc>
+        <loc>https://vidget.buraky.live/about</loc>
         <lastmod>2024-06-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://vidget.xyz/legal/privacy</loc>
+        <loc>https://vidget.buraky.live/legal/privacy</loc>
         <lastmod>2024-06-02</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.60</priority>
     </url>
     <url>
-        <loc>https://vidget.xyz/legal/terms</loc>
+        <loc>https://vidget.buraky.live/legal/terms</loc>
         <lastmod>2024-06-02</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.60</priority>
