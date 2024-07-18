@@ -42,31 +42,27 @@ export default class Server {
     });
 
     this.server.setErrorHandler((error: ZodError & FastifyError, _request: Request, response: Response) => {
-      if (error.code === 'FST_ERR_VALIDATION') {
-        response.sendError('Invalid parameters provided', 400, {
+      if (error.code === 'FST_ERR_VALIDATION')
+        return response.sendError('Invalid parameters provided', 400, {
           validationFailures: error.issues.map((x) => ({
             path: x.path.join('.'),
             message: x.message
           }))
         });
-        return;
-      }
 
-      if (error.statusCode === 429) {
-        response.sendError('Too many requests', 429);
-        return;
-      }
+      if (error.statusCode === 429)
+        return response.sendError('You are sending too many requests', 429);
 
       global.logger.error(error);
       response.sendError('An error occurred on our side', 500);
     });
 
     this.server.setNotFoundHandler((_request: Request, response: Response) => {
-      response.sendError('Not Found', 404);
+      response.sendError('Page not found', 404);
     });
 
-    await this.registerRoutes();
     await this.registerPlugins();
+    await this.registerRoutes();
 
     const port = parseInt(process.env.PORT || '3000');
     await this.server.listen({ port, host: '0.0.0.0' });
