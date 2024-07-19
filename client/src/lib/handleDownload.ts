@@ -27,7 +27,7 @@ export default async function handleDownload(
 
   isLoadingStore.set(true);
 
-  const response = await fetch(`${config.apiUrl}/scrapers/auto`, {
+  const response = await fetch(`${config.apiUrl}/scrape`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
