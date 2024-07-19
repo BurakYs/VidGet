@@ -14,14 +14,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@capacitor/android": "^6.0.0",
-    "@capacitor/core": "^6.0.0",
     "@sveltejs/adapter-static": "^3.0.1",
     "@tailwindcss/forms": "^0.5.7",
     "lucide-svelte": "^0.390.0"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.0.0",
     "@eslint/js": "^9.4.0",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",

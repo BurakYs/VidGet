@@ -1,7 +1,6 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import { writable } from 'svelte/store';
-  import isNative from '$lib/isNative';
   import config from '$config';
 
   const isSidebarOpen = writable(false);
@@ -91,14 +90,6 @@
                        on:click={closeSidebar}>{item.name}</a>
                 {/each}
             </div>
-            {#if !isNative() && config.downloads.android.enabled}
-                <div class="absolute bottom-0 w-full p-4">
-                    <a href={config.downloads.android.url}
-                       class="bg-primary-button w-full text-primary-text py-3 px-6 rounded-xl disabled:opacity-50 text-center block">
-                        Android App
-                    </a>
-                </div>
-            {/if}
         </div>
         <div class="fixed inset-0 bg-black bg-opacity-50"></div>
     </div>
