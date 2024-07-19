@@ -5,18 +5,18 @@ import TiktokScraper from '@/utils/scrapers/tiktok';
 import calculateTTLSeconds from '@/utils/calculateTTLSeconds';
 import app from '@/config/app';
 
-import type { ScrapePost } from '@/schemas/scrapers/tiktok';
-import { scrapePost } from '@/schemas/scrapers/tiktok';
+import type { ScrapePlatform } from '@/schemas/scrape';
+import { scrapePlatform } from '@/schemas/scrape';
 
 export default async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'POST',
     url: '/',
     schema: {
-      body: scrapePost
+      body: scrapePlatform
     },
     handler: async (request: Request, response: Response) => {
-      const { url } = request.body as ScrapePost;
+      const { url } = request.body as ScrapePlatform;
 
       const tiktokHosts = app.supportedPlatforms.find(platform => platform.name === 'TikTok')!.hosts;
 

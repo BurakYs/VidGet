@@ -5,18 +5,18 @@ import XScraper from '@/utils/scrapers/x';
 import calculateTTLSeconds from '@/utils/calculateTTLSeconds';
 import app from '@/config/app';
 
-import type { ScrapePost } from '@/schemas/scrapers/x';
-import { scrapePost } from '@/schemas/scrapers/x';
+import type { ScrapePlatform } from '@/schemas/scrape';
+import { scrapePlatform } from '@/schemas/scrape';
 
 export default async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'POST',
     url: '/',
     schema: {
-      body: scrapePost
+      body: scrapePlatform
     },
     handler: async (request: Request, response: Response) => {
-      const { url } = request.body as ScrapePost;
+      const { url } = request.body as ScrapePlatform;
 
       const xHosts = app.supportedPlatforms.find(platform => platform.name === 'X')!.hosts;
 
