@@ -5,7 +5,13 @@ type DownloadingStore = Writable<Array<{ url: string, isDownloading: boolean }>>
 export default async function saveFile(url: string, filename?: string, downloadingStore?: DownloadingStore) {
   if (downloadingStore) changeDownloadingStatus(url, downloadingStore, true);
 
-  const response = await fetch(url);
+  const response = await fetch(url).catch(() => null);
+
+  if (!response?.ok) {
+    if (downloadingStore) changeDownloadingStatus(url, downloadingStore, false);
+    return;
+  }
+
   const blob = await response.blob();
   const blobUrl = URL.createObjectURL(blob);
   const anchor = document.createElement('a');

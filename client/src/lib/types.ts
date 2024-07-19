@@ -10,25 +10,20 @@ export type APIResponse<Success = true> = {
 }
 
 export type ScraperAsset = {
-  type?: string;
   cover: string;
   download: string | null;
 }
 
 export type ScraperResult = {
   post: {
-    id: string;
-    description?: string;
     assets: Array<ScraperAsset>
   };
   author: {
-    id: string;
     username: string;
-    nickname: string;
+    nickname?: string;
     avatar: string;
   };
   audio?: {
-    id: string;
     title: string;
     author?: string;
     original?: boolean;

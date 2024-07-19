@@ -4,9 +4,9 @@ import ScraperError from '@/utils/classes/ScraperError';
 import NodeCache from 'node-cache';
 import cacheAsset from '@/utils/cacheAsset';
 import axios from 'axios';
-import app from '@/config/app';
+import scraperConfig from '@/config/scraper';
 
-const cache = new NodeCache({ stdTTL: app.standardCacheTTL });
+const cache = new NodeCache({ stdTTL: scraperConfig.standardCacheTTL });
 
 export default class TikTokScraper {
   static async scrape(postUrl: string) {
@@ -19,7 +19,7 @@ export default class TikTokScraper {
 
     const response = await axios.get(postUrl, {
       headers: {
-        'User-Agent': app.defaultUserAgent
+        'User-Agent': scraperConfig.defaultUserAgent
       }
     });
 
@@ -36,7 +36,7 @@ export default class TikTokScraper {
 
     const response = await axios.get(`https://tiktok.com/@i/video/${postId}`, {
       headers: {
-        'User-Agent': app.defaultUserAgent,
+        'User-Agent': scraperConfig.defaultUserAgent,
         Cookie: cookieManager.toString()
       }
     });
@@ -61,27 +61,21 @@ export default class TikTokScraper {
 
       assets = images.map(x => ({ cover: x, download: x }));
     } else {
-      const { video } = details;
-
       const playUrl = await this.downloadAsset(details.video.playAddr, `${postId}.mp4`, cookieManager.toString());
 
-      assets = [{ cover: video.cover, download: playUrl }];
+      assets = [{ cover: details.video.cover, download: playUrl }];
     }
 
     const data: ScraperResult = {
       post: {
-        id: details.id,
-        description: details.desc?.trim(),
         assets
       },
       author: {
-        id: details.author.uid,
         username: details.author.uniqueId,
         nickname: details.author.nickname,
         avatar: details.author.avatarLarger
       },
       audio: {
-        id: details.music.id,
         title: details.music.title,
         author: details.music.authorName,
         original: details.music.original,
@@ -106,7 +100,7 @@ export default class TikTokScraper {
 
   static async downloadAsset(url: string, name: string, cookie: string) {
     return await cacheAsset(url, 'tiktok/' + name, {
-      'User-Agent': app.defaultUserAgent,
+      'User-Agent': scraperConfig.defaultUserAgent,
       'Cookie': cookie
     });
   }

@@ -13,22 +13,17 @@ export type Response = FastifyReply & {
 
 export type ScraperResult = {
   post: {
-    id: string;
-    description?: string;
     assets: Array<{
-      type?: string;
       cover: string;
       download: string | null;
     }>
   };
   author: {
-    id: string;
     username: string;
-    nickname: string;
+    nickname?: string;
     avatar: string;
   };
   audio?: {
-    id: string;
     title: string;
     author?: string;
     original?: boolean;

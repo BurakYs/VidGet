@@ -1,6 +1,6 @@
 import { ILogObj, ISettingsParam } from 'tslog';
 
-const loggerSettings: ISettingsParam<ILogObj> = {
+const loggerConfig: ISettingsParam<ILogObj> = {
   type: 'pretty',
   prettyLogTemplate: '{{dd}}-{{mm}}-{{yyyy}} {{hh}}:{{mm}}:{{ss}} {{logLevelName}} {{filePathWithLine}}{{name}}  ',
   prettyErrorTemplate: '{{errorName}} {{errorMessage}}\n{{errorStack}}',
@@ -29,4 +29,4 @@ const loggerSettings: ISettingsParam<ILogObj> = {
   }
 };
 
-export default loggerSettings;
+export default loggerConfig;

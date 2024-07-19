@@ -1,9 +1,9 @@
 import { type ILogObj, type ILogObjMeta, Logger } from 'tslog';
-import loggerSettings from '@/config/logger';
+import loggerConfig from '@/config/logger';
 
 export default class CustomLogger extends Logger<ILogObj> {
   constructor() {
-    super(loggerSettings);
+    super(loggerConfig);
   }
 
   /**

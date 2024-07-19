@@ -2,9 +2,9 @@ import type { ScraperResult, ScraperReturnData } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
 import NodeCache from 'node-cache';
 import axios from 'axios';
-import app from '@/config/app';
+import scraperConfig from '@/config/scraper';
 
-const cache = new NodeCache({ stdTTL: app.standardCacheTTL });
+const cache = new NodeCache({ stdTTL: scraperConfig.standardCacheTTL });
 
 export default class XScraper {
   static async scrape(postUrl: string): Promise<ScraperReturnData> {
@@ -58,8 +58,6 @@ export default class XScraper {
 
     const data: ScraperResult = {
       post: {
-        id: postData.id_str,
-        description: postData.text,
         assets: postData.mediaDetails.map((media: any) => ({
           type: media.type,
           cover: media.poster || media.media_url_https || undefined,
@@ -73,7 +71,6 @@ export default class XScraper {
         }))
       },
       author: {
-        id: postData.user.id_str,
         username: postData.user.screen_name,
         nickname: postData.user.name,
         avatar: postData.user.profile_image_url_https.replace('_normal.', '_400x400.')
