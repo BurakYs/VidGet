@@ -82,14 +82,6 @@ export default class TikTokScraper {
         cover: details.music.coverLarge,
         duration: details.music.duration,
         download: await this.downloadAsset(details.music.playUrl, `${details.music.id}.mp3`, cookieManager.toString())
-      },
-      stats: {
-        likes: Number(details.statsV2.diggCount),
-        shares: Number(details.statsV2.shareCount),
-        comments: Number(details.statsV2.commentCount),
-        plays: Number(details.stats.playCount),
-        favorites: Number(details.statsV2.shareCount),
-        reposts: Number(details.statsV2.shareCount)
       }
     };
 

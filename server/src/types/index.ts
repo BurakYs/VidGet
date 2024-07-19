@@ -31,14 +31,6 @@ export type ScraperResult = {
     duration: number;
     download: string | null;
   };
-  stats?: Partial<{
-    likes: number;
-    shares: number;
-    comments: number;
-    plays: number;
-    favorites: number;
-    reposts: number;
-  }>;
 }
 
 export type ScraperReturnData = { data: ScraperResult, cacheTTL?: number };
