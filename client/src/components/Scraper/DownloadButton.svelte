@@ -8,6 +8,7 @@
   export let defaultIcon: ComponentType;
   export let fileStore: Writable<Array<{ url: string, isDownloading: boolean }>>;
   export let disabled: boolean = false;
+  export let className: string = '';
   export let text: string;
   $: isDownloading = $fileStore.find(x => x.url === downloadUrl)?.isDownloading;
 
@@ -17,7 +18,7 @@
 </script>
 
 <button
-        class="flex items-center space-x-1 disabled:opacity-50"
+        class="flex items-center space-x-1 disabled:opacity-50 {className}"
         disabled={!downloadUrl || isDownloading || disabled}
         on:click={() => downloadUrl && saveFile(downloadUrl, undefined, fileStore)}>
     <svelte:component class={currentComponent.className} this={currentComponent.component}/>
