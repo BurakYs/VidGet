@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
-import type { Request, Response } from '@/types';
+import type { Request, Response, ScraperReturnData } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
+import TiktokScraper from '@/utils/scrapers/tiktok';
 import XScraper from '@/utils/scrapers/x';
 import calculateTTLSeconds from '@/utils/calculateTTLSeconds';
 import app from '@/config/app';
@@ -18,13 +19,16 @@ export default async (fastify: FastifyInstance) => {
     handler: async (request: Request, response: Response) => {
       const { url } = request.body as ScrapePlatform;
 
-      const xHosts = app.supportedPlatforms.find(platform => platform.name === 'X')!.hosts;
+      const scraper = app.supportedPlatforms.find(platform => platform.hosts.includes(new URL(url).hostname));
+      if (!scraper) return response.sendError('We don\'t support this platform yet', 400);
 
-      const hostname = URL.canParse(url) && new URL(url).hostname;
-      if (!hostname || !xHosts.includes(hostname)) return response.sendError('Invalid X URL', 400);
+      const scrapers = {
+        tiktok: TiktokScraper,
+        x: XScraper
+      };
 
       try {
-        const scraped = await XScraper.scrape(url);
+        const scraped = await scrapers[scraper.name as keyof typeof scrapers].scrape(url) as ScraperReturnData;
         response.header('Cache-Control', `public, max-age=${calculateTTLSeconds(scraped.cacheTTL)}`);
         response.sendSuccess(scraped.data, 200);
       } catch (error) {
