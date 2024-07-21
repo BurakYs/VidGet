@@ -15,9 +15,9 @@ Run the following commands to get started:
 git clone https://github.com/BurakYs/VidGet.git
 # Change the working directory
 cd VidGet
-# Install the dependencies in seperate terminals
+# Install the dependencies
 cd client && npm install
-cd server && npm install
+cd ../server && npm install
 ```
 
 Start the development server:
