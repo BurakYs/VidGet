@@ -37,9 +37,8 @@ cd server && npm run dev
 
 ## 📋 Todo
 
-- [X] Organize the project structure
 - [ ] Add Instagram and YouTube download support
-- [ ] Add a settings part to change preferred quality and one-click download options
+- [ ] Add PWA support
 
 ## 🤝 Community
 
