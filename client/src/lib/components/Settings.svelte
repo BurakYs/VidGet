@@ -78,7 +78,7 @@
         <div class="space-y-4">
             {#each options as { category, items }, optionIndex}
                 <h2 class="text-lg font-semibold">{category}</h2>
-                <div class="space-y-5">
+                <div class="space-y-4">
                     {#each items as item, itemIndex}
                         {#if item.type === 'checkbox'}
                             <div>

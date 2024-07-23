@@ -4,7 +4,6 @@ import ScraperError from '@/utils/classes/ScraperError';
 import TiktokScraper from '@/utils/scrapers/tiktok';
 import XScraper from '@/utils/scrapers/x';
 import PinterestScraper from '@/utils/scrapers/pinterest';
-import calculateTTLSeconds from '@/utils/calculateTTLSeconds';
 import scraperConfig from '@/config/scraper';
 
 import type { ScrapePlatform } from '@/schemas/scrape';
@@ -34,7 +33,7 @@ export default async (fastify: FastifyInstance) => {
 
       try {
         const scraped = await scrapers[scraper.name.toLowerCase() as keyof typeof scrapers].scrape(url) as ScraperReturnData;
-        response.header('Cache-Control', `public, max-age=${calculateTTLSeconds(scraped.cacheTTL)}`);
+        response.header('Cache-Control', `public, max-age=${scraped.cacheTTL ? Math.floor((scraped.cacheTTL - Date.now()) / 1000) : scraperConfig.standardCacheTTL}`);
         response.sendSuccess(scraped.data, 200);
       } catch (error) {
         if (error instanceof ScraperError) {

@@ -74,7 +74,7 @@
                 </div>
             {:else}
                 <DownloadButton downloadUrl={currentMediaData.download} defaultIcon={DownloadIcon} fileStore={assetsDownloading} text="Download"
-                                disabled={$isLoading} className="w-full justify-center"/>
+                                disabled={$isLoading} className="{!makePagination && 'w-full'} justify-center"/>
             {/if}
 
             {#if makePagination}
