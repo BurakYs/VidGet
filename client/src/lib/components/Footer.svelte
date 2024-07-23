@@ -7,7 +7,7 @@
       title: 'About',
       items: [
         { name: 'About Us', href: '/about' },
-        { name: 'Contact Us', href: '/' }
+        { name: 'Contact Us', href: `mailto:${config.contactEmail}` }
       ]
     },
     {
