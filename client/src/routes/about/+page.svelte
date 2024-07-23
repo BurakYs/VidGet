@@ -43,7 +43,7 @@
                 <h1 class="text-3xl font-bold sm:text-4xl md:text-5xl">
                     About
                 </h1>
-                <p class="mt-4 text-muted-foreground md:text-lg">
+                <p class="mt-2 text-muted-foreground md:text-lg">
                     {config.appName} is a powerful tool that allows you to download videos/photos
                     from supported platforms.
                     <br/> Our mission is to provide a free and open-source tool that is easy
