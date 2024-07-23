@@ -9,7 +9,7 @@ const staticServer = fp(async (fastify) => {
     root,
     prefix: '/assets',
     cacheControl: true,
-    maxAge: '15m'
+    maxAge: '1d'
   } as FastifyStaticOptions);
 
   fastify.get('/favicon.ico', (_request, response) => {
