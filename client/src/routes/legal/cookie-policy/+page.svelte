@@ -8,7 +8,7 @@
 
 <div class="policy">
     <h1>Cookie Policy</h1>
-    <p>Effective Date: 9 June 2024</p>
+    <p>Effective Date: 24 July 2024</p>
 
     <h2>1. Introduction</h2>
     <p>{config.appName} ("we," "us," "our") uses cookies to enhance your experience while using our Service. This Cookie Policy
@@ -21,10 +21,6 @@
     <h2>3. How We Use Cookies</h2>
     <p>We use cookies for various reasons:</p>
     <ul>
-        <li><strong>Enhancing User Experience:</strong> Cookies are used to enhance your experience on our website, such
-            as storing your download history locally on your device.
-        </li>
-        <li><strong>Preferences:</strong> Cookies may store preferences like enabling Direct Download.</li>
         <li><strong>Analytics:</strong> We may use cookies to collect anonymous data for analytics purposes, such as
             tracking website usage and performance.
         </li>
@@ -48,6 +44,6 @@
         constitutes your acceptance of the new Cookie Policy.</p>
 
     <h2>6. Contact Us</h2>
-    <p>If you have any questions about this Cookie Policy, please contact us at: <a href="mailto:burakyhs@duck.com">{config.contactEmail}</a>
+    <p>If you have any questions about this Cookie Policy, please contact us at: <a href={'mailto:' + config.contactEmail}>{config.contactEmail}</a>
     </p>
 </div>

@@ -67,6 +67,7 @@ export default class TikTokScraper {
     }
 
     const data: ScraperResult = {
+      allowQuickDownload: !isSlideshow,
       post: {
         assets
       },

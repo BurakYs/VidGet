@@ -55,6 +55,7 @@ export default class PinterestScraper {
     const pinner = details.nativeCreator || details.pinner;
 
     const result: ScraperResult = {
+      allowQuickDownload: true,
       post: {
         assets: [{
           cover,

@@ -20,8 +20,7 @@
         and preventing abuse of our Service.</p>
 
     <h2>3. Use of Cookies</h2>
-    <p>For information about how we use cookies, please refer to our <a href="/legal/cookie-policy">Cookie
-        Policy</a>.</p>
+    <p>For information about how we use cookies, please refer to our <a href="/legal/cookie-policy">Cookie Policy</a>.</p>
 
     <h2>4. Data Sharing and Disclosure</h2>
     <p>We do not share your information with any third parties, except as required by law enforcement agencies.</p>
@@ -37,6 +36,6 @@
         constitutes your acceptance of the new Privacy Policy.</p>
 
     <h2>7. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:burakyhs@duck.com">{config.contactEmail}</a>
+    <p>If you have any questions about this Privacy Policy, please contact us at: <a href={'mailto:' + config.contactEmail}>{config.contactEmail}</a>
     </p>
 </div>

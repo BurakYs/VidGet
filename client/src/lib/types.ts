@@ -15,6 +15,7 @@ export type ScraperAsset = {
 }
 
 export type ScraperResult = {
+  allowQuickDownload: boolean;
   post: {
     assets: Array<ScraperAsset>
   };
@@ -32,3 +33,10 @@ export type ScraperResult = {
     download: string | null;
   };
 }
+
+export type Theme = 'light' | 'dark';
+
+export type Settings = Partial<{
+  quickDownload: boolean;
+  downloadType: 'video_picture' | 'audio';
+}>

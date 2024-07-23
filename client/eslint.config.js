@@ -25,11 +25,15 @@ export default [
     }
   },
   {
-    ignores: ['build/', '.svelte-kit/', 'dist/', 'android/', 'ios/']
+    ignores: ['build/', '.svelte-kit/', 'dist/', 'android/', 'ios/', 'src/lib/components/ui/']
   },
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off'
+      '@typescript-eslint/no-explicit-any': 'off',
+      'indent': ['error', 2],
+      'semi': ['error', 'always'],
+      'quotes': ['error', 'single'],
+      'comma-dangle': ['error', 'never']
     }
   }
 ];

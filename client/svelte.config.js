@@ -12,7 +12,7 @@ const config = {
     adapter: process.env.IS_NOT_MOBILE ? autoAdapter() : staticAdapter(),
     alias: {
       $config: './src/config',
-      $components: './src/components',
+      $components: './src/lib/components',
       $stores: './src/stores'
     }
   }

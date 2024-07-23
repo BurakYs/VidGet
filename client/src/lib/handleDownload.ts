@@ -1,27 +1,28 @@
 import { get, type Writable } from 'svelte/store';
-import type { ScraperResult } from '$lib/types';
-import addToast from '$stores/toastStore';
+import { toast } from 'svelte-sonner';
 import handleErrorMessage from '$lib/handleErrorMessage';
 import config from '$config';
+import detailsStore from './stores/details';
+import { settings as settingsStore } from '$lib/stores/settings';
+import saveFile from '$lib/saveFile';
+
+import type { ScraperResult } from '$lib/types';
 
 export default async function handleDownload(
   urlStore: Writable<string>,
   scraperNameStore: Writable<string>,
-  detailsStore: Writable<ScraperResult | object>,
   isLoadingStore: Writable<boolean>
 ) {
-  detailsStore.set({});
-
   const url = get(urlStore);
 
   if (!url?.trim()) {
-    addToast('Please enter a URL', { type: 'error' });
+    toast.error('Please enter a URL');
     return;
   }
 
   const isProperUrl = URL.canParse(url);
   if (!isProperUrl) {
-    addToast('Please enter a valid URL', { type: 'error' });
+    toast.error('Please enter a valid URL');
     return;
   }
 
@@ -40,7 +41,7 @@ export default async function handleDownload(
   if (!response || !response.ok) {
     const message = await handleErrorMessage(response);
 
-    addToast(message, { type: 'error' });
+    toast.error(message);
     return;
   }
 
@@ -49,6 +50,17 @@ export default async function handleDownload(
   const scraperName = response.url.split('/').pop()!;
   scraperNameStore.set(scraperName);
 
-  const responseData = (await response.json()).data;
+  const responseData = (await response.json()).data as ScraperResult;
+
+  const settings = get(settingsStore);
+
+  if (settings.quickDownload && responseData.allowQuickDownload) {
+    const quickDownloadUrl = settings.downloadType === 'video_picture' ? responseData.post.assets[0].download : responseData.audio?.download;
+    if (quickDownloadUrl) {
+      await saveFile(quickDownloadUrl, undefined);
+      return;
+    }
+  }
+
   detailsStore.set(responseData);
 }

@@ -57,6 +57,7 @@ export default class XScraper {
     if (!postData.mediaDetails?.length) throw new ScraperError('No media found in the post');
 
     const data: ScraperResult = {
+      allowQuickDownload: false,
       post: {
         assets: postData.mediaDetails.map((media: any) => ({
           type: media.type,

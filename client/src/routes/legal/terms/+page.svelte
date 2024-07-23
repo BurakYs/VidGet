@@ -45,6 +45,6 @@
         changes constitutes your acceptance of the new Terms.</p>
 
     <h2>8. Contact Us</h2>
-    <p>If you have any questions about these Terms, please contact us at: <a href="mailto:burakyhs@duck.com">{config.contactEmail}</a>
+    <p>If you have any questions about these Terms, please contact us at: <a href={'mailto:' + config.contactEmail}>{config.contactEmail}</a>
     </p>
 </div>

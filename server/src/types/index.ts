@@ -12,6 +12,7 @@ export type Response = FastifyReply & {
 }
 
 export type ScraperResult = {
+  allowQuickDownload: boolean;
   post: {
     assets: Array<{
       cover: string;

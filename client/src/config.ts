@@ -4,42 +4,43 @@ export default {
   appName: 'VidGet',
   description: 'A free online video downloader that allows you to download videos from various platforms.',
   contactEmail: 'burakyhs@duck.com',
-  hostname: 'vidget.buraky.live',
   githubUrl: 'https://github.com/BurakYs/VidGet',
   discordUrl: 'https://discord.gg/z8aBnDa6Xa',
   apiUrl: environment === 'development' ? 'http://localhost:3000' : 'https://vidget-api.buraky.live',
+  meta: {
+    description: 'A free online video downloader that allows you to download videos from various platforms.',
+    keywords: 'video downloader, download videos, youtube downloader, facebook downloader, twitter downloader, instagram downloader, tiktok downloader, vidget, vidget downloader, vidget video downloader',
+    image: '/icon_light.png',
+    themeColor: '#191A1F'
+  },
   socials: [
     {
       name: 'GitHub',
-      url: 'https://github.com/BurakYs/VidGet'
+      href: 'https://github.com/BurakYs/VidGet'
     },
     {
       name: 'Discord',
-      url: 'https://discord.gg/z8aBnDa6Xa'
+      href: 'https://discord.gg/z8aBnDa6Xa'
     },
     {
       name: 'X',
-      url: 'https://twitter.com/BurakYhs_'
+      href: 'https://twitter.com/BurakYhs_'
     }
   ],
   supportOptions: [
     {
       name: 'Buy Me a Coffee',
-      url: 'https://www.buymeacoffee.com/buraky'
+      href: 'https://www.buymeacoffee.com/buraky'
     },
     {
       name: 'GitHub Sponsors',
-      url: 'https://github.com/sponsors/BurakYs'
-    },
-    {
-      name: 'Lemon Squeezy',
-      url: '/'
+      href: 'https://github.com/sponsors/BurakYs'
     }
   ],
   downloads: {
     android: {
       enabled: false,
-      url: 'https://app.vidget.buraky.live/android'
+      href: 'https://app.vidget.buraky.live/android'
     }
   }
 };

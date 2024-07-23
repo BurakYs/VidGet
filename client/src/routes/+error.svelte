@@ -18,13 +18,13 @@
 
   onMount(() => {
     setTimeout(() => {
-      goto(`/`);
+      goto('/');
     }, redirectMs);
   });
 </script>
 
-<div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-primary-text">
+<div class="flex flex-col items-center justify-center flex-grow p-4 text-center text-primary">
     <h1 class="text-5xl font-semibold mb-2">Error {$page.status}</h1>
-    <p class="mb-2 text-lg text-secondary-text">{error}</p>
-    <p class="mb-8 text-lg text-secondary-text">You will be redirected to the home page in {redirectMs / 1000} seconds.</p>
+    <p class="mb-2 text-lg text-muted-foreground">{error}</p>
+    <p class="mb-8 text-lg text-muted-foreground">You will be redirected to the home page in {redirectMs / 1000} seconds.</p>
 </div>

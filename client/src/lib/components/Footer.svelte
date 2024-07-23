@@ -1,5 +1,6 @@
 <script lang="ts">
   import config from '$config';
+  import { page } from '$app/stores';
 
   const footerItems = [
     {
@@ -11,10 +12,7 @@
     },
     {
       title: 'Support Us',
-      items: config.supportOptions.map(option => ({
-        name: option.name,
-        href: option.url
-      }))
+      items: config.supportOptions
     },
     {
       title: 'Legal',
@@ -26,26 +24,23 @@
     },
     {
       title: 'Social',
-      items: config.socials.map(link => ({
-        name: link.name,
-        href: link.url
-      }))
+      items: config.socials
     }
   ];
 </script>
 
-<div class="bg-secondary text-primary-text">
+<div class="bg-muted-foreground/[0.065] border-t border-border" id="footer">
     <div class="container mx-auto py-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             {#each footerItems as item}
                 <div>
-                    <h3 class="text-lg font-semibold">{item.title}</h3>
+                    <h3 class="text-lg text-primary font-semibold">{item.title}</h3>
                     <ul class="mt-2">
                         {#each item.items as { name, href }}
                             <li class="mb-2">
                                 <a
-                                        href={href}
-                                        class="text-secondary-text hover:underline {!href || href === '/' && 'pointer-events-none opacity-70'}"
+                                        {href}
+                                        class="text-muted-foreground hover:underline {!href || (href === '/' && 'pointer-events-none opacity-70')}"
                                 >
                                     {name}
                                 </a>
@@ -56,9 +51,9 @@
             {/each}
         </div>
     </div>
-    <div class="bg-secondary py-4">
-        <div class="container mx-auto text-center text-secondary-text">
-            <p>&copy; {new Date().getFullYear()} {config.hostname}</p>
+    <div class="py-4">
+        <div class="container mx-auto text-center text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} {$page.url.hostname}</p>
         </div>
     </div>
 </div>
