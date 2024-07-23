@@ -46,7 +46,7 @@
         </div>
 
         <Button
-                class="py-6 px-5 rounded-lg flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto disabled:opacity-50 text-base"
+                class="py-6 px-5 rounded-lg flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto disabled:opacity-30 text-base"
                 on:click={download}
                 disabled={$isLoading || !$url?.trim() || !URL.canParse($url)}
         >
