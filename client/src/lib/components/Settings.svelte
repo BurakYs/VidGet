@@ -78,31 +78,32 @@
         <div class="space-y-4">
             {#each options as { category, items }, optionIndex}
                 <h2 class="text-lg font-semibold">{category}</h2>
-                <div class="space-y-3">
+                <div class="space-y-5">
                     {#each items as item, itemIndex}
                         {#if item.type === 'checkbox'}
-                            <div class="flex items-center space-x-2">
-                                <Checkbox
-                                        id="settingsCheckbox_{optionIndex}_{itemIndex}"
-                                        aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
-                                        checked={item.value()}
-                                        on:click={e => item.onChange(e.detail.currentTarget.ariaChecked === 'false')}
-                                        class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
-                                />
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <Checkbox
+                                            id="settingsCheckbox_{optionIndex}_{itemIndex}"
+                                            aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
+                                            checked={item.value()}
+                                            on:click={e => item.onChange(e.detail.currentTarget.ariaChecked === 'false')}
+                                            class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
+                                    />
 
-                                <Label
-                                        for="settingsCheckbox_{optionIndex}_{itemIndex}"
-                                        id="settingsLabel_{optionIndex}_{itemIndex}"
-                                        class="font-medium leading-none"
-                                >
-                                    {item.name}
-
-                                    {#if item.description}
-                                        <p class="text-xs text-muted-foreground">
-                                            {item.description}
-                                        </p>
-                                    {/if}
-                                </Label>
+                                    <Label
+                                            for="settingsCheckbox_{optionIndex}_{itemIndex}"
+                                            id="settingsLabel_{optionIndex}_{itemIndex}"
+                                            class="font-medium leading-none"
+                                    >
+                                        {item.name}
+                                    </Label>
+                                </div>
+                                {#if item.description}
+                                    <p class="text-xs text-muted-foreground mt-1.5">
+                                        {item.description}
+                                    </p>
+                                {/if}
                             </div>
                         {:else if item.type === 'select'}
                             <div class="space-y-1">
