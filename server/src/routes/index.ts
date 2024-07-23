@@ -15,6 +15,7 @@ export default async (fastify: FastifyInstance) => {
     method: 'GET',
     url: '/hosts',
     handler: async (_request: Request, response: Response) => {
+      response.header('Cache-Control', 'public, max-age=86400');
       response.sendSuccess(scraperConfig.supportedPlatforms.map(x => x.name), 200);
     }
   });
