@@ -1,6 +1,3 @@
-import 'dotenv/config';
-import 'module-alias/register';
-
 import Client from '@/bot/loaders/base';
 
 const argv = process.argv.slice(2).reduce((acc: Record<string, string | boolean>, arg) => {
