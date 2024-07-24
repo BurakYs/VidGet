@@ -2,17 +2,31 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
     "baseUrl": "./src",
     "rootDir": "./src",
-    "types": ["node"],
-    "typeRoots": ["node_modules/@types", "src/types"],
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "node_modules/@types",
+      "src/types",
+      "src/bot/types"
+    ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

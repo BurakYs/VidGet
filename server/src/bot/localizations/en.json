@@ -1,0 +1,18 @@
+{
+  "general": {
+    "commandDisabled": "This command is disabled temporarily.",
+    "unexpectedErrorOccurred": "An unexpected error occurred. Please try again later."
+  },
+  "embeds": {
+    "errorTitles": [
+      "Error!",
+      "Oops!",
+      "Uh oh!"
+    ],
+    "successTitles": [
+      "Success!",
+      "Nice!",
+      "Great!"
+    ]
+  }
+}

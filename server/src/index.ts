@@ -3,6 +3,8 @@ import 'dotenv/config';
 
 import Logger from '@/utils/classes/Logger';
 import Server from './server';
+import startDiscordBot from './discordClient';
+import discordConfig from '@/config/discord';
 
 global.logger = new Logger();
 
@@ -16,17 +18,18 @@ if (missingEnvVariables.length) {
 if (process.argv.includes('--production')) process.env.NODE_ENV = 'production';
 
 const server = new Server();
-server
-  .create()
-  .then((port) =>
-    global.logger.info(`Server listening on http://localhost:${port}`)
-  )
+server.create()
+  .then((port) => {
+    global.logger.info(`Server listening on http://localhost:${port}`);
+  })
   .catch(async (err) => {
     global.logger.error(err);
     await server.server.close();
   });
 
-process.on('unhandledRejection', (error: unknown) => global.logger.error(error));
-process.on('uncaughtException', (error: unknown) => global.logger.error(error));
+if (discordConfig.token) startDiscordBot();
+
+process.on('unhandledRejection', (error) => global.logger.error(error));
+process.on('uncaughtException', (error) => global.logger.error(error));
 
 export default server;
