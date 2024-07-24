@@ -36,11 +36,5 @@ export default {
       name: 'GitHub Sponsors',
       href: 'https://github.com/sponsors/BurakYs'
     }
-  ],
-  downloads: {
-    android: {
-      enabled: false,
-      href: 'https://app.vidget.buraky.live/android'
-    }
-  }
+  ]
 };
