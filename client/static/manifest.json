@@ -22,27 +22,27 @@
       "type": "image/png"
     },
     {
-      "src": "/icons/maskable/light-x128.png",
+      "src": "/icons/maskable/light-128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/icons/maskable/light-x152.png",
+      "src": "/icons/maskable/light-152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "/icons/maskable/light-x180.png",
+      "src": "/icons/maskable/light-180.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "/icons/maskable/light-x192.png",
+      "src": "/icons/maskable/light-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/maskable/light-x512.png",
+      "src": "/icons/maskable/light-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
