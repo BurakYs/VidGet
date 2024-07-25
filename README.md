@@ -20,7 +20,7 @@ cd client && npm install
 cd ../server && npm install
 ```
 
-Start the development server:
+Start the development server in seperate terminals:
 
 ```bash
 # Start the client
