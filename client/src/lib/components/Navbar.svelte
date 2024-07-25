@@ -1,10 +1,12 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import { writable } from 'svelte/store';
+  import { theme } from '$lib/stores/theme';
   import config from '$config';
 
+  import * as Sheet from '$components/ui/sheet';
   import XIcon from 'lucide-svelte/icons/x';
-  import { theme } from '$lib/stores/theme';
+  import MenuIcon from 'lucide-svelte/icons/menu';
 
   const isSidebarOpen = writable(false);
 
@@ -40,6 +42,7 @@
                 <a href={item.href} class="hover:underline">{item.name}</a>
             {/each}
         </div>
+
         <div
                 aria-label="Open Sidebar"
                 class="flex-1 flex justify-end"
@@ -51,64 +54,29 @@
             <button
                     aria-label="Open Sidebar"
                     class="md:hidden cursor-pointer"
-                    type="button"
             >
-                <svg
-                        class="h-6 w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                            d="M4 6h16M4 12h16M4 18h16"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                    ></path>
-                </svg>
+                <MenuIcon class="h-6 w-6"/>
             </button>
         </div>
     </div>
 </div>
 
-{#if $isSidebarOpen}
-    <div
-            class="fixed inset-0 z-40"
-            on:click={closeSidebar}
-            on:keydown={(e) => e.key === 'Escape' && closeSidebar()}
-            aria-label="Close Sidebar"
-            role="button"
-            tabindex="0"
-    >
-        <div
-                class="fixed top-0 right-0 w-64 bg-background h-full z-50"
-                on:click|stopPropagation
-                on:keydown={() => {}}
-                aria-label="Sidebar"
-                role="button"
-                tabindex="0"
-                transition:fly={{ duration: 200, x: '100%' }}
-        >
-            <div class="flex justify-between items-center p-4 py-6">
-                <div class="flex items-center gap-x-2">
-                    <img src="/icons/{reversedTheme}-64.png" alt="Icon" class="w-8 h-8"/>
-                    <span class="text-3xl font-semibold">{config.appName}</span>
-                </div>
-                <button on:click={closeSidebar} aria-label="Close Sidebar">
-                    <XIcon class="h-6 w-6"/>
-                </button>
+<Sheet.Root open={$isSidebarOpen} onOpenChange={isSidebarOpen.set}>
+    <Sheet.Content side="right" class="w-64 p-5">
+        <Sheet.Header>
+            <div class="flex items-center gap-x-2 pb-5">
+                <img src="/icons/{reversedTheme}-64.png" alt="Icon" class="w-8 h-8"/>
+                <span class="text-3xl font-semibold">{config.appName}</span>
             </div>
-            <div class="flex flex-col items-start">
-                {#each navbarItems as item}
-                    <a
-                            href={item.href}
-                            class="p-4 text-muted-foreground hover:underline"
-                            on:click={closeSidebar}>{item.name}</a
-                    >
-                {/each}
-            </div>
+        </Sheet.Header>
+        <div class="flex flex-col items-start">
+            {#each navbarItems as item}
+                <a
+                        href={item.href}
+                        class="py-4 text-muted-foreground hover:underline"
+                        on:click={closeSidebar}>{item.name}</a
+                >
+            {/each}
         </div>
-        <div class="fixed inset-0 bg-black bg-opacity-80"></div>
-    </div>
-{/if}
+    </Sheet.Content>
+</Sheet.Root>

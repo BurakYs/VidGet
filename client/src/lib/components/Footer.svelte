@@ -34,7 +34,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             {#each footerItems as item}
                 <div>
-                    <h3 class="text-lg text-primary font-semibold">{item.title}</h3>
+                    <h1 class="text-lg text-primary font-semibold">{item.title}</h1>
                     <ul class="mt-2">
                         {#each item.items as { name, href }}
                             <li class="mb-2">
