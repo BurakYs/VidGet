@@ -6,52 +6,10 @@
 
   import SettingsIcon from 'lucide-svelte/icons/settings';
   import { setTheme, theme } from '$lib/stores/theme';
-  import { setSetting, settings } from '$lib/stores/settings';
+  import { setSetting, settings as settingsStore } from '$lib/stores/settings';
+  import type { Settings, Theme } from '$lib/types';
 
-  let options = [
-    {
-      category: 'General',
-      items: [
-        {
-          type: 'checkbox',
-          name: 'Quick Download',
-          description: 'Download with one click from some platforms. No modal.',
-          value: () => $settings.quickDownload,
-          onChange: (value) => {
-            setSetting('quickDownload', value);
-          }
-        },
-        {
-          type: 'select',
-          name: 'Download Type',
-          description: 'Select whether to download when Quick Download is enabled.',
-          placeholder: 'Select download type',
-          value: () => $settings.downloadType,
-          options: [
-            { key: 'video_picture', name: 'Video/Picture' },
-            { key: 'audio', name: 'Audio' }
-          ],
-          onChange: (value) => {
-            setSetting('downloadType', value);
-          }
-        },
-        {
-          type: 'select',
-          name: 'Theme',
-          description: 'Select the preferred theme.',
-          placeholder: 'Select theme',
-          value: () => $theme,
-          options: [
-            { key: 'light', name: 'Light' },
-            { key: 'dark', name: 'Dark' }
-          ],
-          onChange: (value) => {
-            setTheme(value);
-          }
-        }
-      ]
-    }
-  ] satisfies {
+  type Option = {
     category: string;
     items: {
       type: 'checkbox' | 'select';
@@ -59,11 +17,61 @@
       description?: string;
       placeholder?: string;
       value: any;
+      disabled?: boolean;
       options?: { key: string, name: string }[];
-      onChange?: (value: any) => void;
+      onChange: (value: unknown) => void;
     }[];
-  }[];
+  }
 
+  function getOptions($settings: typeof $settingsStore): Option[] {
+    return [
+      {
+        category: 'General',
+        items: [
+          {
+            type: 'checkbox',
+            name: 'Quick Download',
+            description: 'Download with one click from some platforms. No modal.',
+            value: $settings.quickDownload,
+            onChange: (value) => {
+              setSetting('quickDownload', value as Settings['quickDownload']);
+            }
+          },
+          {
+            type: 'select',
+            name: 'Quick Download Type',
+            description: 'Select whether to download when Quick Download is enabled.',
+            placeholder: 'Select download type',
+            disabled: !$settings.quickDownload,
+            value: $settings.quickDownloadType,
+            options: [
+              { key: 'video_picture', name: 'Video/Picture' },
+              { key: 'audio', name: 'Audio' }
+            ],
+            onChange: (value) => {
+              setSetting('quickDownloadType', value as Settings['quickDownloadType']);
+            }
+          },
+          {
+            type: 'select',
+            name: 'Theme',
+            description: 'Select the preferred theme.',
+            placeholder: 'Select theme',
+            value: $theme,
+            options: [
+              { key: 'light', name: 'Light' },
+              { key: 'dark', name: 'Dark' }
+            ],
+            onChange: (value) => {
+              setTheme(value as Theme);
+            }
+          }
+        ]
+      }
+    ];
+  }
+
+  $: options = getOptions($settingsStore);
 </script>
 
 <Dialog.Root>
@@ -86,7 +94,7 @@
                                     <Checkbox
                                             id="settingsCheckbox_{optionIndex}_{itemIndex}"
                                             aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
-                                            checked={item.value()}
+                                            checked={item.value}
                                             on:click={e => item.onChange(e.detail.currentTarget.ariaChecked === 'false')}
                                             class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
                                     />
@@ -118,13 +126,14 @@
                                 </Label>
 
                                 <Select.Root
-                                        selected={{ value: item.value(), label: item.options.find(option => option.key === item.value())?.name }}
+                                        disabled={item.disabled}
+                                        selected={{ value: item.value, label: item.options && item.options.find(option => option.key === item.value)?.name }}
                                         onSelectedChange={e => e && item.onChange(e.value)}>
                                     <Select.Trigger>
                                         <Select.Value placeholder={item.placeholder}/>
                                     </Select.Trigger>
                                     <Select.Content
-                                            class="bg-background"
+                                            class="bg-background transition-opacity duration-500"
                                             id="settingsSelect_{optionIndex}_{itemIndex}"
                                     >
                                         {#each item.options || [] as option}

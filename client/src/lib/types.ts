@@ -38,5 +38,5 @@ export type Theme = 'light' | 'dark';
 
 export type Settings = Partial<{
   quickDownload: boolean;
-  downloadType: 'video_picture' | 'audio';
+  quickDownloadType: 'video_picture' | 'audio';
 }>

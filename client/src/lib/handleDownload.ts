@@ -55,7 +55,7 @@ export default async function handleDownload(
   const settings = get(settingsStore);
 
   if (settings.quickDownload && responseData.allowQuickDownload) {
-    const quickDownloadUrl = settings.downloadType === 'video_picture' ? responseData.post.assets[0].download : responseData.audio?.download;
+    const quickDownloadUrl = settings.quickDownloadType === 'video_picture' ? responseData.post.assets[0].download : responseData.audio?.download;
     if (quickDownloadUrl) {
       await saveFile(quickDownloadUrl, undefined);
       return;

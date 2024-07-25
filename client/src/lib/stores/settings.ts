@@ -4,7 +4,7 @@ import { get, writable } from 'svelte/store';
 
 const defaultSettings: Settings = {
   quickDownload: false,
-  downloadType: 'video_picture'
+  quickDownloadType: 'video_picture'
 };
 
 const settingsStore = writable<Settings>(getSettings());
