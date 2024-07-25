@@ -11,17 +11,22 @@
     <p>Effective Date: 24 July 2024</p>
 
     <h2>1. Introduction</h2>
-    <p>{config.appName} ("we," "us," "our") uses cookies to enhance your experience while using our Service. This Cookie Policy
-        explains what cookies are, how we use them, and your choices regarding cookies.</p>
+    <p>
+        {config.appName} ("we," "us," "our") uses cookies to enhance your experience while using our Service.
+        This Cookie Policy explains what cookies are, how we use them, and your choices regarding cookies.
+    </p>
 
     <h2>2. What Are Cookies</h2>
-    Cookies are small text files that are stored on your device when you visit a website. They serve various purposes,
-    including remembering your preferences, analyzing site usage, and enabling certain website features.
+    <p>
+        Cookies are small text files that are stored on your device when you visit a website. They serve various purposes,
+        including remembering your preferences, analyzing site usage, and enabling certain website features.
+    </p>
 
     <h2>3. How We Use Cookies</h2>
     <p>We use cookies for various reasons:</p>
     <ul>
-        <li><strong>Analytics:</strong> We may use cookies to collect anonymous data for analytics purposes, such as
+        <li>
+            <strong>Analytics:</strong> We may use cookies to collect anonymous data for analytics purposes, such as
             tracking website usage and performance.
         </li>
     </ul>
@@ -39,11 +44,14 @@
     </ul>
 
     <h2>5. Changes to This Cookie Policy</h2>
-    <p>We reserve the right to update this Cookie Policy at any time. We will not notify you directly of any changes. We
+    <p>
+        We reserve the right to update this Cookie Policy at any time. We will not notify you directly of any changes. We
         advise you to review this page periodically for any updates. Your continued use of the Service after any changes
-        constitutes your acceptance of the new Cookie Policy.</p>
+        constitutes your acceptance of the new Cookie Policy.
+    </p>
 
     <h2>6. Contact Us</h2>
-    <p>If you have any questions about this Cookie Policy, please contact us at: <a href={'mailto:' + config.contactEmail}>{config.contactEmail}</a>
+    <p>
+        If you have any questions about this Cookie Policy, please contact us at: <a href={'mailto:' + config.contactEmail}>{config.contactEmail}</a>
     </p>
 </div>

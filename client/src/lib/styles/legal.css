@@ -1,35 +1,31 @@
-.policy {
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 20px;
-}
+@tailwind components;
 
-.policy h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
+@layer components {
+    .policy {
+        @apply mx-auto max-w-[800px] p-5;
+    }
 
-.policy h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 20px;
-}
+    .policy h1 {
+        @apply text-3xl font-semibold mb-5 text-primary;
+    }
 
-.policy p {
-    margin-bottom: 20px;
-}
+    .policy h2 {
+        @apply text-2xl font-semibold mt-5 pb-1;
+    }
 
-.policy a {
-    color: #0070CC;
-    text-decoration: none;
-}
+    .policy p, .policy ul {
+        @apply mb-5 text-muted-foreground;
+    }
 
-.policy a:hover {
-    text-decoration: underline;
-}
+    .policy a {
+        @apply text-[#3182CE] no-underline;
+    }
 
-.policy li {
-    list-style-type: disc;
-    margin-left: 20px;
+    .policy a:hover {
+        @apply underline;
+    }
+
+    .policy li {
+        @apply list-disc ml-5;
+    }
 }
