@@ -38,7 +38,6 @@ cd server && npm run dev
 ## 📋 Todo
 
 - [ ] Add Instagram and YouTube download support
-- [ ] Add PWA support
 
 ## 🤝 Community
 

@@ -30,7 +30,7 @@
         <div class="flex items-center flex-1">
             <a href="/">
                 <div class="flex items-center gap-x-2 select-none">
-                    <img alt="Icon" class="w-8 h-8" src="/icon_{reversedTheme}_64.png"/>
+                    <img alt="Icon" class="w-8 h-8" src="/icons/{reversedTheme}-64x64.png"/>
                     <span class="text-3xl font-semibold">{config.appName}</span>
                 </div>
             </a>
@@ -92,7 +92,7 @@
         >
             <div class="flex justify-between items-center p-4 py-6">
                 <div class="flex items-center gap-x-2">
-                    <img src="/icon_{reversedTheme}_64.png" alt="Icon" class="w-8 h-8"/>
+                    <img src="/icons/{reversedTheme}-64x64.png" alt="Icon" class="w-8 h-8"/>
                     <span class="text-3xl font-semibold">{config.appName}</span>
                 </div>
                 <button on:click={closeSidebar} aria-label="Close Sidebar">

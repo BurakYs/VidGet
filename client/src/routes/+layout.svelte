@@ -1,6 +1,7 @@
 <svelte:head>
     <title>{config.appName}</title>
-    <link href="/favicon.ico" rel="icon"/>
+    <link rel="icon" href="/icons/favicon.ico"/>
+    <link rel="manifest" href="/manifest.json"/>
     <meta name="og:title" content={config.appName}>
     <meta content={'https://' + $page.url.hostname} name="og:url">
     <meta name="og:site_name" content={config.appName}>
@@ -20,10 +21,11 @@
   import { onMount } from 'svelte';
   import { theme } from '$lib/stores/theme';
   import config from '$config';
+  import { page } from '$app/stores';
+
   import Navbar from '$components/Navbar.svelte';
   import Footer from '$components/Footer.svelte';
   import { Toaster } from '$components/ui/sonner';
-  import { page } from '$app/stores';
 
   onMount(() => {
     document.documentElement.classList.add($theme);
