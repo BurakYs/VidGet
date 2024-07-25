@@ -12,37 +12,37 @@
       "type": "image/png"
     },
     {
-      "src": "/icons/light-72x72.png",
+      "src": "/icons/maskable/light-72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/icons/light-96x96.png",
+      "src": "/icons/maskable/light-96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/icons/light-128x128.png",
+      "src": "/icons/maskable/light-x128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/icons/light-152x152.png",
+      "src": "/icons/maskable/light-x152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "/icons/light-180x180.png",
+      "src": "/icons/maskable/light-x180.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "/icons/light-192x192.png",
+      "src": "/icons/maskable/light-x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/light-512x512.png",
+      "src": "/icons/maskable/light-x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
