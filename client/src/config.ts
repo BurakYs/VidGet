@@ -10,7 +10,7 @@ export default {
   meta: {
     description: 'A free online video downloader that allows you to download videos from various platforms.',
     keywords: 'video downloader, download videos, youtube downloader, facebook downloader, twitter downloader, instagram downloader, tiktok downloader, vidget, vidget downloader, vidget video downloader',
-    image: '/icon_light.png',
+    image: '/icons/light.png',
     themeColor: '#191A1F'
   },
   socials: [
