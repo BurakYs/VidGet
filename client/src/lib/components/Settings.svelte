@@ -5,7 +5,7 @@
   import { Label } from '$components/ui/label';
 
   import SettingsIcon from 'lucide-svelte/icons/settings';
-  import { setTheme, theme } from '$lib/stores/theme';
+  import { setTheme, theme as themeStore } from '$lib/stores/theme';
   import { setSetting, settings as settingsStore } from '$lib/stores/settings';
   import type { Settings, Theme } from '$lib/types';
 
@@ -23,7 +23,7 @@
     }[];
   }
 
-  function getOptions($settings: typeof $settingsStore): Option[] {
+  function getOptions($settings: typeof $settingsStore, $theme: typeof $themeStore): Option[] {
     return [
       {
         category: 'General',
@@ -71,7 +71,8 @@
     ];
   }
 
-  $: options = getOptions($settingsStore);
+  // TODO: Make options an array instead of a function
+  $: options = getOptions($settingsStore, $themeStore);
 </script>
 
 <Dialog.Root>
