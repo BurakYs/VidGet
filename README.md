@@ -39,6 +39,7 @@ cd server && npm run dev
 
 - [ ] Add Instagram and YouTube download support
 - [ ] Add /scrape command to the Discord bot after Instagram support
+- [ ] Fix TikTok videos sending 403
 
 ## 🤝 Community
 
