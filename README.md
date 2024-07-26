@@ -38,6 +38,7 @@ cd server && npm run dev
 ## 📋 Todo
 
 - [ ] Add Instagram and YouTube download support
+- [ ] Add /scrape command to the Discord bot after Instagram support
 
 ## 🤝 Community
 
