@@ -53,11 +53,13 @@ export default class TikTokScraper {
     }
 
     let assets: ScraperResult['post']['assets'];
-    const isSlideshow = !!details.imagePost?.images;
+
+    const slideshows = details.imagePost?.images;
+    const isSlideshow = !!slideshows;
 
     if (isSlideshow) {
-      const slideshows = details.imagePost.images.map((x: any) => x.imageURL.urlList[0]);
-      const images = await Promise.all(slideshows.map((x: string, i: number) => this.downloadAsset(x, `${postId}_${i}.jpg`, cookieManager.toString())));
+      const slideshowUrls = slideshows.map((x: any) => x.imageURL.urlList[0]);
+      const images = await Promise.all(slideshowUrls.map((x: string, i: number) => this.downloadAsset(x, `${postId}_${i}.jpg`, cookieManager.toString())));
 
       assets = images.map(x => ({ cover: x, download: x }));
     } else {
@@ -67,7 +69,7 @@ export default class TikTokScraper {
     }
 
     const data: ScraperResult = {
-      allowQuickDownload: !isSlideshow,
+      allowQuickDownload: !isSlideshow || (isSlideshow && slideshows.length === 1),
       post: {
         assets
       },
