@@ -22,7 +22,7 @@ export default async function cacheAsset(url: string, name: string, headers: Raw
     });
 
     if (!stream) {
-      if (response.status !== 200 || !Buffer.isBuffer(response.data)) return null;
+      if (!response.status.toString().startsWith('2') || !Buffer.isBuffer(response.data)) return null;
 
       await fs.writeFile(`./public/${name}`, response.data);
       return app.rootUrl + `/assets/${name}`;
