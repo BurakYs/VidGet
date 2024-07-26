@@ -5,8 +5,9 @@
   import { Label } from '$components/ui/label';
 
   import SettingsIcon from 'lucide-svelte/icons/settings';
-  import { setTheme, theme as themeStore } from '$lib/stores/theme';
-  import { setSetting, settings as settingsStore } from '$lib/stores/settings';
+
+  import { setTheme, theme } from '$lib/stores/theme';
+  import { setSetting, settings } from '$lib/stores/settings';
   import type { Settings, Theme } from '$lib/types';
 
   type Option = {
@@ -19,60 +20,55 @@
       value: any;
       disabled?: boolean;
       options?: { key: string, name: string }[];
-      onChange: (value: unknown) => void;
+      onChange: (value: unknown) => unknown;
     }[];
   }
 
-  function getOptions($settings: typeof $settingsStore, $theme: typeof $themeStore): Option[] {
-    return [
-      {
-        category: 'General',
-        items: [
-          {
-            type: 'checkbox',
-            name: 'Quick Download',
-            description: 'Download with one click from some platforms. No modal.',
-            value: $settings.quickDownload,
-            onChange: (value) => {
-              setSetting('quickDownload', value as Settings['quickDownload']);
-            }
-          },
-          {
-            type: 'select',
-            name: 'Quick Download Type',
-            description: 'Select whether to download when Quick Download is enabled.',
-            placeholder: 'Select download type',
-            disabled: !$settings.quickDownload,
-            value: $settings.quickDownloadType,
-            options: [
-              { key: 'video_picture', name: 'Video/Picture' },
-              { key: 'audio', name: 'Audio' }
-            ],
-            onChange: (value) => {
-              setSetting('quickDownloadType', value as Settings['quickDownloadType']);
-            }
-          },
-          {
-            type: 'select',
-            name: 'Theme',
-            description: 'Select the preferred theme.',
-            placeholder: 'Select theme',
-            value: $theme,
-            options: [
-              { key: 'light', name: 'Light' },
-              { key: 'dark', name: 'Dark' }
-            ],
-            onChange: (value) => {
-              setTheme(value as Theme);
-            }
+  $: options = [
+    {
+      category: 'General',
+      items: [
+        {
+          type: 'checkbox',
+          name: 'Quick Download',
+          description: 'Download with one click from some platforms. No modal.',
+          value: $settings.quickDownload,
+          onChange: (value) => {
+            setSetting('quickDownload', value as Settings['quickDownload']);
           }
-        ]
-      }
-    ];
-  }
-
-  // TODO: Make options an array instead of a function
-  $: options = getOptions($settingsStore, $themeStore);
+        },
+        {
+          type: 'select',
+          name: 'Quick Download Type',
+          description: 'Select whether to download when Quick Download is enabled.',
+          placeholder: 'Select download type',
+          disabled: !$settings.quickDownload,
+          value: $settings.quickDownloadType,
+          options: [
+            { key: 'video_picture', name: 'Video/Picture' },
+            { key: 'audio', name: 'Audio' }
+          ],
+          onChange: (value) => {
+            setSetting('quickDownloadType', value as Settings['quickDownloadType']);
+          }
+        },
+        {
+          type: 'select',
+          name: 'Theme',
+          description: 'Select the preferred theme.',
+          placeholder: 'Select theme',
+          value: $theme,
+          options: [
+            { key: 'light', name: 'Light' },
+            { key: 'dark', name: 'Dark' }
+          ],
+          onChange: (value) => {
+            setTheme(value as Theme);
+          }
+        }
+      ]
+    }
+  ] satisfies Option[];
 </script>
 
 <Dialog.Root>
