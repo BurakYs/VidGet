@@ -86,29 +86,27 @@
                 <div class="space-y-4">
                     {#each items as item, itemIndex}
                         {#if item.type === 'checkbox'}
-                            <div>
-                                <div class="flex items-center space-x-2">
-                                    <Checkbox
-                                            id="settingsCheckbox_{optionIndex}_{itemIndex}"
-                                            aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
-                                            checked={item.value}
-                                            on:click={e => item.onChange(e.detail.currentTarget.ariaChecked === 'false')}
-                                            class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
-                                    />
-
-                                    <Label
-                                            for="settingsCheckbox_{optionIndex}_{itemIndex}"
-                                            id="settingsLabel_{optionIndex}_{itemIndex}"
-                                            class="font-medium leading-none"
-                                    >
-                                        {item.name}
-                                    </Label>
-                                </div>
-                                {#if item.description}
-                                    <p class="text-xs text-muted-foreground mt-1.5">
-                                        {item.description}
-                                    </p>
-                                {/if}
+                            <div class="flex items-start">
+                                <Checkbox
+                                        id="settingsCheckbox_{optionIndex}_{itemIndex}"
+                                        aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
+                                        checked={item.value}
+                                        on:click={e => item.onChange(e.detail.currentTarget.ariaChecked === 'false')}
+                                        class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
+                                        disabled={item.disabled}
+                                />
+                                <Label
+                                        for="settingsCheckbox_{optionIndex}_{itemIndex}"
+                                        id="settingsLabel_{optionIndex}_{itemIndex}"
+                                        class="ml-2 font-medium leading-none"
+                                >
+                                    {item.name}
+                                    {#if item.description}
+                                        <p class="text-xs text-muted-foreground mt-1.5 font-medium">
+                                            {item.description}
+                                        </p>
+                                    {/if}
+                                </Label>
                             </div>
                         {:else if item.type === 'select'}
                             <div class="space-y-1">
