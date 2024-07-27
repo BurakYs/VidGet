@@ -86,7 +86,7 @@
                 <div class="space-y-4">
                     {#each items as item, itemIndex}
                         {#if item.type === 'checkbox'}
-                            <div class="flex items-start">
+                            <div class="flex items-center">
                                 <Checkbox
                                         id="settingsCheckbox_{optionIndex}_{itemIndex}"
                                         aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
@@ -102,7 +102,7 @@
                                 >
                                     {item.name}
                                     {#if item.description}
-                                        <p class="text-xs text-muted-foreground mt-1.5 font-medium">
+                                        <p class="text-xs text-muted-foreground">
                                             {item.description}
                                         </p>
                                     {/if}
