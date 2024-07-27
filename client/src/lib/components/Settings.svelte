@@ -18,7 +18,7 @@
       description?: string;
       placeholder?: string;
       value: any;
-      disabled?: boolean;
+      hidden?: boolean;
       options?: { key: string, name: string }[];
       onChange: (value: unknown) => unknown;
     }[];
@@ -42,7 +42,7 @@
           name: 'Quick Download Type',
           description: 'Select whether to download when Quick Download is enabled.',
           placeholder: 'Select download type',
-          disabled: !$settings.quickDownload,
+          hidden: !$settings.quickDownload,
           value: $settings.quickDownloadType,
           options: [
             { key: 'video_picture', name: 'Video/Picture' },
@@ -86,14 +86,13 @@
                 <div class="space-y-4">
                     {#each items as item, itemIndex}
                         {#if item.type === 'checkbox'}
-                            <div class="flex items-center">
+                            <div class="flex items-center {item.hidden && 'hidden'}">
                                 <Checkbox
                                         id="settingsCheckbox_{optionIndex}_{itemIndex}"
                                         aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
                                         checked={item.value}
                                         on:click={e => item.onChange(e.detail.currentTarget.ariaChecked === 'false')}
                                         class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
-                                        disabled={item.disabled}
                                 />
                                 <Label
                                         for="settingsCheckbox_{optionIndex}_{itemIndex}"
@@ -109,7 +108,7 @@
                                 </Label>
                             </div>
                         {:else if item.type === 'select'}
-                            <div class="space-y-1">
+                            <div class="space-y-1 {item.hidden && 'hidden'}">
                                 <Label for="settingsSelect_{optionIndex}_{itemIndex}" class="font-medium">
                                     {item.name}
 
@@ -121,7 +120,6 @@
                                 </Label>
 
                                 <Select.Root
-                                        disabled={item.disabled}
                                         selected={{ value: item.value, label: item.options && item.options.find(option => option.key === item.value)?.name }}
                                         onSelectedChange={e => e && item.onChange(e.value)}>
                                     <Select.Trigger>
