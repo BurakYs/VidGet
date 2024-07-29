@@ -3,8 +3,8 @@ import { browser } from '$app/environment';
 import { get, writable } from 'svelte/store';
 
 const defaultSettings: Settings = {
-  quickDownload: false,
-  quickDownloadType: 'video_picture'
+  quickDownloadType: 'off',
+  sendAnonymousData: true
 };
 
 const settingsStore = writable<Settings>(getSettings());
@@ -25,10 +25,6 @@ function getSettings(): Settings {
   return storedSettings;
 }
 
-function getSetting(key: keyof Settings) {
-  return get(settingsStore)[key];
-}
-
 function setSetting<K extends keyof Settings>(key: K, value: Settings[K]) {
   const settings = get(settingsStore);
   settings[key] = value;
@@ -36,4 +32,4 @@ function setSetting<K extends keyof Settings>(key: K, value: Settings[K]) {
   localStorage.setItem('settings', JSON.stringify(settings));
 }
 
-export { settingsStore as settings, setSetting, getSetting };
+export { settingsStore as settings, setSetting };

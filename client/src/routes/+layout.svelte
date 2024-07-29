@@ -13,6 +13,10 @@
     <meta property="twitter:title" content={config.appName}>
     <meta content={config.meta.description} property="twitter:description">
     <meta content={config.meta.image} property="twitter:image">
+
+    {#if config.umami.enabled && $settings.sendAnonymousData}
+        <script defer src="{config.umami.url}/script.js" data-website-id={config.umami.websiteId}></script>
+    {/if}
 </svelte:head>
 
 <script lang="ts">
@@ -20,8 +24,8 @@
 
   import { onMount } from 'svelte';
   import { theme } from '$lib/stores/theme';
-  import config from '$config';
   import { page } from '$app/stores';
+  import config from '$config';
 
   import Navbar from '$components/Navbar.svelte';
   import Footer from '$components/Footer.svelte';
@@ -30,6 +34,8 @@
   onMount(() => {
     document.documentElement.classList.add($theme);
   });
+
+  import { settings } from '$lib/stores/settings';
 </script>
 
 <main class="flex flex-col bg-background text-primary">

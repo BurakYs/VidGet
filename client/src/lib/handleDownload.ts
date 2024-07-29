@@ -54,11 +54,12 @@ export default async function handleDownload(
 
   const settings = get(settingsStore);
 
-  if (settings.quickDownload && responseData.allowQuickDownload) {
+  const quickDownloadEnabled = settings.quickDownloadType && settings.quickDownloadType !== 'off';
+  if (quickDownloadEnabled && responseData.allowQuickDownload) {
     const quickDownloadUrl = settings.quickDownloadType === 'video_picture' ? responseData.post.assets[0].download : responseData.audio?.download;
     if (quickDownloadUrl) {
       toast.success('Started to download the media');
-      await saveFile(quickDownloadUrl, undefined);
+      await saveFile(quickDownloadUrl);
       return;
     }
   }

@@ -37,6 +37,6 @@ export type ScraperResult = {
 export type Theme = 'light' | 'dark';
 
 export type Settings = Partial<{
-  quickDownload: boolean;
-  quickDownloadType: 'video_picture' | 'audio';
+  quickDownloadType: 'off' | 'video_picture' | 'audio';
+  sendAnonymousData: boolean;
 }>

@@ -18,8 +18,7 @@
       title: 'Legal',
       items: [
         { name: 'Terms of Service', href: '/legal/terms' },
-        { name: 'Privacy Policy', href: '/legal/privacy' },
-        { name: 'Cookie Policy', href: '/legal/cookie-policy' }
+        { name: 'Privacy Policy', href: '/legal/privacy' }
       ]
     },
     {

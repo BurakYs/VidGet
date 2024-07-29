@@ -18,7 +18,6 @@
       description?: string;
       placeholder?: string;
       value: any;
-      hidden?: boolean;
       options?: { key: string, name: string }[];
       onChange: (value: unknown) => unknown;
     }[];
@@ -29,22 +28,13 @@
       category: 'General',
       items: [
         {
-          type: 'checkbox',
-          name: 'Quick Download',
-          description: 'Download with one click from some platforms. No modal.',
-          value: $settings.quickDownload,
-          onChange: (value) => {
-            setSetting('quickDownload', value as Settings['quickDownload']);
-          }
-        },
-        {
           type: 'select',
-          name: 'Quick Download Type',
-          description: 'Select whether to download when Quick Download is enabled.',
+          name: 'Quick Download',
+          description: 'Select whether to download without seeing a modal on some platforms.',
           placeholder: 'Select download type',
-          hidden: !$settings.quickDownload,
           value: $settings.quickDownloadType,
           options: [
+            { key: 'off', name: 'Off' },
             { key: 'video_picture', name: 'Video/Picture' },
             { key: 'audio', name: 'Audio' }
           ],
@@ -67,6 +57,20 @@
           }
         }
       ]
+    },
+    {
+      category: 'Privacy',
+      items: [
+        {
+          type: 'checkbox',
+          name: 'Send Anonymous Data',
+          description: 'Help us improve by sending anonymous data. See our <strong><a href="/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></strong>.',
+          value: $settings.sendAnonymousData,
+          onChange: (value) => {
+            setSetting('sendAnonymousData', value as Settings['sendAnonymousData']);
+          }
+        }
+      ]
     }
   ] satisfies Option[];
 </script>
@@ -80,13 +84,14 @@
             <Dialog.Title>Settings</Dialog.Title>
             <Dialog.Description>Customize your experience.</Dialog.Description>
         </Dialog.Header>
-        <div class="space-y-4">
-            {#each options as { category, items }, optionIndex}
+        {#each options as { category, items }, optionIndex}
+            <div class="space-y-2">
                 <h2 class="text-lg font-semibold">{category}</h2>
                 <div class="space-y-4">
+                    <!-- eslint-disable svelte/no-at-html-tags -->
                     {#each items as item, itemIndex}
                         {#if item.type === 'checkbox'}
-                            <div class="flex items-center {item.hidden && 'hidden'}">
+                            <div class="flex items-start">
                                 <Checkbox
                                         id="settingsCheckbox_{optionIndex}_{itemIndex}"
                                         aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
@@ -102,19 +107,19 @@
                                     {item.name}
                                     {#if item.description}
                                         <p class="text-xs text-muted-foreground">
-                                            {item.description}
+                                            {@html item.description}
                                         </p>
                                     {/if}
                                 </Label>
                             </div>
                         {:else if item.type === 'select'}
-                            <div class="space-y-1 {item.hidden && 'hidden'}">
+                            <div class="space-y-1">
                                 <Label for="settingsSelect_{optionIndex}_{itemIndex}" class="font-medium">
                                     {item.name}
 
                                     {#if item.description}
                                         <p class="text-xs text-muted-foreground">
-                                            {item.description}
+                                            {@html item.description}
                                         </p>
                                     {/if}
                                 </Label>
@@ -138,7 +143,7 @@
                         {/if}
                     {/each}
                 </div>
-            {/each}
-        </div>
+            </div>
+        {/each}
     </Dialog.Content>
 </Dialog.Root>

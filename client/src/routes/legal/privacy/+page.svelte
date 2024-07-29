@@ -8,7 +8,7 @@
 
 <div class="policy">
     <h1>Privacy Policy</h1>
-    <p>Effective Date: 9 June 2024</p>
+    <p>Effective Date: 29 July 2024</p>
 
     <h2>1. Introduction</h2>
     <p>
@@ -39,14 +39,26 @@
         and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
     </p>
 
-    <h2>6. Changes to This Privacy Policy</h2>
+    <h2>6. Media Storage</h2>
+    <p>
+        For accessibility reasons, we may store some media you download on our server until the server restarts. This temporary storage
+        ensures better accessibility and usability of our Service.
+    </p>
+
+    <h2>7. Self-Hosting</h2>
+    <p>
+        You also have the option to self-host the application if you prefer to have full control over your data.
+        The source code is available on <a href={config.githubUrl}>GitHub</a>.
+    </p>
+
+    <h2>8. Changes to This Privacy Policy</h2>
     <p>
         We reserve the right to update our Privacy Policy at any time. We will not notify you directly of any changes. We
         advise you to review this page periodically for any updates. Your continued use of the Service after any changes
         constitutes your acceptance of the new Privacy Policy.
     </p>
 
-    <h2>7. Contact Us</h2>
+    <h2>9. Contact Us</h2>
     <p>
         If you have any questions about this Privacy Policy, please contact us at: <a href={'mailto:' + config.contactEmail}>{config.contactEmail}</a>
     </p>

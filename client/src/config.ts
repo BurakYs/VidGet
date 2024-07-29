@@ -13,6 +13,11 @@ export default {
     image: '/icons/light.png',
     themeColor: '#191A1F'
   },
+  umami: {
+    enabled: true,
+    url: 'https://umami.buraky.live',
+    websiteId: 'ae9f49d2-91e3-4ceb-be86-18e9adf2a797'
+  },
   socials: [
     {
       name: 'GitHub',
