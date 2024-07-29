@@ -1,6 +1,6 @@
 import type { Settings } from '$lib/types';
 import { browser } from '$app/environment';
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 const defaultSettings: Settings = {
   quickDownloadType: 'off',
@@ -26,9 +26,13 @@ function getSettings(): Settings {
 }
 
 function setSetting<K extends keyof Settings>(key: K, value: Settings[K]) {
-  const settings = get(settingsStore);
+  const settings = JSON.parse(localStorage.getItem('settings') || '{}');
+
   settings[key] = value;
-  settingsStore.set(settings);
+  settingsStore.update(settings => {
+    settings[key] = value;
+    return settings;
+  });
   localStorage.setItem('settings', JSON.stringify(settings));
 }
 
