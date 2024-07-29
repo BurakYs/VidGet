@@ -25,7 +25,7 @@
 
     <h2>3. Use of Cookies</h2>
     <p>
-        For information about how we use cookies, please refer to our <a href="/legal/cookie-policy">Cookie Policy</a>.
+        Our Service does not use cookies.
     </p>
 
     <h2>4. Data Sharing and Disclosure</h2>
