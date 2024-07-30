@@ -19,7 +19,7 @@
     {/if}
 </svelte:head>
 
-{#if $settings.reduceMotion}
+{#if $settings.reducedMotion}
     <style>
         * {
             animation-duration: 0s !important;

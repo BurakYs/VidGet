@@ -74,9 +74,9 @@
           type: 'checkbox',
           name: 'Reduced Motion',
           description: 'Disable animations and transitions for a better performance.',
-          value: $settings.reduceMotion,
+          value: $settings.reducedMotion,
           onChange: (value) => {
-            setSetting('reduceMotion', value as Settings['reduceMotion']);
+            setSetting('reducedMotion', value as Settings['reducedMotion']);
           }
         }
       ]

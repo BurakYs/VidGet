@@ -39,5 +39,5 @@ export type Theme = 'light' | 'dark';
 export type Settings = Partial<{
   quickDownloadType: 'off' | 'video_picture' | 'audio';
   sendAnonymousData: boolean;
-  reduceMotion: boolean;
+  reducedMotion: boolean;
 }>
