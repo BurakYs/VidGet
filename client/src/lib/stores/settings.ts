@@ -4,7 +4,8 @@ import { writable } from 'svelte/store';
 
 const defaultSettings: Settings = {
   quickDownloadType: 'off',
-  sendAnonymousData: true
+  sendAnonymousData: true,
+  reduceMotion: false
 };
 
 const settingsStore = writable<Settings>(getSettings());

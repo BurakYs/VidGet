@@ -19,6 +19,16 @@
     {/if}
 </svelte:head>
 
+{#if $settings.reduceMotion}
+    <style>
+        * {
+            animation-duration: 0s !important;
+            transition-duration: 0s !important;
+            scroll-behavior: auto !important;
+        }
+    </style>
+{/if}
+
 <script lang="ts">
   import '$lib/styles/app.css';
 

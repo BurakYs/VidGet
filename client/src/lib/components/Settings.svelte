@@ -59,7 +59,7 @@
       ]
     },
     {
-      category: 'Privacy',
+      category: 'Preferences',
       items: [
         {
           type: 'checkbox',
@@ -68,6 +68,15 @@
           value: $settings.sendAnonymousData,
           onChange: (value) => {
             setSetting('sendAnonymousData', value as Settings['sendAnonymousData']);
+          }
+        },
+        {
+          type: 'checkbox',
+          name: 'Reduce Motion',
+          description: 'Disable animations and transitions for a better performance.',
+          value: $settings.reduceMotion,
+          onChange: (value) => {
+            setSetting('reduceMotion', value as Settings['reduceMotion']);
           }
         }
       ]
