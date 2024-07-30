@@ -74,7 +74,7 @@ export default class XScraper {
       author: {
         username: postData.user.screen_name,
         nickname: postData.user.name,
-        avatar: postData.user.profile_image_url_https.replace('_normal.', '_400x400.')
+        profilePicture: postData.user.profile_image_url_https.replace('_normal.', '_400x400.')
       }
     };
 

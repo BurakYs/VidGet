@@ -12,7 +12,7 @@
                     <img
                             alt={$detailsStore.author?.nickname || $detailsStore.author?.username || 'Unknown User'}
                             class="w-10 h-10 rounded-full mr-3"
-                            src={$detailsStore.author?.avatar || '/default-pfp.png'}
+                            src={$detailsStore.author?.profilePicture || '/default-pfp.png'}
                     />
                     {#if $detailsStore.author?.nickname && $detailsStore.author?.username}
                         <div>

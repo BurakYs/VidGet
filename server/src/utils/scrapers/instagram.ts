@@ -86,7 +86,7 @@ export default class InstagramScraper {
       author: {
         username: data.owner?.username,
         nickname: data.owner?.full_name,
-        avatar: (await this.downloadAsset(data.owner?.profile_pic_url, `${data.owner?.id}.jpg`))!
+        profilePicture: (await this.downloadAsset(data.owner?.profile_pic_url, `${data.owner?.id}.jpg`))!
       }
     };
 

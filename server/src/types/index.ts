@@ -22,7 +22,7 @@ export type ScraperResult = {
   author?: {
     username: string;
     nickname?: string;
-    avatar: string;
+    profilePicture: string;
   };
   audio?: {
     title: string;

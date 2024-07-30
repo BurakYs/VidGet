@@ -64,7 +64,7 @@ export default class PinterestScraper {
       },
       author: {
         username: pinner.username,
-        avatar: pinner.imageLargeUrl || details.linkDomain?.officialUser?.imageMediumUrl
+        profilePicture: pinner.imageLargeUrl || details.linkDomain?.officialUser?.imageMediumUrl
       }
     };
 

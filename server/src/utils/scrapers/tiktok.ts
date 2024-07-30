@@ -76,7 +76,7 @@ export default class TikTokScraper {
       author: {
         username: details.author.uniqueId,
         nickname: details.author.nickname,
-        avatar: details.author.avatarLarger
+        profilePicture: details.author.avatarLarger
       },
       audio: {
         title: details.music.title,
