@@ -64,7 +64,7 @@
         {
           type: 'checkbox',
           name: 'Send Anonymous Data',
-          description: 'Help us improve by sending anonymous data. See our <strong><a href="/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></strong>.',
+          description: 'Help us improve by sending anonymous data. See our <strong><a href="/legal/privacy" class="hover:underline" target="_blank" rel="noopener noreferrer">Privacy Policy</a></strong>.',
           value: $settings.sendAnonymousData,
           onChange: (value) => {
             setSetting('sendAnonymousData', value as Settings['sendAnonymousData']);
@@ -72,7 +72,7 @@
         },
         {
           type: 'checkbox',
-          name: 'Reduce Motion',
+          name: 'Reduced Motion',
           description: 'Disable animations and transitions for a better performance.',
           value: $settings.reduceMotion,
           onChange: (value) => {
