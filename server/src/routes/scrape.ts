@@ -1,13 +1,15 @@
 import type { FastifyInstance } from 'fastify';
 import type { Request, Response, ScraperReturnData } from '@/types';
-import ScraperError from '@/utils/classes/ScraperError';
-import TiktokScraper from '@/utils/scrapers/tiktok';
-import XScraper from '@/utils/scrapers/x';
-import PinterestScraper from '@/utils/scrapers/pinterest';
 import scraperConfig from '@/config/scraper';
 
 import type { ScrapePlatform } from '@/schemas/scrape';
 import { scrapePlatform } from '@/schemas/scrape';
+
+import ScraperError from '@/utils/classes/ScraperError';
+import TiktokScraper from '@/utils/scrapers/tiktok';
+import XScraper from '@/utils/scrapers/x';
+import PinterestScraper from '@/utils/scrapers/pinterest';
+import InstagramScraper from '@/utils/scrapers/instagram';
 
 export default async (fastify: FastifyInstance) => {
   fastify.route({
@@ -28,7 +30,8 @@ export default async (fastify: FastifyInstance) => {
       const scrapers = {
         tiktok: TiktokScraper,
         x: XScraper,
-        pinterest: PinterestScraper
+        pinterest: PinterestScraper,
+        instagram: InstagramScraper
       };
 
       try {

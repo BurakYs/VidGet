@@ -13,6 +13,10 @@ const scraperConfig = {
     {
       hosts: ['*.pinterest.com', 'pin.it'],
       name: 'Pinterest'
+    },
+    {
+      hosts: ['www.instagram.com', 'instagram.com', 'd.ddinstagram.com', 'ddinstagram.com'],
+      name: 'Instagram'
     }
   ]
 };

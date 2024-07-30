@@ -10,11 +10,11 @@
             <Dialog.Header class="text-start px-3 pt-3">
                 <div class="flex items-center">
                     <img
-                            alt={$detailsStore.author.nickname}
+                            alt={$detailsStore.author?.nickname || $detailsStore.author?.username || 'Unknown User'}
                             class="w-10 h-10 rounded-full mr-3"
-                            src={$detailsStore.author.avatar}
+                            src={$detailsStore.author?.avatar || '/default-pfp.png'}
                     />
-                    {#if $detailsStore.author.nickname}
+                    {#if $detailsStore.author?.nickname && $detailsStore.author?.username}
                         <div>
                             <p class="text-left text-xl font-semibold">
                                 {$detailsStore.author.nickname.slice(0, 24)}
@@ -24,7 +24,7 @@
                             </p>
                         </div>
                     {:else}
-                        <p class="text-left text-lg">{$detailsStore.author.username}</p>
+                        <p class="text-left text-lg">{$detailsStore.author?.username || 'Unknown User'}</p>
                     {/if}
                 </div>
             </Dialog.Header>

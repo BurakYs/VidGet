@@ -19,7 +19,7 @@ export type ScraperResult = {
   post: {
     assets: Array<ScraperAsset>
   };
-  author: {
+  author?: {
     username: string;
     nickname?: string;
     avatar: string;

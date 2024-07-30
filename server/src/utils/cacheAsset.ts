@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import app from '@/config/app';
 import { createWriteStream } from 'fs';
 
-export default async function cacheAsset(url: string, name: string, headers: RawAxiosRequestHeaders, stream?: boolean): Promise<string | null> {
+export default async function cacheAsset(url: string, name: string, headers: RawAxiosRequestHeaders = {}, stream?: boolean): Promise<string | null> {
   const fileExists = await fs.stat(`./public/${name}`).catch(() => null);
   if (fileExists) return app.rootUrl + `/assets/${name}`;
 

@@ -19,7 +19,7 @@ export type ScraperResult = {
       download: string | null;
     }>
   };
-  author: {
+  author?: {
     username: string;
     nickname?: string;
     avatar: string;

@@ -3,7 +3,9 @@
 .env
 package-lock.json
 pnpm-lock.yaml
+cookies.json
 
 /public/tiktok/*
 /public/pinterest/*
+/public/instagram/*
 !/**/.gitkeep
