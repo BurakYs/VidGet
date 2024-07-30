@@ -8,26 +8,7 @@ A web application built with Svelte and Fastify that allows users to download vi
 
 ## 🚀 Getting Started
 
-Run the following commands to get started:
-
-```bash
-# Clone the repository
-git clone https://github.com/BurakYs/VidGet.git
-# Change the working directory
-cd VidGet
-# Install the dependencies
-cd client && npm install
-cd ../server && npm install
-```
-
-Start the development server in seperate terminals:
-
-```bash
-# Start the client
-cd client && npm run dev
-# Start the server
-cd server && npm run dev
-```
+Read our [self hosting](./self-hosting.md) guide to set up the project on your local machine.
 
 ## 📦 Built With
 
