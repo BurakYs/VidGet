@@ -12,7 +12,7 @@ export default class XScraper {
     if (isNaN(Number(id))) throw new ScraperError('Invalid post ID');
 
     const cachedData = cache.get(id);
-    if (cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(id) };
+    if (process.env.NODE_ENV === 'production' && cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(id) };
 
     const token = this.getToken(id);
     const url = new URL('https://cdn.syndication.twimg.com/tweet-result');

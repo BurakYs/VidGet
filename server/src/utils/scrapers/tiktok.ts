@@ -30,7 +30,7 @@ export default class TikTokScraper {
 
   static async scrapePost(postId: string): Promise<ScraperReturnData> {
     const cachedData = cache.get(postId);
-    if (cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(postId) };
+    if (process.env.NODE_ENV === 'production' && cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(postId) };
 
     const cookieManager = new Cookie();
 

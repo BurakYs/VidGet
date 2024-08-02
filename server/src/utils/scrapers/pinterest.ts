@@ -1,6 +1,6 @@
 import type { ScraperResult, ScraperReturnData } from '@/types';
 import ScraperError from '@/utils/classes/ScraperError';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import scraperConfig from '@/config/scraper';
 import cacheAsset from '@/utils/cacheAsset';
 
@@ -17,21 +17,21 @@ export default class PinterestScraper {
       });
 
       url = new URL(response.request.res.responseUrl);
-      pageContent = response.data;
+      pageContent = response;
     }
 
     const id = url.href.split('/')[4].split('?')[0];
     return await this.scrapePost(id, pageContent);
   }
 
-  static async scrapePost(postId: string, pageContent?: string): Promise<ScraperReturnData> {
-    const data = pageContent || (await axios.get(`https://www.pinterest.com/pin/${postId}`, {
+  static async scrapePost(postId: string, pageContent?: AxiosResponse): Promise<ScraperReturnData> {
+    const { data, status } = pageContent || (await axios.get(`https://www.pinterest.com/pin/${postId}`, {
       headers: {
         'User-Agent': scraperConfig.defaultUserAgent
       }
-    })).data;
+    }));
 
-    if (data?.length < 50000) throw new ScraperError('Failed to fetch pin details. Please try again later');
+    if (status !== 200 || data?.length < 50000) throw new ScraperError('Failed to fetch pin details. Please try again later');
 
     let details: Record<string, any>;
 

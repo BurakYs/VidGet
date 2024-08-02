@@ -50,7 +50,7 @@ export default class InstagramScraper {
 
   static async getPost(id: string): Promise<ScraperReturnData> {
     const cachedData = cache.get(id);
-    if (cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(id) };
+    if (process.env.NODE_ENV === 'production' && cachedData) return { data: cachedData as ScraperResult, cacheTTL: cache.getTtl(id) };
 
     let data, result;
 
