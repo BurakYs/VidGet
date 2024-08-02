@@ -25,7 +25,7 @@ pnpm run dev
 > ```bash
 > cd client
 > pnpm run build
-> pnpm run start
+> pnpm run preview
 > ```
 
 In the second terminal, run:
