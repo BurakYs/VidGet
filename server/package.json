@@ -9,8 +9,8 @@
     "dev": "npx nodemon",
     "start": "node . --production",
     "build": "tsc",
+    "launch": "set NODE_ENV=production && npm run build && npm run start",
     "check": "tsc --noEmit",
-    "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint --fix"
   },

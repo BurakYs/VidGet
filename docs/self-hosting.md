@@ -32,7 +32,7 @@ In the second terminal, run:
 
 ```bash
 cd server
-pnpm run dev
+pnpm run launch
 ```
 
 Now you can click the link in the first terminal to open the website.
