@@ -18,15 +18,8 @@ Now you have installed all the dependencies. Close the terminal and open 2 new o
 
 ```bash
 cd client
-pnpm run dev
+pnpm run launch
 ```
-
-> Or if you want a faster website, run:
-> ```bash
-> cd client
-> pnpm run build
-> pnpm run preview
-> ```
 
 In the second terminal, run:
 
