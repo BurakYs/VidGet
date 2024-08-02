@@ -7,7 +7,7 @@ import cacheAsset from '@/utils/cacheAsset';
 export default class PinterestScraper {
   static async scrape(postUrl: string) {
     let url = new URL(postUrl);
-    let pageContent = '';
+    let pageContent: AxiosResponse | undefined;
 
     if (url.hostname === 'pin.it') {
       const response = await axios.get(postUrl, {
@@ -25,18 +25,18 @@ export default class PinterestScraper {
   }
 
   static async scrapePost(postId: string, pageContent?: AxiosResponse): Promise<ScraperReturnData> {
-    const { data, status } = pageContent || (await axios.get(`https://www.pinterest.com/pin/${postId}`, {
+    const response: NonNullable<AxiosResponse> = pageContent || await axios.get(`https://www.pinterest.com/pin/${postId}`, {
       headers: {
         'User-Agent': scraperConfig.defaultUserAgent
       }
-    }));
+    });
 
-    if (status !== 200 || data?.length < 50000) throw new ScraperError('Failed to fetch pin details. Please try again later');
+    if (response.status !== 200 || response.data?.length < 50000) throw new ScraperError('Failed to fetch pin details. Please try again later');
 
     let details: Record<string, any>;
 
     try {
-      const scriptData = JSON.parse(data.split('<script data-relay-response="true" type="application/json">')[1].split('</script>')[0]);
+      const scriptData = JSON.parse(response.data.split('<script data-relay-response="true" type="application/json">')[1].split('</script>')[0]);
       details = scriptData.response.data.v3GetPinQuery.data;
     } catch {
       throw new ScraperError('Failed to fetch pin details. Please try again later');
