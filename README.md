@@ -8,7 +8,7 @@ A web application built with Svelte and Fastify that allows users to download vi
 
 ## 🚀 Getting Started
 
-Read our [self hosting](./self-hosting.md) guide to set up the project on your local machine.
+Read our [self hosting](./docs/self-hosting.md) guide to set up the project on your local machine.
 
 ## 📦 Built With
 
