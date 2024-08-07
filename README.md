@@ -2,13 +2,12 @@
 
 # 🎬 VidGet
 
-A web application built with Svelte and Fastify that allows users to download videos from TikTok, Instagram and Twitter
-
+Download videos/photos from various platforms.
 <br />
 
 ## 🚀 Getting Started
 
-Read our [self hosting](./self-hosting.md) guide to set up the project on your local machine.
+Read our [self hosting](./docs/self-hosting.md) guide to set up the project on your local machine.
 
 ## 📦 Built With
 
