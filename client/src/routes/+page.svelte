@@ -31,19 +31,18 @@
     <p class="mb-3 text-muted-foreground">No ads, no BS. Download your favorite media.</p>
 
     <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-4 space-y-4 md:space-y-0">
-        <div class="relative w-full md:mr-4 h-full">
+        <form on:submit|preventDefault={download} class="relative w-full md:mr-4 h-full">
             <SearchIcon class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-muted-foreground"/>
             <Input
                     type="text"
                     bind:value={$url}
-                    on:keydown={(e) => e.key === 'Enter' && download()}
                     placeholder="Download TikToks, Reels or Tweets"
                     class="p-4 pl-12 rounded-lg w-full h-full focus-visible:ring-0 focus-visible:ring-offset-0"
             />
             <Button class="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-full/90 bg-background hover:bg-background text-primary">
                 <Settings/>
             </Button>
-        </div>
+        </form>
 
         <Button
                 class="py-6 px-5 rounded-lg flex items-center justify-center space-x-2 transition-opacity duration-500 w-full md:w-auto disabled:opacity-30 text-base"
