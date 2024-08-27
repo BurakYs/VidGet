@@ -4,7 +4,7 @@ We welcome contributions from everyone. This guide will help you get started.
 
 ## Reporting Issues
 
-Please report bugs and suggest new features through the [Issues](https://github.com/BurakYs/Video-Downloader/issues) tab on GitHub.
+Please report bugs and suggest new features through the [Issues](https://github.com/BurakYs/VidGet/issues) tab on GitHub.
 
 ## Code Contributions
 
