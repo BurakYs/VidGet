@@ -50,7 +50,7 @@ export default class PinterestScraper {
     const videoUrl = highestQualityVideoKey && details.videos.videoList[highestQualityVideoKey].url;
     const video = videoUrl && await this.downloadAsset(videoUrl, postId + '.mp4');
     const coverUrl = details.imageSpec_orig.url;
-    const cover = coverUrl && await this.downloadAsset(coverUrl, postId + coverUrl.split('.').pop());
+    const cover = coverUrl && await this.downloadAsset(coverUrl, `${postId}.${coverUrl.split('.').pop()}`);
 
     const pinner = details.nativeCreator || details.pinner;
 
