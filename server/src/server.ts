@@ -1,7 +1,6 @@
-import Fastify, { type FastifyError, type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyError, type FastifyInstance, type FastifyReply, type FastifyRequest } from 'fastify';
 import { ZodError } from 'zod';
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
-import type { Request, Response } from '@/types';
 import { glob } from 'glob';
 import axios from 'axios';
 import deleteAssets from '@/utils/deleteAssets';
@@ -41,7 +40,7 @@ export default class Server {
       }
     });
 
-    this.server.setErrorHandler((error: ZodError & FastifyError, _request: Request, response: Response) => {
+    this.server.setErrorHandler((error: ZodError & FastifyError, _request: FastifyRequest, response: FastifyReply) => {
       if (error.code === 'FST_ERR_VALIDATION')
         return response.sendError('Invalid parameters provided', 400, {
           validationFailures: error.issues.map((x) => ({
@@ -57,7 +56,7 @@ export default class Server {
       response.sendError('An error occurred on our side', 500);
     });
 
-    this.server.setNotFoundHandler((_request: Request, response: Response) => {
+    this.server.setNotFoundHandler((_request: FastifyRequest, response: FastifyReply) => {
       response.sendError('Page not found', 404);
     });
 

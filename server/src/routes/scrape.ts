@@ -1,5 +1,5 @@
-import type { FastifyInstance } from 'fastify';
-import type { Request, Response, ScraperReturnData } from '@/types';
+import type { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import type { ScraperReturnData } from '@/types';
 import scraperConfig from '@/config/scraper';
 
 import type { ScrapePlatform } from '@/schemas/scrape';
@@ -18,7 +18,7 @@ export default async (fastify: FastifyInstance) => {
     schema: {
       body: scrapePlatform
     },
-    handler: async (request: Request, response: Response) => {
+    handler: async (request: FastifyRequest, response: FastifyReply) => {
       const { url } = request.body as ScrapePlatform;
 
       const hostname = new URL(url).hostname;
