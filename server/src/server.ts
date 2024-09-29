@@ -66,6 +66,13 @@ export default class Server {
     const port = parseInt(process.env.PORT || '3000');
     await this.server.listen({ port, host: '0.0.0.0' });
 
+    ['SIGINT', 'SIGTERM'].forEach((signal) => {
+      process.on(signal, async () => {
+        await this.server.close();
+        process.exit(0);
+      });
+    });
+
     axios.interceptors.response.use(
       (response) => response,
       (error) => {
