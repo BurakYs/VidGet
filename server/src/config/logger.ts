@@ -1,4 +1,4 @@
-import { ILogObj, ISettingsParam } from 'tslog';
+import type { ILogObj, ISettingsParam } from 'tslog';
 
 const loggerConfig: ISettingsParam<ILogObj> = {
   type: 'pretty',
