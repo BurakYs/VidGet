@@ -3,8 +3,6 @@ import 'dotenv/config';
 
 import Logger from '@/utils/classes/Logger';
 import Server from './server';
-import startDiscordBot from './discordClient';
-import discordConfig from '@/config/discord';
 
 global.logger = new Logger();
 
@@ -26,8 +24,6 @@ server.create()
     global.logger.error(err);
     await server.server.close();
   });
-
-if (discordConfig.token) startDiscordBot();
 
 process.on('unhandledRejection', (error) => global.logger.error(error));
 process.on('uncaughtException', (error) => global.logger.error(error));

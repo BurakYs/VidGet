@@ -1,7 +1,0 @@
-[
-  {
-    "name": "ping",
-    "localizedName": "ping",
-    "localizedDescription": "Check the bot and the API's latency and response time"
-  }
-]

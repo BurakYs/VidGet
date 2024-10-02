@@ -18,7 +18,6 @@ Read our [self hosting](./docs/self-hosting.md) guide to set up the project on y
 ## 📋 Todo
 
 - [ ] Add YouTube support
-- [ ] Add /scrape command to the Discord bot
 - [ ] Fix TikTok videos sending 403
 
 ## 🤝 Community
