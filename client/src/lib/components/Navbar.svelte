@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { fly } from 'svelte/transition';
   import { writable } from 'svelte/store';
   import { theme } from '$lib/stores/theme';
-  import config from '$config';
+  import config from '$lib/config';
 
   import * as Sheet from '$components/ui/sheet';
   import XIcon from 'lucide-svelte/icons/x';

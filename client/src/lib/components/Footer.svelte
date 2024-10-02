@@ -1,5 +1,5 @@
 <script lang="ts">
-  import config from '$config';
+  import config from '$lib/config';
   import { page } from '$app/stores';
 
   const footerItems = [

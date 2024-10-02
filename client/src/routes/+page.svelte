@@ -5,7 +5,7 @@
 <script lang="ts">
   import { writable } from 'svelte/store';
   import handleDownload from '$lib/handleDownload';
-  import config from '$config';
+  import config from '$lib/config';
 
   import { Button } from '$components/ui/button';
   import { Input } from '$components/ui/input';

@@ -4,17 +4,18 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import config from '$config';
+  import config from '$lib/config';
 
   import CheckIcon from 'lucide-svelte/icons/check';
   import ExternalIcon from 'lucide-svelte/icons/external-link';
+  import type { APIResponse } from '$lib/types';
 
   let supportedPlatforms: string[] = [];
 
   onMount(async () => {
     const response = await fetch(`${config.apiUrl}/hosts`);
-    const json = await response?.json().catch(() => null);
-    supportedPlatforms = json?.success ? json.data : ['Error'];
+    const json: APIResponse = await response?.json().catch(() => null);
+    supportedPlatforms = json?.success ? json.data as string[] : ['Error'];
   });
 
   const bottomButtons = [

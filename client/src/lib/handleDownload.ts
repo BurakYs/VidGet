@@ -1,7 +1,7 @@
 import { get, type Writable } from 'svelte/store';
 import { toast } from 'svelte-sonner';
 import handleErrorMessage from '$lib/handleErrorMessage';
-import config from '$config';
+import config from '$lib/config';
 import detailsStore from './stores/details';
 import { settings as settingsStore } from '$lib/stores/settings';
 import saveFile from '$lib/saveFile';

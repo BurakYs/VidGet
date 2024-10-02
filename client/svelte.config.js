@@ -10,7 +10,6 @@ const config = {
   kit: {
     adapter: autoAdapter(),
     alias: {
-      $config: './src/config',
       $components: './src/lib/components',
       $stores: './src/stores'
     }

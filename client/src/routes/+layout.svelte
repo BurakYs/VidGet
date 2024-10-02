@@ -35,7 +35,7 @@
   import { onMount } from 'svelte';
   import { theme } from '$lib/stores/theme';
   import { page } from '$app/stores';
-  import config from '$config';
+  import config from '$lib/config';
 
   import Navbar from '$components/Navbar.svelte';
   import Footer from '$components/Footer.svelte';
