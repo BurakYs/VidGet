@@ -1,7 +1,3 @@
-import { FastifyReply } from 'fastify';
-
-export type SendCustomResponse = (message: unknown, status: number, otherProperties?: Record<string, unknown>) => FastifyReply;
-
 export type ScraperResult = {
   allowQuickDownload: boolean;
   post: {

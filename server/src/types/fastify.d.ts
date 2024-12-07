@@ -1,4 +1,6 @@
-import type { SendCustomResponse } from '@/types';
+import { FastifyReply } from 'fastify';
+
+type SendCustomResponse = (message: unknown, status: number, otherProperties?: Record<string, unknown>) => FastifyReply;
 
 declare module 'fastify' {
   interface FastifyRequest {

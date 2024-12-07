@@ -40,7 +40,7 @@ export default class Server {
       }
     });
 
-    this.server.setErrorHandler((error: ZodError & FastifyError, _request: FastifyRequest, response: FastifyReply) => {
+    this.server.setErrorHandler((error: ZodError & FastifyError, _request, response) => {
       if (error.code === 'FST_ERR_VALIDATION')
         return response.sendError('Invalid parameters provided', 400, {
           validationFailures: error.issues.map((x) => ({
@@ -56,7 +56,7 @@ export default class Server {
       response.sendError('An error occurred on our side', 500);
     });
 
-    this.server.setNotFoundHandler((_request: FastifyRequest, response: FastifyReply) => {
+    this.server.setNotFoundHandler((_request, response) => {
       response.sendError('Page not found', 404);
     });
 
