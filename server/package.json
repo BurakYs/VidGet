@@ -6,13 +6,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "npx nodemon",
-    "start": "node . --production",
+    "dev": "cross-env NODE_ENV=development nodemon .",
+    "start": "cross-env NODE_ENV=production node .",
+    "launch": "cross-env NODE_ENV=production && pnpm build && pnpm start",
     "build": "tsc",
-    "launch": "set NODE_ENV=production && npm run build && npm run start",
     "check": "tsc --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix"
+    "lint": "eslint"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
@@ -33,6 +32,7 @@
     "@eslint/js": "^9.7.0",
     "@types/module-alias": "^2.0.4",
     "@types/node": "^22.7.4",
+    "cross-env": "^7.0.3",
     "eslint": "^9.7.0",
     "globals": "^15.8.0",
     "nodemon": "^3.1.4",

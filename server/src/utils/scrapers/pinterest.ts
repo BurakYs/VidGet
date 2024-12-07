@@ -76,5 +76,4 @@ export default class PinterestScraper {
       'User-Agent': scraperConfig.defaultUserAgent
     });
   }
-
 }

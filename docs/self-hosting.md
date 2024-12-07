@@ -18,14 +18,14 @@ Now you have installed all the dependencies. Close the terminal and open 2 new o
 
 ```bash
 cd client
-pnpm run launch
+pnpm launch
 ```
 
 In the second terminal, run:
 
 ```bash
 cd server
-pnpm run launch
+pnpm launch
 ```
 
 Now you can click the link in the first terminal to open the website.

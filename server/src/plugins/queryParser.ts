@@ -1,6 +1,17 @@
 import fp from 'fastify-plugin';
 import { z, ZodDefault, ZodNullable, ZodOptional, ZodTypeAny } from 'zod';
 
+function unwrapSchema(schema: ZodTypeAny): ZodTypeAny {
+  while (
+    schema instanceof ZodDefault ||
+    schema instanceof ZodOptional ||
+    schema instanceof ZodNullable
+  ) {
+    schema = schema._def.innerType;
+  }
+  return schema;
+}
+
 export default fp(async (fastify) => {
   fastify.addHook('preValidation', async (request) => {
     const routeSchema = request.routeOptions?.schema?.querystring;
@@ -10,25 +21,37 @@ export default fp(async (fastify) => {
 
       for (const key in queryParamsSchema) {
         const originalSchema = queryParamsSchema[key];
-        const paramSchema = unwrapZodSchema(originalSchema);
+        const paramSchema = unwrapSchema(originalSchema);
         const requestQuery = request.query as Record<string, unknown>;
-        const value = requestQuery[key];
-        const isProvided = value != null;
+        const isProvided = requestQuery[key] != null;
 
         if (isProvided) {
           if (paramSchema instanceof z.ZodBoolean) {
+            const value = requestQuery[key];
             requestQuery[key] = value === 'true' ? true : value === 'false' ? false : value;
           }
 
           if (paramSchema instanceof z.ZodNumber) {
-            const numberValue = Number(requestQuery[key]);
-            if (!isNaN(numberValue)) requestQuery[key] = numberValue;
+            const value = Number(requestQuery[key]);
+            if (!isNaN(value)) {
+              requestQuery[key] = value;
+            }
           }
 
           if (paramSchema instanceof z.ZodArray) {
-            if (typeof value === 'string') {
-              const array = value.split(',').filter(Boolean);
-              if (array.length) requestQuery[key] = array;
+            if (typeof requestQuery[key] === 'string') {
+              requestQuery[key] = requestQuery[key].split(',')
+                .map(item => {
+                  const arraySchema = unwrapSchema(paramSchema._def.type);
+                  if (arraySchema instanceof z.ZodNumber) {
+                    const num = Number(item);
+                    return !isNaN(num) ? num : item;
+                  } else if (arraySchema instanceof z.ZodBoolean) {
+                    return item === 'true' ? true : item === 'false' ? false : item;
+                  } else {
+                    return item;
+                  }
+                });
             }
           }
         } else {
@@ -42,14 +65,3 @@ export default fp(async (fastify) => {
     }
   });
 });
-
-function unwrapZodSchema(schema: ZodTypeAny): ZodTypeAny {
-  while (
-    schema instanceof ZodDefault ||
-    schema instanceof ZodOptional ||
-    schema instanceof ZodNullable
-  ) {
-    schema = schema._def.innerType;
-  }
-  return schema;
-}

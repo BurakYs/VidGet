@@ -1,4 +1,4 @@
-import Fastify, { type FastifyError, type FastifyInstance, type FastifyReply, type FastifyRequest } from 'fastify';
+import Fastify, { type FastifyError, type FastifyInstance } from 'fastify';
 import { ZodError } from 'zod';
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 import { glob } from 'glob';
@@ -36,7 +36,10 @@ export default class Server {
       const isIgnoredIp = ipAddressesToIgnore.includes(request.clientIp);
 
       if (!isIgnoredIp) {
-        global.logger.logRequest(`${request.clientIp} - ${request.method} ${request.url} - ${response.statusCode}`);
+        const responseMs = response.elapsedTime.toFixed(2);
+        const responseSize = response.getHeader('content-length') ?? 0;
+
+        global.logger.info(`${response.statusCode} ${request.method} ${request.url} from ${request.clientIp} - ${responseSize} bytes in ${responseMs}ms`);
       }
     });
 
@@ -65,6 +68,9 @@ export default class Server {
 
     const port = parseInt(process.env.PORT || '3000');
     await this.server.listen({ port, host: '0.0.0.0' });
+    global.logger.info(`Server listening on http://localhost:${port}`);
+
+    deleteAssets();
 
     ['SIGINT', 'SIGTERM'].forEach((signal) => {
       process.on(signal, async () => {
@@ -82,8 +88,6 @@ export default class Server {
         return error.response;
       }
     );
-
-    deleteAssets();
 
     return port;
   }

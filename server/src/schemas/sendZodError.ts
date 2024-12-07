@@ -9,12 +9,10 @@ export default function sendZodError(
     validator(val);
     return true;
   } catch (error: unknown) {
-    throw new z.ZodError([
-      {
-        message: (error as Error).message,
-        path,
-        code: 'custom'
-      }
-    ]);
+    throw new z.ZodError([{
+      message: (error as Error).message,
+      path,
+      code: 'custom'
+    }]);
   }
 }

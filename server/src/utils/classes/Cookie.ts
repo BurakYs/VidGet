@@ -4,22 +4,18 @@ export default class Cookie {
   public cookies: CookieObject;
 
   constructor(data: string | CookieObject = {}) {
-    if (typeof data === 'string') {
-      this.cookies = Cookie.fromString(data);
-    } else {
-      this.cookies = data;
-    }
+    this.cookies = typeof data === 'string' ? Cookie.fromString(data) : data;
+    this.checkExpiration();
+  }
 
-    const expirationCookieValue = Object.entries(this.cookies).find(([key]) => key.toLowerCase().includes('expires'))?.[1];
-    if (expirationCookieValue) {
-      const expirationDate = new Date(expirationCookieValue);
-      if (expirationDate.getTime() < Date.now()) {
-        this.cookies = {};
-      }
+  private checkExpiration() {
+    const expirationValue = Object.entries(this.cookies).find(([key]) => key.toLowerCase().includes('expires'))?.[1];
+    if (expirationValue && new Date(expirationValue).getTime() < Date.now()) {
+      this.cookies = {};
     }
   }
 
-  static fromString(str: string) {
+  static fromString(str: string): CookieObject {
     return str.split(';').reduce((cookies, cookie) => {
       const [name, value] = cookie.split('=');
       cookies[name.trim()] = value?.trim() || '';
@@ -28,20 +24,14 @@ export default class Cookie {
   }
 
   setCookies(cookies: string | string[]) {
-    if (Array.isArray(cookies)) cookies = cookies.join('; ');
-    this.cookies = { ...this.cookies, ...new Cookie(cookies).cookies };
+    this.cookies = new Cookie(Array.isArray(cookies) ? cookies.join('; ') : cookies).cookies;
   }
 
   addMany(cookies: string | string[] | CookieObject) {
-    if (Array.isArray(cookies)) cookies = cookies.join('; ');
-
-    const newCookies = new Cookie(cookies).cookies;
-    this.cookies = { ...this.cookies, ...newCookies };
+    this.cookies = { ...this.cookies, ...new Cookie(Array.isArray(cookies) ? cookies.join('; ') : cookies).cookies };
   }
 
   toString() {
-    return Object.entries(this.cookies)
-      .map(([name, value]) => `${name}=${value}`)
-      .join('; ');
+    return Object.entries(this.cookies).map(([name, value]) => `${name}=${value}`).join('; ');
   }
 }
