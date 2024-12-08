@@ -15,28 +15,28 @@
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
-    "@fastify/rate-limit": "^10.1.0",
-    "@fastify/static": "^8.0.1",
-    "axios": "^1.7.2",
-    "dotenv": "^16.3.1",
-    "fastify": "^5.0.0",
+    "@fastify/rate-limit": "^10.2.1",
+    "@fastify/static": "^8.0.3",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.1.0",
     "fastify-plugin": "^5.0.1",
-    "fastify-type-provider-zod": "^3.0.0",
+    "fastify-type-provider-zod": "^4.0.2",
     "glob": "^11.0.0",
     "module-alias": "^2.2.3",
     "node-cache": "^5.1.2",
-    "tslog": "^4.9.2",
-    "zod": "^3.22.4"
+    "tslog": "^4.9.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@eslint/js": "^9.7.0",
+    "@eslint/js": "^9.16.0",
     "@types/module-alias": "^2.0.4",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.10.1",
     "cross-env": "^7.0.3",
-    "eslint": "^9.7.0",
-    "globals": "^15.8.0",
-    "nodemon": "^3.1.4",
-    "typescript-eslint": "^8.7.0"
+    "eslint": "^9.16.0",
+    "globals": "^15.13.0",
+    "nodemon": "^3.1.7",
+    "typescript-eslint": "^8.17.0"
   },
   "_moduleAliases": {
     "@": "./dist"
