@@ -26,39 +26,23 @@
   <title>{config.appName}</title>
 </svelte:head>
 
-<div
-  class="flex flex-col items-center justify-center flex-grow p-4 text-center"
->
-  <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">
-    Start Downloading
-  </h1>
-  <p class="mb-3 text-muted-foreground">
-    No ads, no BS. Download your favorite media.
-  </p>
+<div class="flex flex-col items-center justify-center flex-grow p-4">
+  <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">Start Downloading</h1>
+  <p class="mb-3 text-muted-foreground">No ads, no BS. Download your favorite media.</p>
 
-  <div
-    class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-4 space-y-4 md:space-y-0"
-  >
+  <div class="flex flex-col md:flex-row items-center w-full max-w-2xl mb-4 space-y-4 md:space-y-0">
     <form
       onsubmit={(e) => {
         e.preventDefault();
         download();
       }}
-      class="relative w-full md:mr-4 h-full"
+      class="relative w-full md:mr-4"
     >
-      <SearchIcon
-        class="absolute left-4 top-1/2 transform -translate-y-1/2 size-6 text-muted-foreground"
-      />
-      <Input
-        type="text"
-        bind:value={$url}
-        placeholder="Download TikToks, Reels or Tweets"
-        class="p-4 pl-12 rounded-lg w-full h-full focus-visible:ring-0 focus-visible:ring-offset-0"
-      />
-
+      <SearchIcon class="absolute left-4 top-1/2 -translate-y-1/2 size-6 text-muted-foreground"/>
+      <Input type="text" bind:value={$url} placeholder="Download TikToks, Reels or Tweets" class="p-4 pl-12 rounded-lg h-full focus-visible:ring-0"/>
       <Button
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 bg-background hover:bg-background text-primary"
-      >
+        onclick={(e: Event) => e.preventDefault()}
+        class="absolute right-4 top-1/2 -translate-y-1/2 w-6 bg-background hover:bg-background text-primary">
         <Settings/>
       </Button>
     </form>
@@ -77,7 +61,7 @@
     </Button>
   </div>
 
-  <p class="text-sm text-muted-foreground">
+  <p class="text-sm text-muted-foreground text-center">
     By using our Service you agree to our
     <a class="underline" href="/legal/terms">Terms of Service</a>
     and

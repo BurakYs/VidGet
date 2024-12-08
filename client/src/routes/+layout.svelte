@@ -15,6 +15,8 @@
   });
 
   import { settings } from '$lib/stores/settings';
+
+  let { children } = $props();
 </script>
 
 <svelte:head>
@@ -56,7 +58,7 @@
   <div class="flex flex-col min-h-[100dvh]">
     <Navbar/>
     <Toaster/>
-    <slot/>
+    {@render children()}
   </div>
   <Footer/>
 </main>
