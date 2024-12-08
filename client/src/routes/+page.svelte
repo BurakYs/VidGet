@@ -26,7 +26,7 @@
   <title>{config.appName}</title>
 </svelte:head>
 
-<div class="flex flex-col items-center justify-center flex-grow p-4 text-center">
+<div class="flex flex-col items-center justify-center flex-grow p-4">
   <h1 class="text-[calc(3rem-6px)] leading-none sm:text-5xl mb-1 font-semibold">Start Downloading</h1>
   <p class="mb-3 text-muted-foreground">No ads, no BS. Download your favorite media.</p>
 
@@ -61,7 +61,7 @@
     </Button>
   </div>
 
-  <p class="text-sm text-muted-foreground">
+  <p class="text-sm text-muted-foreground text-center">
     By using our Service you agree to our
     <a class="underline" href="/legal/terms">Terms of Service</a>
     and
