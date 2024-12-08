@@ -7,20 +7,23 @@
   import FileAudioIcon from 'lucide-svelte/icons/file-audio';
 
   import DownloadButton from '$components/Scraper/DownloadButton.svelte';
-  import { writable } from 'svelte/store';
 
-  export let mediaList: ScraperAsset[] = [];
-  export let soundUrl: string | null;
+  let { mediaList = [], soundUrl = null }: {
+    mediaList: ScraperAsset[];
+    soundUrl: string | null;
+  } = $props();
 
-  let makePagination = mediaList.length > 1;
-  let isLoading = writable(false);
-  let currentMediaIndex = 0;
-  export let currentMedia = mediaList[currentMediaIndex];
+  let currentMediaIndex = $state(0);
+  let isLoading = $state(false);
+  let assetsDownloading = $state(mediaList.map((x) => ({ url: x.download || x.cover, isDownloading: false })));
+  let audiosDownloading = $state([{ url: soundUrl!, isDownloading: false }]);
 
-  $: currentMedia = mediaList[currentMediaIndex];
-  $: currentMediaData = getMediaData(currentMedia);
-  $: canPrev = currentMediaIndex > 0 && !$isLoading;
-  $: canNext = currentMediaIndex < mediaList.length - 1 && !$isLoading;
+  let shouldMakePagination = mediaList.length > 1;
+  let currentMedia = $derived(mediaList[currentMediaIndex]);
+  let currentMediaData = $derived(getMediaData(currentMedia));
+
+  let canPrev = $derived(currentMediaIndex > 0 && !isLoading);
+  let canNext = $derived(currentMediaIndex < mediaList.length - 1 && !isLoading);
 
   function getMediaData(media: ScraperAsset) {
     return {
@@ -32,56 +35,74 @@
   function prevMedia() {
     if (canPrev) {
       currentMediaIndex -= 1;
-      isLoading.set(true);
+      isLoading = true;
     }
   }
 
   function nextMedia() {
     if (canNext) {
       currentMediaIndex += 1;
-      isLoading.set(true);
+      isLoading = true;
     }
   }
 
-  function handleMediaLoad(index?: number) {
-    isLoading.set(false);
-
-    if (index != null) currentMediaIndex += 1;
+  function handleMediaLoad() {
+    isLoading = false;
   }
-
-  let assetsDownloading = writable(mediaList.map(x => ({ url: x.download || x.cover, isDownloading: false })));
-  let audiosDownloading = writable([{ url: soundUrl!, isDownloading: false }]);
 </script>
 
 <div class="relative w-full flex items-center justify-center">
-    <img alt="Media" class="!w-96 !h-96 object-fill" on:error={() => handleMediaLoad(-1)}
-         on:load={() => handleMediaLoad()}
-         src={currentMediaData.cover}/>
+  <img
+    alt="Media"
+    class="!w-96 !h-96 object-fill"
+    onload={() => handleMediaLoad()}
+    onerror={() => handleMediaLoad()}
+    src={currentMediaData.cover}
+  />
 
-    <div class="absolute bottom-4 w-[calc(100%-1rem)] h-10 bg-white rounded-lg text-black border-black border">
-        <div class="flex items-center {makePagination ? 'justify-between' : 'justify-center'} m-2">
-            {#if makePagination}
-                <button class="disabled:opacity-50" disabled={!canPrev} on:click={prevMedia}>
-                    <ArrowLeftIcon class="w-6 h-6"/>
-                </button>
-            {/if}
+  <div
+    class="absolute bottom-4 w-[calc(100%-1rem)] h-10 bg-white rounded-lg text-black border-black border"
+  >
+    <div class="flex items-center {shouldMakePagination ? 'justify-between': 'justify-center'} m-2">
+      {#if shouldMakePagination}
+        <button
+          class="disabled:opacity-50"
+          disabled={!canPrev}
+          onclick={prevMedia}
+        >
+          <ArrowLeftIcon class="w-6 h-6"/>
+        </button>
+      {/if}
 
-            {#if soundUrl}
-                <div class="flex items-center justify-center font-medium space-x-6">
-                    <DownloadButton downloadUrl={currentMediaData.download} defaultIcon={DownloadIcon} fileStore={assetsDownloading} text="Download"
-                                    disabled={$isLoading}/>
-                    <DownloadButton downloadUrl={soundUrl} defaultIcon={FileAudioIcon} fileStore={audiosDownloading} text="Sound" disabled={$isLoading}/>
-                </div>
-            {:else}
-                <DownloadButton downloadUrl={currentMediaData.download} defaultIcon={DownloadIcon} fileStore={assetsDownloading} text="Download"
-                                disabled={$isLoading} className="{!makePagination && 'w-full'} justify-center"/>
-            {/if}
+      <div class="flex items-center justify-center font-medium space-x-6">
+        <DownloadButton
+          downloadUrl={currentMediaData.download}
+          defaultIcon={DownloadIcon}
+          fileStore={assetsDownloading}
+          text="Download"
+          disabled={isLoading}
+          className="{!shouldMakePagination && 'w-full'} justify-center"
+        />
+        {#if soundUrl}
+          <DownloadButton
+            downloadUrl={soundUrl}
+            defaultIcon={FileAudioIcon}
+            fileStore={audiosDownloading}
+            text="Sound"
+            disabled={isLoading}
+          />
+        {/if}
+      </div>
 
-            {#if makePagination}
-                <button class="disabled:opacity-50" disabled={!canNext} on:click={nextMedia}>
-                    <ArrowRightIcon class="w-6 h-6"/>
-                </button>
-            {/if}
-        </div>
+      {#if shouldMakePagination}
+        <button
+          class="disabled:opacity-50"
+          disabled={!canNext}
+          onclick={nextMedia}
+        >
+          <ArrowRightIcon class="w-6 h-6"/>
+        </button>
+      {/if}
     </div>
+  </div>
 </div>

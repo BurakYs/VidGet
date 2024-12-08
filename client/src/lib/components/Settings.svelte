@@ -23,7 +23,7 @@
     }[];
   }
 
-  $: options = [
+  let options = $derived([
     {
       category: 'General',
       items: [
@@ -81,78 +81,85 @@
         }
       ]
     }
-  ] satisfies Option[];
+  ] satisfies Option[]);
 </script>
 
 <Dialog.Root>
-    <Dialog.Trigger>
-        <SettingsIcon class="w-6 h-6 text-muted-foreground"/>
-    </Dialog.Trigger>
-    <Dialog.Content>
-        <Dialog.Header class="text-start">
-            <Dialog.Title>Settings</Dialog.Title>
-            <Dialog.Description>Customize your experience.</Dialog.Description>
-        </Dialog.Header>
-        {#each options as { category, items }, optionIndex}
-            <div class="space-y-2">
-                <h2 class="text-lg font-semibold">{category}</h2>
-                <div class="space-y-4">
-                    <!-- eslint-disable svelte/no-at-html-tags -->
-                    {#each items as item, itemIndex}
-                        {#if item.type === 'checkbox'}
-                            <div class="flex items-start">
-                                <Checkbox
-                                        id="settingsCheckbox_{optionIndex}_{itemIndex}"
-                                        aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
-                                        checked={item.value}
-                                        on:click={e => item.onChange(e.detail.currentTarget.ariaChecked === 'false')}
-                                        class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
-                                />
-                                <Label
-                                        for="settingsCheckbox_{optionIndex}_{itemIndex}"
-                                        id="settingsLabel_{optionIndex}_{itemIndex}"
-                                        class="ml-2 font-medium leading-none"
-                                >
-                                    {item.name}
-                                    {#if item.description}
-                                        <p class="text-xs text-muted-foreground">
-                                            {@html item.description}
-                                        </p>
-                                    {/if}
-                                </Label>
-                            </div>
-                        {:else if item.type === 'select'}
-                            <div class="space-y-1">
-                                <Label for="settingsSelect_{optionIndex}_{itemIndex}" class="font-medium">
-                                    {item.name}
+  <Dialog.Trigger>
+    <SettingsIcon class="!size-6 text-muted-foreground"/>
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header class="text-start">
+      <Dialog.Title>Settings</Dialog.Title>
+      <Dialog.Description>Customize your experience.</Dialog.Description>
+    </Dialog.Header>
+    {#each options as { category, items }, optionIndex}
+      <div class="space-y-2">
+        <h2 class="text-lg font-semibold">{category}</h2>
+        <div class="space-y-4">
+          <!-- eslint-disable svelte/no-at-html-tags -->
+          {#each items as item, itemIndex}
+            {#if item.type === 'checkbox'}
+              <div class="flex items-start">
+                <Checkbox
+                  id="settingsCheckbox_{optionIndex}_{itemIndex}"
+                  aria-labelledby="settingsLabel_{optionIndex}_{itemIndex}"
+                  checked={item.value}
+                  onclick={() =>
+                    item.onChange(
+                      !item.value
+                    )}
+                  class="appearance-none rounded-sm bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:text-white border-0"
+                />
+                <Label
+                  for="settingsCheckbox_{optionIndex}_{itemIndex}"
+                  id="settingsLabel_{optionIndex}_{itemIndex}"
+                  class="ml-2 font-medium leading-none"
+                >
+                  {item.name}
+                  {#if item.description}
+                    <p class="text-xs text-muted-foreground">
+                      {@html item.description}
+                    </p>
+                  {/if}
+                </Label>
+              </div>
+            {:else if item.type === 'select'}
+              <div class="space-y-1">
+                <Label
+                  for="settingsSelect_{optionIndex}_{itemIndex}"
+                  class="font-medium"
+                >
+                  {item.name}
 
-                                    {#if item.description}
-                                        <p class="text-xs text-muted-foreground">
-                                            {@html item.description}
-                                        </p>
-                                    {/if}
-                                </Label>
+                  {#if item.description}
+                    <p class="text-xs text-muted-foreground">
+                      {@html item.description}
+                    </p>
+                  {/if}
+                </Label>
 
-                                <Select.Root
-                                        selected={{ value: item.value, label: item.options && item.options.find(option => option.key === item.value)?.name }}
-                                        onSelectedChange={e => e && item.onChange(e.value)}>
-                                    <Select.Trigger>
-                                        <Select.Value placeholder={item.placeholder}/>
-                                    </Select.Trigger>
-                                    <Select.Content
-                                            class="bg-background transition-opacity duration-500"
-                                            id="settingsSelect_{optionIndex}_{itemIndex}"
-                                    >
-                                        {#each item.options || [] as option}
-                                            <Select.Item value={option.key}>{option.name}</Select.Item>
-                                        {/each}
-                                    </Select.Content>
-                                </Select.Root>
-                            </div>
-                        {/if}
+                <Select.Root
+                  value={item.value}
+                  onValueChange={e => e && item.onChange(e)}
+                  type="single">
+                  <Select.Trigger placeholder={item.placeholder}>
+                    {item.options && item.options.find(option => option.key === item.value)?.name}
+                  </Select.Trigger>
+                  <Select.Content
+                    class="bg-background transition-opacity duration-500"
+                    id="settingsSelect_{optionIndex}_{itemIndex}"
+                  >
+                    {#each item.options || [] as option}
+                      <Select.Item value={option.key}>{option.name}</Select.Item>
                     {/each}
-                </div>
-            </div>
-        {/each}
-    </Dialog.Content>
+                  </Select.Content>
+                </Select.Root>
+              </div>
+            {/if}
+          {/each}
+        </div>
+      </div>
+    {/each}
+  </Dialog.Content>
 </Dialog.Root>

@@ -1,14 +1,12 @@
-import type { Writable } from 'svelte/store';
-
-type DownloadingStore = Writable<Array<{ url: string, isDownloading: boolean }>>;
+type DownloadingStore = Array<{ url: string, isDownloading: boolean }>;
 
 export default async function saveFile(url: string, filename?: string, downloadingStore?: DownloadingStore) {
-  if (downloadingStore) changeDownloadingStatus(url, downloadingStore, true);
+  changeDownloadingStatus(url, true, downloadingStore);
 
   const response = await fetch(url).catch(() => null);
 
   if (!response?.ok) {
-    if (downloadingStore) changeDownloadingStatus(url, downloadingStore, false);
+    changeDownloadingStatus(url, false, downloadingStore);
     return;
   }
 
@@ -22,18 +20,16 @@ export default async function saveFile(url: string, filename?: string, downloadi
   URL.revokeObjectURL(blobUrl);
   anchor.remove();
 
-  if (downloadingStore) changeDownloadingStatus(url, downloadingStore, false);
+  changeDownloadingStatus(url, false, downloadingStore);
 }
 
-function changeDownloadingStatus(url: string, downloadingStore: DownloadingStore, isDownloading: boolean) {
-  downloadingStore.update((downloading) => {
-    const index = downloading.findIndex((item) => item.url === url);
-    if (index < 0) {
-      downloading.push({ url, isDownloading });
-    } else {
-      downloading[index].isDownloading = isDownloading;
-    }
+function changeDownloadingStatus(url: string, isDownloading: boolean, downloadingStore?: DownloadingStore) {
+  if (!downloadingStore) return;
 
-    return downloading;
-  });
+  const index = downloadingStore.findIndex((item) => item.url === url);
+  if (index < 0) {
+    downloadingStore.push({ url, isDownloading });
+  } else {
+    downloadingStore[index].isDownloading = isDownloading;
+  }
 }

@@ -1,12 +1,8 @@
-type SuccessData = unknown;
-
-type ErrorData = string;
-
-export type APIResponse<Success = true> = {
-  success: Success;
+export type APIResponse<S = true> = {
+  success: S;
   status: number;
-  data: Success extends true ? SuccessData : never;
-  error: Success extends false ? ErrorData : never;
+  data: S extends true ? unknown : never;
+  error: S extends false ? string : never;
 }
 
 export type ScraperAsset = {

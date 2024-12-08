@@ -29,30 +29,31 @@
 </script>
 
 <div class="bg-muted-foreground/[0.065] border-t border-border" id="footer">
-    <div class="container mx-auto py-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {#each footerItems as item}
-                <div>
-                    <h1 class="text-lg text-primary font-semibold">{item.title}</h1>
-                    <ul class="mt-2">
-                        {#each item.items as { name, href }}
-                            <li class="mb-2">
-                                <a
-                                        {href}
-                                        class="text-muted-foreground hover:underline {!href || (href === '/' && 'pointer-events-none opacity-70')}"
-                                >
-                                    {name}
-                                </a>
-                            </li>
-                        {/each}
-                    </ul>
-                </div>
+  <div class="container mx-auto py-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      {#each footerItems as item}
+        <div>
+          <h1 class="text-lg text-primary font-semibold">{item.title}</h1>
+          <ul class="mt-2">
+            {#each item.items as { name, href }}
+              <li class="mb-2">
+                <a
+                  {href}
+                  target="_blank"
+                  class="text-muted-foreground hover:underline {!href || (href === '/' && 'pointer-events-none opacity-70')}"
+                >
+                  {name}
+                </a>
+              </li>
             {/each}
+          </ul>
         </div>
+      {/each}
     </div>
-    <div class="py-4">
-        <div class="container mx-auto text-center text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} {$page.url.hostname}</p>
-        </div>
+  </div>
+  <div class="py-4">
+    <div class="container mx-auto text-center text-muted-foreground">
+      <p>&copy; {new Date().getFullYear()} {$page.url.hostname}</p>
     </div>
+  </div>
 </div>

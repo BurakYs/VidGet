@@ -2,7 +2,7 @@ import type { Theme } from '$lib/types';
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
-const defaultTheme = 'dark';
+const defaultTheme: Theme = 'dark';
 
 const themeStore = writable<Theme>(getTheme());
 
