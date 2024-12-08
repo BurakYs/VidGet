@@ -9,9 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "launch": "npm run build && npm run preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "eslint ."
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
     "clsx": "^2.1.1",
