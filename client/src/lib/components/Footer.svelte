@@ -2,7 +2,7 @@
   import config from '$lib/config';
   import { page } from '$app/stores';
 
-  const footerItems = [
+  const footerBlocks = [
     {
       title: 'About',
       items: [
@@ -12,7 +12,7 @@
     },
     {
       title: 'Support Us',
-      items: config.supportOptions
+      items: config.supportOptions.map((x) => ({ ...x, target: '_blank' }))
     },
     {
       title: 'Legal',
@@ -23,7 +23,7 @@
     },
     {
       title: 'Social',
-      items: config.socials
+      items: config.socials.map((x) => ({ ...x, target: '_blank' }))
     }
   ];
 </script>
@@ -31,18 +31,18 @@
 <div class="bg-muted-foreground/[0.065] border-t border-border" id="footer">
   <div class="container mx-auto py-8">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-      {#each footerItems as item}
+      {#each footerBlocks as block}
         <div>
-          <h1 class="text-lg text-primary font-semibold">{item.title}</h1>
+          <h1 class="text-lg text-primary font-semibold">{block.title}</h1>
           <ul class="mt-2">
-            {#each item.items as { name, href }}
+            {#each block.items as item}
               <li class="mb-2">
                 <a
-                  {href}
-                  target="_blank"
-                  class="text-muted-foreground hover:underline {!href || (href === '/' && 'pointer-events-none opacity-70')}"
+                  href={item.href}
+                  target={item.target}
+                  class="text-muted-foreground hover:underline {(!item.href || item.href === '/') && 'pointer-events-none opacity-70'}"
                 >
-                  {name}
+                  {item.name}
                 </a>
               </li>
             {/each}
